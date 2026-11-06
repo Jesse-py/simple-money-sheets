@@ -7,6 +7,18 @@ window.SITE_PRODUCTS = {
   bundle: { url: 'https://jamccormick.gumroad.com/l/money-sheets-bundle', price: '$15' },
 };
 
+// Cookieless page-view counting (GoatCounter: no cookies, no personal data). Empty = off.
+window.SITE_ANALYTICS = { goatcounter: '' };
+(function () {
+  const code = window.SITE_ANALYTICS.goatcounter;
+  if (!code || !/\.github\.io$/.test(location.hostname)) return;
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://gc.zgo.at/count.js';
+  s.dataset.goatcounter = `https://${code}.goatcounter.com/count`;
+  document.head.appendChild(s);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-product]').forEach(el => {
     const p = window.SITE_PRODUCTS[el.dataset.product];
