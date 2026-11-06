@@ -1,7 +1,7 @@
 // Where each product is sold. Leave url empty until the product is live; links tagged with
 // data-product="<key>" then show a "coming soon" state instead of a dead link.
 window.SITE_PRODUCTS = {
-  debtPlanner: { url: '', price: '$9' },
+  debtPlanner: { url: 'https://jamccormick.gumroad.com/l/debt-payoff-planner', price: '$9' },
   budgetKit: { url: '', price: '$7' },
 };
 
