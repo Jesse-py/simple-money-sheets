@@ -2,7 +2,7 @@
 // data-product="<key>" then show a "coming soon" state instead of a dead link.
 window.SITE_PRODUCTS = {
   debtPlanner: { url: 'https://jamccormick.gumroad.com/l/debt-payoff-planner', price: '$9' },
-  budgetKit: { url: '', price: '$7' },
+  budgetKit: { url: 'https://jamccormick.gumroad.com/l/monthly-budget-kit', price: '$7' },
 };
 
 document.addEventListener('DOMContentLoaded', () => {
