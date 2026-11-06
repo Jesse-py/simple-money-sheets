@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mileage Deduction Calculator 2026 (72.5&cent; and 76&cent; Rates)</title>
+<meta name="description" content="Free 2026 mileage deduction calculator for freelancers, gig drivers, and 1099 workers. Uses both IRS rates (72.5 cents to June 30, 76 cents from July 1) and estimates the tax you save.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/mileage-deduction-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Mileage Deduction Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Mileage Deduction Calculator (2026)</h1>
+  <p class="lede">If you drive your own car for freelance, gig, or side-business work, you can deduct business miles at the IRS standard mileage rate. In 2026 the IRS changed the rate partway through the year, so miles driven before and after July 1 are worth different amounts. Enter your miles to see your deduction and roughly how much federal tax it saves. Everything runs in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="m1">Business miles, Jan 1 &ndash; Jun 30 (72.5&cent;)</label><input id="m1" type="number" min="0" step="10" value="6000" inputmode="numeric"></div>
+      <div><label for="m2">Business miles, Jul 1 &ndash; Dec 31 (76&cent;)</label><input id="m2" type="number" min="0" step="10" value="6000" inputmode="numeric"></div>
+      <div><label for="pt">Business parking and tolls ($)</label><input id="pt" type="number" min="0" step="10" value="250" inputmode="decimal"></div>
+      <div><label for="profit">Self-employment profit before this deduction ($)</label><input id="profit" type="number" min="0" step="100" value="60000" inputmode="decimal"></div>
+      <div><label for="status">Filing status</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option><option value="hoh">Head of household</option></select></div>
+      <div id="spouseBox" class="hidden"><label for="spouseWages">Spouse's W-2 wages ($)</label><input id="spouseWages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Only know your total for the year? Split it by month from your mileage log; if you drove about the same every month, half and half is close. The tax estimate assumes the standard deduction and no other income besides a spouse's wages.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your 2026 mileage deduction</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <div class="table-scroll"><table id="breakdown"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Keep your deductions and tax payments in one place</h3>
+    <p>The <a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a> spreadsheet for Excel sorts your expenses into Schedule C lines (your mileage deduction goes on line 9, car and truck expenses) and updates your quarterly estimated tax payment as you go.</p>
+    <a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a>
+  </aside>
+
+  <article>
+    <h2>2026 IRS standard mileage rates</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Miles driven</th><th class="num">Business</th><th class="num">Medical or military moving</th><th class="num">Charity</th></tr></thead>
+      <tbody>
+        <tr><td>Jan 1 &ndash; Jun 30, 2026</td><td class="num">72.5&cent;</td><td class="num">20.5&cent;</td><td class="num">14&cent;</td></tr>
+        <tr><td>Jul 1 &ndash; Dec 31, 2026</td><td class="num">76&cent;</td><td class="num">23.5&cent;</td><td class="num">14&cent;</td></tr>
+        <tr><td>All of 2025 (for reference)</td><td class="num">70&cent;</td><td class="num">21&cent;</td><td class="num">14&cent;</td></tr>
+      </tbody>
+    </table></div>
+    <p>The IRS first set the 2026 business rate at 72.5 cents (IR-2025-128), then raised it to 76 cents for miles driven from July 1, 2026, after fuel prices rose (IR-2026-29). Use the rate for the date each mile was driven. That's why a mileage log with dates matters this year. The 2027 rate is usually announced in December; this page will add it then.</p>
+
+    <h2>How the deduction is calculated</h2>
+    <p>Multiply the business miles in each period by that period's rate, then add business parking fees and tolls, which IRS Publication 463 lets you deduct on top of the standard rate. With 6,000 miles in each half of 2026: 6,000 &times; $0.725 = $4,350, plus 6,000 &times; $0.76 = $4,560, for $8,910. Add $250 of parking and tolls and the deduction is $9,160.</p>
+    <p>The deduction lowers your self-employment profit, so it saves two taxes. Self-employment tax falls by 15.3% of 92.35% of the deduction (about 14.1%, while your profit is under the Social Security wage base). Income tax falls at your bracket rate, a little less than the full deduction because of the half-SE-tax and qualified business income deductions. For a single filer with $60,000 of profit, the $9,160 deduction above saves about $2,112 of federal tax: $1,294 of self-employment tax and $817 of income tax. The calculator uses the same 2026 tax engine as our <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a>.</p>
+
+    <h2>Rules to know before you claim it</h2>
+    <ul>
+      <li><strong>Commuting doesn't count.</strong> Publication 463 says driving between your home and your regular place of work is a personal commuting expense, no matter how far it is. Trips between clients, to pick up supplies, or between job sites are business miles.</li>
+      <li><strong>Choose the standard rate in the car's first year.</strong> To use the standard mileage rate for a car you own, you have to use it in the first year the car is available for your business. In later years you can switch between it and actual expenses. For a leased car, you must use it for the whole lease.</li>
+      <li><strong>Not with five or more cars at once.</strong> The standard rate isn't allowed if you use five or more cars at the same time (for example, a fleet).</li>
+      <li><strong>Keep a log.</strong> Write down the date, miles, and business purpose of each trip as you go. Odometer readings at the start and end of the year help show total versus business miles.</li>
+      <li><strong>Gas, oil, and repairs are included.</strong> The rate covers the costs of running the car, so you can't deduct those separately when you use it. Parking and tolls are the exception.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>What is the IRS mileage rate for 2026?</summary><p>72.5 cents per mile for business miles driven January 1 through June 30, 2026, and 76 cents per mile from July 1 through December 31, 2026.</p></details>
+    <details><summary>How much is 10,000 business miles worth in 2026?</summary><p>Between $7,250 (all before July) and $7,600 (all after July 1). Split evenly, it's $7,425. As a deduction it saves self-employment tax and income tax, roughly $1,000 to $2,500 of federal tax depending on your bracket.</p></details>
+    <details><summary>Do W-2 employees get the mileage deduction?</summary><p>Generally no. Publication 463 explains that most employees can no longer deduct unreimbursed car expenses, because miscellaneous itemized deductions are suspended (a few groups, such as Armed Forces reservists and qualifying performing artists, still can). This calculator is for self-employed people who report business income on Schedule C.</p></details>
+    <details><summary>Can I deduct the rate and my gas?</summary><p>No. The standard rate already covers gas, oil, maintenance, insurance, and depreciation. You can add business parking and tolls, and the business part of car loan interest if you're self-employed.</p></details>
+    <p class="small muted">Sources: <a href="https://www.irs.gov/tax-professionals/standard-mileage-rates">IRS standard mileage rates</a> (IR-2025-128, IR-2026-29), <a href="https://www.irs.gov/publications/p463">IRS Publication 463</a> (commuting, first-year rule, five-car rule, parking and tolls), 2026 tax figures from Rev. Proc. 2025-32 and the 2026 Form 1040-ES. Federal estimate only; state tax is not included. For education and planning, not tax advice. Last checked November 6, 2026.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../self-employment-tax-calculator/">Self-employment tax calculator</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../1099-vs-w2-calculator/">1099 vs W-2 calculator</a><a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/tax-engine.js"></script>
+<script src="../assets/mileage.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const M = window.Mileage;
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const status = $('status').value;
+    $('spouseBox').classList.toggle('hidden', status !== 'mfj');
+    const d = M.deduction(2026, [num('m1'), num('m2')], num('pt'));
+    const profit = num('profit');
+    if (d.total <= 0) {
+      $('stats').innerHTML = ''; $('breakdown').innerHTML = '';
+      $('summary').textContent = 'Enter your business miles to see your deduction.';
+      return;
+    }
+    const s = M.taxSaved(2026, status, profit, d.total, status === 'mfj' ? num('spouseWages') : 0);
+    $('stats').innerHTML = stat('Deduction', money(d.total, 2), true) + stat('Business miles', d.miles.toLocaleString()) +
+      (profit > 0 ? stat('Federal tax saved (about)', money(s.total)) : '');
+    $('summary').textContent = profit > 0
+      ? `Deducting ${money(d.total, 2)} from ${money(profit)} of profit lowers your federal tax from about ${money(s.before)} to ${money(s.after)}: ${money(s.se)} less self-employment tax and ${money(s.income)} less income tax.` +
+        (d.total > profit ? ' The deduction is bigger than your profit, so the extra becomes a loss that may offset other income; the tax saved shown here only counts bringing your profit down to zero.' : '')
+      : 'Enter your self-employment profit to estimate the tax it saves.';
+    $('breakdown').innerHTML = '<thead><tr><th>Item</th><th class="num">Miles</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead><tbody>' +
+      d.byPeriod.map(p => `<tr><td>${p.label}</td><td class="num">${p.miles.toLocaleString()}</td><td class="num">${(p.rate * 100).toFixed(1).replace(/\.0$/, '')}&cent;</td><td class="num">${money(p.amount, 2)}</td></tr>`).join('') +
+      `<tr><td>Parking and tolls</td><td></td><td></td><td class="num">${money(d.parkingTolls, 2)}</td></tr>` +
+      `<tr><th>Total deduction</th><th class="num">${d.miles.toLocaleString()}</th><th></th><th class="num">${money(d.total, 2)}</th></tr></tbody>`;
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
