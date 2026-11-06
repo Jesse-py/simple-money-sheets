@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Debt Payoff &amp; Budgeting</title>
+  <link>https://jesse-py.github.io/simple-money-sheets/</link>
+  <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
+  <language>en-us</language>
+  <lastBuildDate>Fri, 06 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/credit-card-payoff-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=credit-card-5000</link>
+    <description>Paying only the minimum on a $5,000 card at 22% APR takes over 19 years and costs about $8,100 in interest. A fixed $250 a month clears it in 26 months. See your own payoff date and interest, free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-credit-card-5000</guid>
+    <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/credit-card-5000.png" length="109800" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/credit-card-5000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Debt Snowball vs Avalanche Calculator (Free)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/debt-payoff-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=debt-snowball-vs-avalanche</link>
+    <description>Snowball pays the smallest balance first; avalanche pays the highest interest rate first. Enter your own debts to see your debt-free date, total interest, and payoff order under both methods. Free, no sign-up, nothing leaves your browser.</description>
+    <guid isPermaLink="false">sms-pin-debt-snowball-vs-avalanche</guid>
+    <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/debt-snowball-vs-avalanche.png" length="113039" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/debt-snowball-vs-avalanche.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+</channel>
+</rss>
