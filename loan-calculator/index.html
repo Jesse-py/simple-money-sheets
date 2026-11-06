@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loan Calculator with Extra Payments and Amortization Schedule</title>
+<meta name="description" content="Free loan calculator with extra payments. See your monthly payment, total interest, and full amortization schedule, and how much paying extra each month or a one-time lump sum saves.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/loan-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Loan Calculator with Extra Payments","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Loan Calculator with Extra Payments</h1>
+  <p class="lede">Find the monthly payment and total interest on a car loan, personal loan, student loan, or mortgage. Then see how much sooner you'd be done, and how much interest you'd save, by paying a little extra. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="amount">Loan amount ($)</label><input id="amount" type="number" min="0" step="100" value="25000" inputmode="decimal"></div>
+      <div><label for="apr">Interest rate (APR %)</label><input id="apr" type="number" min="0" max="40" step="0.01" value="7" inputmode="decimal"></div>
+      <div><label for="term">Loan term</label><input id="term" type="number" min="1" max="50" step="1" value="5" inputmode="numeric"></div>
+      <div><label for="unit">Term in</label>
+        <select id="unit"><option value="12">Years</option><option value="1">Months</option></select></div>
+      <div><label for="extra">Extra payment each month ($)</label><input id="extra" type="number" min="0" step="10" value="100" inputmode="decimal"></div>
+      <div><label for="lump">One-time extra payment ($)</label><input id="lump" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="lumpMonth">Made with payment number</label><input id="lumpMonth" type="number" min="1" step="1" value="12" inputmode="numeric"></div>
+    </div>
+    <p class="small muted">Already partway through a loan? Enter your current balance, your rate, and the months you have left. For a mortgage, this covers principal and interest only, not property taxes, insurance, or PMI.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your loan</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>What paying extra each month saves</h3>
+    <div class="table-scroll"><table id="compare"></table></div>
+    <h3>Amortization schedule by year</h3>
+    <div class="table-scroll"><table id="yearly"></table></div>
+    <h3>Month-by-month schedule</h3>
+    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Paying off more than one loan or card?</h3>
+    <p>The <a href="../debt-payoff-planner/">Debt Payoff Planner</a> spreadsheet for Excel and Google Sheets puts up to 15 debts in one plan. It shows your debt-free date with the snowball and avalanche methods, rolls each paid-off payment into the next debt, and tracks what you actually pay.</p>
+    <a class="btn" data-product="debtPlanner">Get the planner (<span data-price>$9</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How the calculator works</h2>
+    <p>The monthly payment is the standard amortized payment: the fixed amount that pays off the loan, with interest, in exactly the term you choose. Each month, interest is charged on the remaining balance (APR &divide; 12), and the rest of your payment reduces the balance. Early on, much of each payment is interest; by the end, almost all of it is principal.</p>
+    <p>For example, $25,000 at 7% APR over 5 years costs $495.03 a month and $4,702 in interest. Paying $100 extra each month clears it 11 months early (49 payments instead of 60) and saves $939 in interest.</p>
+
+    <h2>Why extra payments save so much</h2>
+    <p>Every extra dollar goes straight to principal, so it stops being charged interest for the rest of the loan. That's why extra payments made early save the most, and why a long, high-rate loan like a mortgage responds so strongly to even small extras. Your required payment stays the same; you just reach the end sooner.</p>
+    <ul>
+      <li><strong>Tell your lender it's for principal.</strong> Some lenders apply extra money to next month's payment instead of the balance unless you ask. Check your statement after the first extra payment.</li>
+      <li><strong>Check for prepayment penalties.</strong> Most auto, personal, and federal student loans don't have them, but some loans do. Your loan agreement will say.</li>
+      <li><strong>Pay the highest rate first.</strong> If you have several debts, extra money saves the most on the one with the highest APR (the avalanche method). The <a href="../debt-payoff-calculator/">debt snowball vs avalanche calculator</a> compares both orders.</li>
+      <li><strong>Keep a cushion.</strong> Money paid into a loan is hard to get back. Many people build a small emergency fund first; the <a href="../savings-goal-calculator/">savings goal calculator</a> shows how long that takes.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Why is my lender's number slightly different?</summary><p>Lenders may charge interest daily, round each payment to the cent, or have a first payment period that isn't exactly one month. Those details move the totals by a few dollars. This calculator uses the standard monthly method.</p></details>
+    <details><summary>Should I pay extra on my loan or save the money?</summary><p>Paying extra earns you a guaranteed return equal to the loan's interest rate. If the rate is higher than what your savings earn after tax, extra payments usually come out ahead, as long as you still have an emergency fund and aren't missing out on an employer retirement match.</p></details>
+    <details><summary>What about biweekly payments?</summary><p>Paying half your payment every two weeks adds up to 26 half-payments, or 13 full payments a year. That's about the same as paying one-twelfth of a payment extra each month: enter your payment &divide; 12 as the extra amount to see the effect.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+    <p class="small muted">For education and planning only. This isn't financial advice. Results are estimates; your loan agreement and lender statements are the final word.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/loan-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.LoanEngine;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const span = m => {
+    const y = Math.floor(m / 12), mo = m % 12;
+    return [y ? `${y} yr${y > 1 ? 's' : ''}` : '', mo ? `${mo} mo` : ''].filter(Boolean).join(' ') || '0 mo';
+  };
+  const dateAfter = m => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d.toLocaleDateString(undefined, { month: 'short', year: 'numeric' }); };
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const P = num('amount'), apr = Math.min(40, num('apr'));
+    const n = Math.min(600, Math.max(1, Math.round(num('term') * Number($('unit').value)) || 1));
+    const extra = num('extra'), lump = num('lump'), lumpMonth = Math.max(1, Math.round(num('lumpMonth')) || 1);
+    ['compare', 'yearly', 'schedule'].forEach(id => { $(id).innerHTML = ''; });
+    if (P <= 0) {
+      $('stats').innerHTML = ''; $('summary').textContent = 'Enter a loan amount to get started.';
+      return;
+    }
+    const base = E.amortize(P, apr, n);
+    const plan = E.amortize(P, apr, n, extra, lump, lumpMonth);
+    const hasLump = lump > 0 && lumpMonth <= base.months;
+    const paysExtra = extra > 0 || hasLump;
+    const saved = base.interest - plan.interest, early = base.months - plan.months;
+    $('stats').innerHTML = stat('Monthly payment', money(base.payment, 2), !paysExtra) +
+      (paysExtra ? stat('Paid off in', span(plan.months), true) + stat('Interest saved', money(saved), true)
+        : stat('Paid off in', span(base.months))) +
+      stat('Total interest', money(plan.interest)) +
+      stat('Payoff date', dateAfter(plan.months));
+    const extras = [extra > 0 ? `${money(extra)} extra a month` : '', hasLump ? `a one-time ${money(lump)}` : ''].filter(Boolean).join(' and ');
+    $('summary').textContent = paysExtra
+      ? `With ${extras}, you'll pay off the loan ${span(early)} early and pay ${money(plan.interest)} in interest instead of ${money(base.interest)}. Total paid: ${money(plan.paid)}.`
+      : `You'll pay ${money(base.payment, 2)} a month for ${span(base.months)}: ${money(base.paid)} in total, of which ${money(base.interest)} is interest. Add an extra monthly payment above to see what it saves.`;
+
+    const steps = [0, 25, 50, 100, 200, 500];
+    if (extra > 0 && !steps.includes(extra)) steps.push(extra);
+    steps.sort((a, b) => a - b);
+    $('compare').innerHTML = '<thead><tr><th>Extra per month</th><th class="num">Monthly total</th><th class="num">Paid off in</th><th class="num">Total interest</th><th class="num">Interest saved</th></tr></thead><tbody>' +
+      steps.map(x => {
+        const a = E.amortize(P, apr, n, x);
+        const mine = x === extra ? ' style="font-weight:700"' : '';
+        return `<tr${mine}><td>${x ? money(x) : 'None'}</td><td class="num">${money(base.payment + x, 2)}</td><td class="num">${span(a.months)}</td><td class="num">${money(a.interest)}</td><td class="num">${x ? money(base.interest - a.interest) : '-'}</td></tr>`;
+      }).join('') + '</tbody>';
+
+    const years = [];
+    plan.schedule.forEach(s => {
+      const y = Math.ceil(s.month / 12) - 1;
+      years[y] = years[y] || { paid: 0, principal: 0, interest: 0, balance: 0 };
+      years[y].paid += s.payment; years[y].principal += s.principal; years[y].interest += s.interest; years[y].balance = s.balance;
+    });
+    $('yearly').innerHTML = '<thead><tr><th>Year</th><th class="num">Paid</th><th class="num">Principal</th><th class="num">Interest</th><th class="num">Balance at year end</th></tr></thead><tbody>' +
+      years.map((y, i) => `<tr><td>${i + 1}</td><td class="num">${money(y.paid)}</td><td class="num">${money(y.principal)}</td><td class="num">${money(y.interest)}</td><td class="num">${money(y.balance)}</td></tr>`).join('') + '</tbody>';
+
+    $('schedule').innerHTML = '<thead><tr><th>Payment</th><th class="num">Amount</th><th class="num">Principal</th><th class="num">Interest</th><th class="num">Balance</th></tr></thead><tbody>' +
+      plan.schedule.map(s => `<tr><td>${s.month} (${dateAfter(s.month)})</td><td class="num">${money(s.payment, 2)}</td><td class="num">${money(s.principal, 2)}</td><td class="num">${money(s.interest, 2)}</td><td class="num">${money(s.balance, 2)}</td></tr>`).join('') + '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
