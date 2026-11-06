@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credit Card Payoff Calculator: Payoff Date &amp; Interest</title>
+<meta name="description" content="Free credit card payoff calculator. See how long it takes to pay off your card, how much interest you'll pay, the payment needed to be debt-free by a date, and what minimum payments really cost.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/credit-card-payoff-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Credit Card Payoff Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Credit Card Payoff Calculator</h1>
+  <p class="lede">Find out when your card will be paid off, how much interest it will cost, and how much faster a bigger payment gets you there. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="bal">Card balance ($)</label><input id="bal" type="number" min="0" step="1" value="5000" inputmode="decimal"></div>
+      <div><label for="apr">APR (%)</label><input id="apr" type="number" min="0" max="100" step="0.01" value="22.99" inputmode="decimal"></div>
+      <div><label for="mode">I want to</label>
+        <select id="mode"><option value="pay">Pay a fixed amount each month</option><option value="months">Be debt-free in a set time</option></select></div>
+      <div id="pay-wrap"><label for="pay">Monthly payment ($)</label><input id="pay" type="number" min="0" step="1" value="200" inputmode="decimal"></div>
+      <div id="months-wrap" class="hidden"><label for="months">Pay it off in (months)</label><input id="months" type="number" min="1" max="600" step="1" value="24" inputmode="numeric"></div>
+    </div>
+    <details>
+      <summary class="small">Minimum payment settings (for the comparison)</summary>
+      <div class="fields" style="margin-top:10px">
+        <div><label for="rule">My card's minimum is</label>
+          <select id="rule"><option value="pct1-interest">1% of balance + interest</option><option value="pct3">3% of balance</option></select></div>
+        <div><label for="floor">But at least ($)</label><input id="floor" type="number" min="0" step="1" value="25" inputmode="decimal"></div>
+      </div>
+      <p class="small muted">Many large US issuers use "1% of the balance plus interest and fees, or a flat amount such as $25 to $40, whichever is more." Your card agreement or statement shows the exact rule.</p>
+    </details>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your payoff plan</h2>
+    <div id="warning" class="note hidden"></div>
+    <div class="stats" id="stats"></div>
+    <p id="compare"></p>
+    <h3>Payment needed to be debt-free by</h3>
+    <div class="table-scroll"><table id="targets"></table></div>
+    <h3>Month-by-month schedule</h3>
+    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>More than one card or loan?</h3>
+    <p>The free <a href="../debt-payoff-calculator/">debt snowball vs avalanche calculator</a> handles several debts at once. To track your plan month after month, the <a href="../debt-payoff-planner/">Debt Payoff Planner</a> spreadsheet for Excel and Google Sheets builds both schedules, logs your real payments, and shows your progress.</p>
+    <a class="btn" data-product="debtPlanner">Get the planner (<span data-price>$9</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How credit card interest works</h2>
+    <p>Your APR is a yearly rate, but interest is charged every billing cycle. Most issuers divide the APR by 365 to get a daily rate and apply it to your average daily balance. This calculator uses the simpler monthly version (APR &divide; 12), so your statements may differ by a few dollars. At 22.99% APR, a $5,000 balance builds up about $96 of interest in a month. Every payment covers that interest first, and only the rest reduces what you owe.</p>
+
+    <h2>Why minimum payments take so long</h2>
+    <p>A minimum payment is designed to keep your account in good standing, not to get you out of debt. With a "1% plus interest" minimum, only about 1% of your balance goes to principal each month. As the balance shrinks, so does the minimum, which stretches the payoff out for years. Use the comparison above to see how many years and how much interest a fixed payment saves you.</p>
+    <p>Your statement shows this too. Under the Credit CARD Act of 2009, US card statements include a "Minimum Payment Warning" box with how long minimum payments would take and what they would cost in total, plus the monthly payment that would clear the balance in three years.</p>
+
+    <h2>Ways to pay off a card faster</h2>
+    <ul>
+      <li><strong>Pay a fixed amount, not the minimum.</strong> Keep paying your first month's amount even as the minimum drops. That alone usually cuts years off.</li>
+      <li><strong>Find the money in your budget.</strong> The <a href="../budget-calculator/">50/30/20 budget calculator</a> shows how much of your pay could go to savings and extra debt payments.</li>
+      <li><strong>Ask for a lower rate.</strong> If you've paid on time, calling your issuer to ask for a lower APR costs nothing, and it sometimes works.</li>
+      <li><strong>Consider a balance transfer carefully.</strong> A 0% intro APR can save a lot, but transfer fees are often 3% to 5% of the balance, and the rate jumps when the promotion ends. Run both scenarios here before deciding.</li>
+      <li><strong>Several cards?</strong> Put extra money on one card at a time: the highest APR first (avalanche) or the smallest balance first (snowball). The <a href="../debt-payoff-calculator/">snowball vs avalanche calculator</a> compares both.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Does this include new purchases?</summary><p>No. It assumes you stop using the card while you pay it off. New charges add to the balance and push your payoff date back.</p></details>
+    <details><summary>What if my payment doesn't cover the interest?</summary><p>Then the balance never goes down. The calculator warns you and shows the smallest payment that would make progress.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+    <p class="small muted">For education and planning only. This isn't financial advice. Results are estimates; your card issuer's numbers may differ.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/card-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.CardEngine;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const span = m => {
+    const y = Math.floor(m / 12), mo = m % 12;
+    return [y ? `${y} yr${y > 1 ? 's' : ''}` : '', mo ? `${mo} mo` : ''].filter(Boolean).join(' ') || '0 mo';
+  };
+  const dateAfter = m => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d.toLocaleDateString(undefined, { month: 'short', year: 'numeric' }); };
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const bal = num('bal'), apr = num('apr');
+    const byMonths = $('mode').value === 'months';
+    $('pay-wrap').classList.toggle('hidden', byMonths);
+    $('months-wrap').classList.toggle('hidden', !byMonths);
+    const n = Math.min(600, Math.max(1, Math.round(num('months')) || 1));
+    const pay = byMonths ? E.paymentForMonths(bal, apr, n) : num('pay');
+    const r = E.fixedPayoff(bal, apr, pay + (byMonths ? 1e-7 : 0));
+    const firstInterest = bal * apr / 1200;
+    const warn = $('warning');
+    warn.classList.add('hidden');
+    if (bal <= 0) {
+      $('stats').innerHTML = ''; $('compare').textContent = 'Enter your card balance to get started.';
+      $('targets').innerHTML = ''; $('schedule').innerHTML = '';
+      return;
+    }
+    if (!r.finished) {
+      warn.textContent = pay <= firstInterest
+        ? `A ${money(pay)} payment doesn't cover the ${money(firstInterest, 2)} of interest charged each month, so the balance would never go down. Pay at least ${money(Math.ceil(firstInterest + 1))} a month to make progress.`
+        : `At ${money(pay)} a month this would take more than ${E.MAX_MONTHS / 12} years. Try a larger payment.`;
+      warn.classList.remove('hidden');
+    }
+    $('stats').innerHTML = (byMonths ? stat('Monthly payment needed', money(pay, 2), true) : stat('Debt-free in', r.finished ? span(r.months) : 'Never', true)) +
+      (r.finished ? stat('Payoff date', dateAfter(r.months)) : '') +
+      stat('Total interest', r.finished ? money(r.interest) : '–') +
+      stat('Total paid', r.finished ? money(r.paid) : '–');
+
+    const m = E.minimumPayoff(bal, apr, $('rule').value, num('floor'));
+    if (r.finished && m.finished && m.months > r.months) {
+      $('compare').innerHTML = `Paying only the minimum (starting at ${money(m.firstPayment, 2)} and shrinking) would take <strong>${span(m.months)}</strong> and cost <strong>${money(m.interest)}</strong> in interest. ` +
+        `Paying ${money(pay, 2)} a month instead saves you <strong>${money(m.interest - r.interest)}</strong> and <strong>${span(m.months - r.months)}</strong>.`;
+    } else if (r.finished && m.finished) {
+      $('compare').textContent = `Your payment is at or below your card's minimum (${money(m.firstPayment, 2)} this month). Paying only the minimum would take ${span(m.months)} and cost ${money(m.interest)} in interest.`;
+    } else {
+      $('compare').textContent = '';
+    }
+
+    $('targets').innerHTML = '<thead><tr><th>Debt-free in</th><th class="num">Monthly payment</th><th class="num">Total interest</th></tr></thead><tbody>' +
+      [6, 12, 18, 24, 36, 48, 60].map(k => {
+        const p = E.paymentForMonths(bal, apr, k);
+        return `<tr><td>${span(k)} (${dateAfter(k)})</td><td class="num">${money(p, 2)}</td><td class="num">${money(p * k - bal)}</td></tr>`;
+      }).join('') + '</tbody>';
+
+    const rows = r.finished ? r.schedule : [];
+    $('schedule').innerHTML = !rows.length ? '' : '<thead><tr><th>Month</th><th class="num">Payment</th><th class="num">Interest</th><th class="num">Principal</th><th class="num">Balance</th></tr></thead><tbody>' +
+      rows.map(s => `<tr><td>${s.month} (${dateAfter(s.month)})</td><td class="num">${money(s.payment, 2)}</td><td class="num">${money(s.interest, 2)}</td><td class="num">${money(s.payment - s.interest, 2)}</td><td class="num">${money(s.balance, 2)}</td></tr>`).join('') + '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
