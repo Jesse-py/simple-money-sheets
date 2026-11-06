@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1099 vs W-2 Calculator (2026 &amp; 2027): Compare Take-Home Pay</title>
+<meta name="description" content="Free 1099 vs W-2 calculator. Compare a salary offer with a contract rate after Social Security, Medicare, and federal income tax for 2026 or 2027, and see the hourly rate you need as a contractor to break even.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/1099-vs-w2-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"1099 vs W-2 Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>1099 vs W-2 Calculator</h1>
+  <p class="lede">Choosing between a salaried job and a contract? A 1099 rate looks higher, but as a contractor you pay both halves of Social Security and Medicare, cover your own expenses, and give up employer benefits. Enter both offers to compare what you'd actually keep after federal tax for 2026 or 2027, and the contract rate you'd need to come out even. It runs entirely in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="year">Tax year</label>
+        <select id="year"><option value="2026">2026</option><option value="2027">2027</option></select></div>
+      <div><label for="status">Filing status</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option><option value="hoh">Head of household</option></select></div>
+      <div id="spouseBox" class="hidden"><label for="spouseWages">Spouse's W-2 wages ($)</label><input id="spouseWages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <h2>W-2 job offer</h2>
+    <div class="fields">
+      <div><label for="salary">Annual salary ($)</label><input id="salary" type="number" min="0" step="1000" value="80000" inputmode="decimal"></div>
+      <div><label for="benefits">Employer benefits you'd give up ($/year)</label><input id="benefits" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Benefits: what the employer pays toward your health insurance, a 401(k) match, and similar. Leave it at 0 to compare cash only. Paid holidays and vacation are already in the salary, so count them on the contract side as weeks you can't bill.</p>
+    <h2>1099 contract offer</h2>
+    <div class="fields">
+      <div><label for="rate">Hourly rate ($)</label><input id="rate" type="number" min="0" step="1" value="50" inputmode="decimal"></div>
+      <div><label for="hours">Billable hours per week</label><input id="hours" type="number" min="0" max="100" step="1" value="40" inputmode="decimal"></div>
+      <div><label for="weeks">Weeks billed per year</label><input id="weeks" type="number" min="0" max="52" step="1" value="48" inputmode="decimal"></div>
+      <div><label for="expenses">Business expenses ($/year)</label><input id="expenses" type="number" min="0" step="100" value="3000" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Expenses: equipment, software, a home office, mileage, and anything else you'd pay that an employer would have covered. They're deducted before tax.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">What you'd keep</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <div class="table-scroll"><table id="compare"></table></div>
+    <p class="small muted">Federal taxes only, for this income alone. State and local income tax come on top in most states and hit both offers.</p>
+  </section>
+
+  <aside class="cta">
+    <h3>Going 1099? Nobody withholds your tax</h3>
+    <p>As a contractor you send the IRS estimated payments four times a year. The free <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> works out each payment. To track income and expenses all year, the <a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a> spreadsheet for Excel sorts your expenses into Schedule C lines and updates your quarterly payment as you go.</p>
+    <a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a>
+  </aside>
+
+  <article>
+    <h2>Why a 1099 rate has to be higher</h2>
+    <p>An employee's Social Security and Medicare tax is split with the employer: 6.2% Social Security (up to the yearly wage base) and 1.45% Medicare come out of each paycheck, and the employer pays the same amount again. A contractor pays both halves as self-employment tax, 15.3% of 92.35% of profit. Half of it is deductible, and so is the 20% qualified business income deduction, which softens the hit, but on most incomes the contractor still pays more federal tax on the same pay.</p>
+    <p>The bigger gaps are usually outside tax:</p>
+    <ul>
+      <li><strong>Unpaid time off.</strong> A salary pays for holidays, vacation, and sick days. As a contractor, weeks you don't bill earn nothing. Ten holidays plus two weeks off is about four weeks a year.</li>
+      <li><strong>Benefits.</strong> Health insurance is often the largest. Employer premium contributions commonly run several thousand dollars a year for single coverage and much more for family coverage; ask the employer for the actual figure.</li>
+      <li><strong>Expenses and downtime.</strong> Your own laptop, software, and insurance, plus time spent finding work, invoicing, and gaps between contracts.</li>
+    </ul>
+
+    <h2>An example</h2>
+    <p id="example">A single person in 2026 is offered an $80,000 salary or $50 an hour as a contractor. Billing 40 hours a week for 48 weeks, the contract pays $96,000 a year, and they'd spend $3,000 on business expenses.</p>
+    <ul>
+      <li><strong>W-2:</strong> $6,120 of Social Security and Medicare (7.65%) and $8,770 of income tax leave <strong>$65,110</strong>.</li>
+      <li><strong>1099:</strong> profit is $93,000. Self-employment tax is $13,140, and income tax is $7,090 after the half-SE-tax and QBI deductions, leaving <strong>$72,769</strong>, or $7,659 more.</li>
+    </ul>
+    <p>The break-even rate is $44.42 an hour. If the job also came with $7,000 a year of employer health coverage and 401(k) match, the gap shrinks to $659 and the break-even rate rises to $49.51, so $50 an hour is barely ahead.</p>
+
+    <h2>Contract pay needed to match a salary (2026)</h2>
+    <p>The yearly 1099 pay that leaves you with the same federal after-tax income as each salary, with no business expenses and no benefits counted. Divide by the hours you expect to bill to get an hourly rate.</p>
+    <div class="table-scroll"><table id="levels">
+      <thead><tr><th>W-2 salary</th><th class="num">Single</th><th class="num">Married filing jointly (no other income)</th></tr></thead>
+      <tbody>
+        <tr><td>$40,000</td><td class="num">$42,270</td><td class="num">$42,817</td></tr>
+        <tr><td>$60,000</td><td class="num">$63,154</td><td class="num">$63,739</td></tr>
+        <tr><td>$80,000</td><td class="num">$82,284</td><td class="num">$84,541</td></tr>
+        <tr><td>$100,000</td><td class="num">$102,222</td><td class="num">$105,425</td></tr>
+        <tr><td>$150,000</td><td class="num">$152,012</td><td class="num">$155,425</td></tr>
+        <tr><td>$200,000</td><td class="num">$203,008</td><td class="num">$205,037</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Tax only. Add your expected expenses and the value of any benefits you'd lose, then divide by billable hours, not 2,080. Use the calculator above for your own numbers.</p>
+
+    <h2>What this calculator doesn't cover</h2>
+    <ul>
+      <li><strong>State and local taxes.</strong> They apply to both offers, and a few cities and states tax self-employment income separately.</li>
+      <li><strong>Retirement plans.</strong> A SEP-IRA or solo 401(k) can lower a contractor's income tax, and a 401(k) lowers an employee's. Neither is modeled here.</li>
+      <li><strong>The self-employed health insurance deduction</strong>, which lets many contractors deduct premiums they pay themselves.</li>
+      <li><strong>QBI limits for high earners.</strong> The 20% QBI deduction is figured for a sole proprietor with no employees, as on our <a href="../quarterly-estimated-tax-calculator/">estimated tax calculator</a>. If your taxable income is above about $201,750 (single, 2026) and your work is a specified service like consulting, law, or health, the deduction phases out faster than shown.</li>
+      <li><strong>Credits and other income</strong>, such as the child tax credit, investment income, or a second job.</li>
+      <li><strong>Worker classification.</strong> Whether you're an employee or a contractor depends on how the work is controlled, not on what the paperwork says. See the IRS guidance below.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>How much more should a 1099 contractor charge than a W-2 employee?</summary><p>For federal tax alone, only about 1 to 7% more pay (see the table), because the half-SE-tax and 20% QBI deductions offset much of the extra Social Security and Medicare tax. Once you add unpaid time off, benefits, and expenses, contractors often need 20 to 40% more than the salary's hourly equivalent, but it depends on your numbers. Put them in the calculator.</p></details>
+    <details><summary>Is a $50/hour 1099 job the same as $50/hour W-2?</summary><p>No. At the same hourly rate the contractor pays the employer's 7.65% share of Social Security and Medicare on top of their own (less the deductions above), isn't paid for time off, and gets no benefits.</p></details>
+    <details><summary>Does the calculator include the 0.9% Additional Medicare Tax?</summary><p>Yes. It applies to wages and self-employment earnings over $200,000 (single and head of household), $250,000 (married filing jointly), or $125,000 (married filing separately), and it's counted in the Social Security and Medicare line.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>Employee and employer Social Security (6.2% each) and Medicare (1.45% each) rates, and the 2026 wage base ($184,500): <a href="https://www.irs.gov/taxtopics/tc751">IRS Topic No. 751</a>.</li>
+      <li>Self-employment tax, the half-SE-tax deduction, and the QBI deduction: <a href="https://www.irs.gov/pub/irs-pdf/f1040es.pdf">IRS Form 1040-ES (2026)</a> and <a href="https://www.irs.gov/forms-pubs/about-schedule-se-form-1040">Schedule SE</a>.</li>
+      <li>2026 brackets and standard deduction: <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf">Rev. Proc. 2025-32</a>. 2027: <a href="https://www.irs.gov/pub/irs-drop/rp-26-35.pdf">Rev. Proc. 2026-35</a>. 2027 wage base ($192,300): <a href="https://www.ssa.gov/news/en/cola/factsheets/2027.html">SSA 2027 COLA fact sheet</a>.</li>
+      <li>Additional Medicare Tax thresholds: <a href="https://www.irs.gov/forms-pubs/about-form-8959">IRS Form 8959</a>.</li>
+      <li>Who counts as a contractor: <a href="https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee">IRS: Independent contractor (self-employed) or employee?</a></li>
+    </ul>
+    <p class="small muted">Last checked November 6, 2026. For education and planning only, not tax advice.</p>
+
+    <h2>Related calculators</h2>
+    <p>See just the Social Security and Medicare part with the <a href="../self-employment-tax-calculator/">self-employment tax calculator</a>. Income varies month to month as a contractor; the <a href="../budget-calculator/">50/30/20 budget calculator</a> and <a href="../savings-goal-calculator/">savings goal calculator</a> help you plan a buffer.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../self-employment-tax-calculator/">Self-employment tax calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../loan-calculator/">Loan calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/tax-engine.js"></script>
+<script src="../assets/w2-1099.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const C = window.W2vs1099;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const pos = id => Math.max(0, parseFloat($(id).value) || 0);
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const row = (label, a, b, strong) => `<tr${strong ? ' style="font-weight:700"' : ''}><td>${label}</td><td class="num">${a}</td><td class="num">${b}</td></tr>`;
+
+  function render() {
+    const status = $('status').value;
+    $('spouseBox').classList.toggle('hidden', status !== 'mfj');
+    const inp = {
+      year: Number($('year').value), status, spouseWages: status === 'mfj' ? pos('spouseWages') : 0,
+      salary: pos('salary'), benefits: pos('benefits'),
+      rate: pos('rate'), hours: pos('hours'), weeks: Math.min(52, pos('weeks')), expenses: pos('expenses'),
+    };
+    const r = C.compare(inp), w = r.w2, c = r.c1099;
+    const diff = c.value - w.value;
+    $('stats').innerHTML = stat('W-2 take-home', money(w.takeHome), diff < 0) +
+      stat('1099 take-home', money(c.takeHome), diff >= 0) +
+      stat(diff >= 0 ? '1099 comes out ahead by' : 'W-2 comes out ahead by', money(Math.abs(diff))) +
+      stat('Break-even 1099 rate', r.breakEvenRate === null ? 'n/a' : money(r.breakEvenRate, 2) + '/hr');
+
+    let s;
+    if (inp.hours * inp.weeks === 0) s = 'Enter billable hours and weeks to compare the contract.';
+    else {
+      s = `The contract pays ${money(c.gross)} a year (${inp.hours} hours x ${inp.weeks} weeks x ${money(inp.rate, 2)}). `;
+      s += diff >= 0
+        ? `After federal tax${inp.expenses ? ' and expenses' : ''}, it leaves you ${money(diff)} more than the salary${inp.benefits ? ' and benefits' : ''}.`
+        : `After federal tax${inp.expenses ? ' and expenses' : ''}, it leaves you ${money(-diff)} less than the salary${inp.benefits ? ' and benefits' : ''}.`;
+      if (r.breakEvenRate !== null) s += ` To match the W-2 offer at ${inp.hours * inp.weeks} billable hours a year, you'd need ${money(r.breakEvenRate, 2)} an hour (${money(r.breakEvenGross)} a year).`;
+    }
+    $('summary').textContent = s;
+
+    $('compare').innerHTML = '<thead><tr><th></th><th class="num">W-2</th><th class="num">1099</th></tr></thead><tbody>' +
+      row('Gross pay', money(w.gross), money(c.gross)) +
+      row('Business expenses', money(0), '&minus;' + money(c.expenses)) +
+      row('Social Security and Medicare', '&minus;' + money(w.fica), '&minus;' + money(c.fica)) +
+      row('Federal income tax', '&minus;' + money(w.incomeTax), '&minus;' + money(c.incomeTax)) +
+      row('Take-home pay', money(w.takeHome), money(c.takeHome), true) +
+      row('Employer benefits', money(w.benefits), money(0)) +
+      row('Total value', money(w.value), money(c.value), true) +
+      row('Effective federal tax rate', (w.gross ? (w.fica + w.incomeTax) / w.gross * 100 : 0).toFixed(1) + '%', (c.gross ? (c.fica + c.incomeTax) / c.gross * 100 : 0).toFixed(1) + '%') +
+      '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
