@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emergency Fund Calculator: How Much You Need and How Long to Save</title>
+<meta name="description" content="Free emergency fund calculator. Add up your essential monthly costs, pick 3, 6, or more months of cover, and see your target, how long your savings last now, and when you'll be fully funded.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/emergency-fund-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Emergency Fund Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Emergency Fund Calculator</h1>
+  <p class="lede">An emergency fund covers the bills you can't skip if your income stops or a big surprise expense hits. Add up your essential monthly costs, choose how many months you want covered, and see your target, how long your savings would last today, and when you'll get there. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <h2 style="margin-top:0">Essential monthly costs</h2>
+    <div class="fields">
+      <div><label for="housing">Rent or mortgage ($)</label><input id="housing" type="number" min="0" step="10" value="1500" inputmode="decimal"></div>
+      <div><label for="utilities">Utilities and phone ($)</label><input id="utilities" type="number" min="0" step="10" value="250" inputmode="decimal"></div>
+      <div><label for="food">Groceries ($)</label><input id="food" type="number" min="0" step="10" value="500" inputmode="decimal"></div>
+      <div><label for="transport">Transportation: car payment, gas, transit ($)</label><input id="transport" type="number" min="0" step="10" value="350" inputmode="decimal"></div>
+      <div><label for="insurance">Insurance and health costs ($)</label><input id="insurance" type="number" min="0" step="10" value="300" inputmode="decimal"></div>
+      <div><label for="debt">Minimum debt payments ($)</label><input id="debt" type="number" min="0" step="10" value="200" inputmode="decimal"></div>
+      <div><label for="other">Other must-pays: childcare, support ($)</label><input id="other" type="number" min="0" step="10" value="150" inputmode="decimal"></div>
+    </div>
+    <h2>Your goal and savings</h2>
+    <div class="fields">
+      <div><label for="months">Months of cover</label>
+        <select id="months"><option value="1">1 month</option><option value="3">3 months</option><option value="6" selected>6 months</option><option value="9">9 months</option><option value="12">12 months</option></select></div>
+      <div><label for="saved">Emergency savings now ($)</label><input id="saved" type="number" min="0" step="10" value="2000" inputmode="decimal"></div>
+      <div><label for="deposit">I can save per month ($)</label><input id="deposit" type="number" min="0" step="10" value="400" inputmode="decimal"></div>
+      <div><label for="apy">Savings account interest (APY %)</label><input id="apy" type="number" min="0" max="30" step="0.01" value="4" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Count only what you'd still have to pay in a bad month: leave out eating out, subscriptions you'd cancel, and extra debt payments. Use 0% interest for cash or checking; savings rates change often, so check your bank's current APY.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your emergency fund</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>Milestones</h3>
+    <div class="table-scroll"><table id="milestones"></table></div>
+    <h3>Monthly saving needed to be fully funded in</h3>
+    <div class="table-scroll"><table id="targets"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Build the fund alongside your other savings goals</h3>
+    <p>The <a href="../sinking-funds-tracker/">Sinking Funds Tracker</a> spreadsheet for Excel tracks your emergency fund next to up to 29 other goals (car repairs, insurance, holidays) and shows how much each needs per month and when it'll be fully funded.</p>
+    <a class="btn" data-product="sinkingFunds">Get the tracker (<span data-price>$6</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How much should be in an emergency fund?</h2>
+    <p>The Consumer Financial Protection Bureau says the right amount depends on your situation, and suggests looking at the unexpected expenses you've actually had and what they cost. A common rule of thumb is <strong>3 to 6 months of essential expenses</strong>. Lean toward more if:</p>
+    <ul>
+      <li>you're self-employed, a freelancer, or paid on commission, so your income moves around;</li>
+      <li>your household depends on one income, or you support children or other family;</li>
+      <li>your job would take a long time to replace, or you have health costs that are hard to predict.</li>
+    </ul>
+    <p>Fewer months can be enough if two people have steady incomes and either could cover the essentials. If the full target feels far away, start with one month of essentials, or even a few hundred dollars: in the Federal Reserve's survey of 2024, 63% of adults said they would cover a $400 emergency expense with cash or its equivalent, which means more than a third couldn't.</p>
+
+    <h2>Typical targets</h2>
+    <p>Using the essential costs in this calculator's example ($3,250 a month):</p>
+    <div class="table-scroll"><table id="typical">
+      <thead><tr><th>Months of cover</th><th class="num">Target</th><th class="num">Time to save at $400/month from $2,000 (4% APY)</th></tr></thead>
+      <tbody>
+        <tr><td>1 month</td><td class="num">$3,250</td><td class="num">4 months</td></tr>
+        <tr><td>3 months</td><td class="num">$9,750</td><td class="num">1 yr 7 mo</td></tr>
+        <tr><td>6 months</td><td class="num">$19,500</td><td class="num">3 yrs 5 mo</td></tr>
+        <tr><td>12 months</td><td class="num">$39,000</td><td class="num">6 yrs 8 mo</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>How the calculator works</h2>
+    <p>Your target is your essential monthly costs times the months of cover. "How long your savings last" divides what you have now by those monthly costs. To find when you'll reach each milestone, the calculator adds your monthly deposit at the end of each month and compounds interest monthly from the APY, the same model as our <a href="../savings-goal-calculator/">savings goal calculator</a>.</p>
+
+    <h2>Where to keep it, and when to use it</h2>
+    <ul>
+      <li><strong>Somewhere separate and easy to reach.</strong> A savings account at a federally insured bank or credit union keeps the money safe, available within a day or two, and out of your everyday spending. Stocks are a poor fit: they can be down right when you need the money.</li>
+      <li><strong>Use it for real emergencies.</strong> Job loss, medical bills, urgent car or home repairs. Expenses you can see coming, like annual insurance premiums or holidays, are better handled with <a href="../sinking-funds-tracker/">sinking funds</a>, so they don't drain your safety net.</li>
+      <li><strong>Refill it after you use it.</strong> Put the monthly amount back on autopilot until you're back at your target.</li>
+      <li><strong>Have high-interest debt too?</strong> Many people build a small starter fund first so a surprise doesn't go on a credit card, then put extra money toward the debt. The <a href="../debt-payoff-calculator/">debt payoff calculator</a> shows how fast that goes.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Should the emergency fund cover my full income or just expenses?</summary><p>Just essential expenses. In an emergency you'd cut extras, and you don't need to replace money you'd normally save or invest. That's why this calculator asks for costs, not income.</p></details>
+    <details><summary>Is 6 months of expenses too much?</summary><p>Not if your income is irregular or your household relies on one paycheck. With two stable incomes, 3 months is a common target. The money isn't wasted either way: in a savings account it earns interest while it waits.</p></details>
+    <details><summary>Does unemployment insurance change how much I need?</summary><p>It can lower it, but benefits usually replace only part of your pay, take time to start, and don't cover everyone (self-employed people usually don't qualify). Plan with your own savings first.</p></details>
+    <p class="small muted">Sources: <a href="https://www.consumerfinance.gov/an-essential-guide-to-building-an-emergency-fund/">CFPB, An essential guide to building an emergency fund</a>; <a href="https://www.federalreserve.gov/publications/2025-economic-well-being-of-us-households-in-2024-executive-summary.htm">Federal Reserve, Economic Well-Being of U.S. Households in 2024</a> ($400 expense question). For education and planning, not financial advice. Last checked November 6, 2026.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../sinking-funds-tracker/">Sinking Funds Tracker</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../debt-to-income-ratio-calculator/">Debt-to-income calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/savings-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const S = window.SavingsEngine;
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const span = m => {
+    if (m === null) return 'not at this rate';
+    if (m === 0) return 'already there';
+    const y = Math.floor(m / 12), mo = m % 12;
+    if (!y) return `${mo} month${mo === 1 ? '' : 's'}`;
+    return `${y} yr${y === 1 ? '' : 's'}${mo ? ` ${mo} mo` : ''}`;
+  };
+  const when = m => {
+    if (m === null || m === 0) return '';
+    const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m);
+    return d.toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+  };
+  const ESSENTIALS = ['housing', 'utilities', 'food', 'transport', 'insurance', 'debt', 'other'];
+
+  function render() {
+    const monthly = ESSENTIALS.reduce((s, id) => s + num(id), 0);
+    const months = Number($('months').value), saved = num('saved'), deposit = num('deposit'), apy = num('apy');
+    if (monthly <= 0) {
+      $('stats').innerHTML = ''; $('milestones').innerHTML = ''; $('targets').innerHTML = '';
+      $('summary').textContent = 'Enter your essential monthly costs.';
+      return;
+    }
+    const target = monthly * months;
+    const reach = goal => S.project(goal, saved, apy, deposit).reachedAt;
+    const m = reach(target);
+    const lasts = saved / monthly;
+    $('stats').innerHTML = stat('Target', money(target), true) + stat('Essentials per month', money(monthly)) +
+      stat('Your savings last', `${lasts.toFixed(1)} months`) + stat('Fully funded in', span(m));
+    if (saved >= target) {
+      $('summary').textContent = `You already have ${money(saved)}, enough for ${lasts.toFixed(1)} months of essentials. Anything above ${money(target)} can go to other goals.`;
+    } else if (m === null) {
+      $('summary').textContent = `You need ${money(target - saved)} more to reach ${money(target)}. Enter how much you can save each month to see when you'll get there.`;
+    } else {
+      $('summary').textContent = `You need ${money(target - saved)} more. Saving ${money(deposit)} a month, you'll have ${months} month${months === 1 ? '' : 's'} of essentials (${money(target)}) in ${span(m)}, around ${when(m)}.`;
+    }
+    const steps = [...new Set([1, 3, 6, months])].sort((a, b) => a - b).filter(n => n <= months);
+    $('milestones').innerHTML = '<thead><tr><th>Cover</th><th class="num">Amount</th><th class="num">Reached in</th><th class="num">Around</th></tr></thead><tbody>' +
+      steps.map(n => { const r = reach(monthly * n); return `<tr><td>${n} month${n === 1 ? '' : 's'}</td><td class="num">${money(monthly * n)}</td><td class="num">${span(r)}</td><td class="num">${when(r)}</td></tr>`; }).join('') + '</tbody>';
+    $('targets').innerHTML = '<thead><tr><th>Time</th><th class="num">Per month</th></tr></thead><tbody>' +
+      [6, 12, 18, 24, 36].map(n => `<tr><td>${span(n)}</td><td class="num">${saved >= target ? '$0' : money(S.depositForMonths(target, saved, apy, n), 2)}</td></tr>`).join('') + '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
