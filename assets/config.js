@@ -5,6 +5,7 @@ window.SITE_PRODUCTS = {
   budgetKit: { url: 'https://jamccormick.gumroad.com/l/monthly-budget-kit', price: '$7' },
   sinkingFunds: { url: 'https://jamccormick.gumroad.com/l/sinking-funds-tracker', price: '$6' },
   bundle: { url: 'https://jamccormick.gumroad.com/l/money-sheets-bundle', price: '$15' },
+  taxTracker: { url: 'https://jamccormick.gumroad.com/l/freelancer-tax-tracker', price: '$12' },
 };
 
 // Cookieless page-view counting (GoatCounter: no cookies, no personal data). Empty = off.

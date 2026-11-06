@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelancer Tax Tracker: Estimated Tax + Schedule C Spreadsheet (Excel)</title>
+<meta name="description" content="A self-employed tax spreadsheet for Excel: log income and expenses by Schedule C line, get your quarterly estimated tax from the IRS 1040-ES worksheet, and track payments. 2026 and 2027.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/freelancer-tax-tracker/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Freelancer Tax Tracker spreadsheet</h1>
+  <p class="lede">Nobody withholds tax from freelance income, so you pay it yourself, four times a year. Log what you earn and spend, and this spreadsheet sorts your expenses into Schedule C lines, works out each quarterly payment with the IRS worksheet, and shows what you've paid against every due date.</p>
+  <p><a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a> <span class="small muted">&nbsp;Instant download &middot; Excel (.xlsx) &middot; tested in Excel &middot; no macros</span></p>
+
+  <section class="card">
+    <h2 style="margin-top:0">What's inside</h2>
+    <ul>
+      <li><strong>Income log:</strong> 1,000 rows for every payment you receive, with a 1099 flag so you can compare against the 1099-NEC and 1099-K forms you get in January.</li>
+      <li><strong>Expense log:</strong> 2,000 rows. Pick the Schedule C line from a dropdown that lists every expense line on the 2026 Schedule C, plus cost of goods sold and the home office. Enter business meals at full cost; the sheet counts the deductible 50%.</li>
+      <li><strong>Summary:</strong> income and expenses in Schedule C order, by estimated-tax period and for the year, down to net profit (line 31). Handy at tax time, whether you file yourself or hand it to a preparer.</li>
+      <li><strong>Estimate:</strong> the Form 1040-ES Estimated Tax Worksheet and Self-Employment Tax Worksheet, line by line. It covers self-employment tax and the Social Security wage base, the half-SE-tax deduction, the standard or itemized deduction, the QBI deduction, the brackets, and the 0.9% Additional Medicare Tax. Then it applies the safe harbor rules and the $1,000 rule to give your quarterly payment.</li>
+      <li><strong>Set aside per $1:</strong> the share of each payment you receive to move into savings for federal tax, worked out from your own numbers.</li>
+      <li><strong>Payments:</strong> the four due dates, what's required by each, what you've paid, and a status that turns red if you fall behind.</li>
+      <li><strong>Tax years 2026 and 2027</strong> for all four filing statuses, including W-2 wages from a job, a spouse's wages, and withholding. The numbers are on a Tax Tables tab with their IRS and SSA sources.</li>
+    </ul>
+    <p>The estimate uses the same math as our free <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a>. Before release, we checked the spreadsheet against it on hundreds of tax situations (both years, every filing status, W-2 wages, losses, high incomes), and every formula was recalculated in Excel with no differences.</p>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-top:0">Estimated tax periods aren't calendar quarters</h2>
+    <p>The IRS splits the year into four uneven periods, and the payment for each one is due a couple of weeks after it ends. The tracker totals your income and expenses by these periods, so you can see what each payment covers.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Payment</th><th>Income earned</th><th>Due (2026 tax year)</th><th>Due (2027 tax year)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Jan 1 &ndash; Mar 31</td><td>Apr 15, 2026</td><td>Apr 15, 2027</td></tr>
+        <tr><td>2</td><td>Apr 1 &ndash; May 31</td><td>Jun 15, 2026</td><td>Jun 15, 2027</td></tr>
+        <tr><td>3</td><td>Jun 1 &ndash; Aug 31</td><td>Sep 15, 2026</td><td>Sep 15, 2027</td></tr>
+        <tr><td>4</td><td>Sep 1 &ndash; Dec 31</td><td>Jan 15, 2027</td><td>Jan 18, 2028*</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">2026 dates from the 2026 Form 1040-ES. *Jan 15, 2028 is a Saturday and Jan 17 is Martin Luther King Jr. Day, so the payment moves to the next business day; we'll confirm it when the IRS publishes the 2027 Form 1040-ES.</p>
+    <p>You avoid the underpayment penalty if what you pay by each date adds up to at least a quarter of the <strong>required annual payment</strong>: the smaller of 90% of this year's tax or 100% of last year's (110% if last year's AGI was over $150,000). Using last year's tax is the simplest safe harbor, because it doesn't change when your income does. The tracker shows both and uses the smaller.</p>
+  </section>
+
+  <h2>FAQ</h2>
+  <details><summary>Who is it for?</summary><p>Freelancers, contractors, gig workers, and side businesses that file Schedule C, including people who also have a W-2 job. It's for federal tax; set aside state tax separately.</p></details>
+  <details><summary>What doesn't it cover?</summary><p>State and local tax, capital gains and qualified dividend rates, the Net Investment Income Tax, AMT, the annualized income installment method, and farmer/fisherman rules. The QBI deduction assumes you have no employees and no business property, which is true for most freelancers. If those apply to you, treat the numbers as a starting point and check with a tax professional.</p></details>
+  <details><summary>What if my income changes during the year?</summary><p>Update your expected profit on the Setup tab (or leave it blank and the tracker scales up the profit you've logged so far), and the quarterly amount updates. If you use last year's tax as your safe harbor, the required payment stays the same.</p></details>
+  <details><summary>Does it work in Google Sheets?</summary><p>It's made for Microsoft Excel and tested there. It uses standard functions (SUMIFS, INDEX, MATCH, and the like) that Google Sheets and LibreOffice also have, with no macros, so it should work there, but we haven't tested it in those yet.</p></details>
+  <details><summary>Is this tax advice?</summary><p>No. It's a record-keeping and planning tool that follows the published IRS worksheets. Your actual return may differ.</p></details>
+  <details><summary>What if it doesn't work for me?</summary><p>Contact us through the purchase receipt and we'll help, or refund you.</p></details>
+
+  <p><a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a></p>
+
+  <aside class="cta">
+    <h3>Just want a quick number?</h3>
+    <p>The free <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> gives you this year's payment in a minute, right in your browser. Saving up for the payments? The <a href="../sinking-funds-tracker/">Sinking Funds Tracker</a> can hold a tax fund next to your other upcoming bills.</p>
+  </aside>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+</body>
+</html>
