@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Employment Tax Calculator (2026 &amp; 2027): Schedule SE Made Simple</title>
+<meta name="description" content="Free self-employment tax calculator for freelancers, 1099 contractors, and side gigs. Enter your profit to see your 2026 or 2027 Social Security and Medicare tax, the half you can deduct, and how a W-2 job changes it.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/self-employment-tax-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Self-Employment Tax Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Self-Employment Tax Calculator</h1>
+  <p class="lede">Self-employment tax is the Social Security and Medicare tax you pay on freelance, 1099, and side-business profit. Enter your profit to see what you'll owe for 2026 or 2027, the half you get to deduct, and how a regular job changes the math. It follows the IRS Schedule SE and runs entirely in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="year">Tax year</label>
+        <select id="year"><option value="2026">2026</option><option value="2027">2027</option></select></div>
+      <div><label for="profit">Net self-employment profit ($)</label><input id="profit" type="number" step="100" value="50000" inputmode="decimal"></div>
+      <div><label for="wages">Your W-2 wages from a job ($)</label><input id="wages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="status">Filing status (for the 0.9% Medicare surtax)</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option><option value="hoh">Head of household</option></select></div>
+      <div id="spouseBox" class="hidden"><label for="spouseWages">Spouse's W-2 wages ($)</label><input id="spouseWages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Profit is what's left after business expenses (Schedule C line 31), not what clients paid you. Wages here means Social Security wages from your own W-2 (box 3). Married and you both have a business? Each spouse figures self-employment tax separately on their own profit.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your self-employment tax</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>How it's calculated (Schedule SE)</h3>
+    <div class="table-scroll"><table id="breakdown"></table></div>
+    <p class="small muted" id="medicareNote"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Self-employment tax is only part of the bill</h3>
+    <p>You also owe income tax on the same profit. The free <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> adds both together and tells you what to pay by each due date. To track it all year from your own records, the <a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a> spreadsheet for Excel sorts your expenses into Schedule C lines and updates your quarterly payment as you go.</p>
+    <a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How self-employment tax works</h2>
+    <p>Employees split Social Security and Medicare tax with their employer: 7.65% comes out of the paycheck and the employer pays another 7.65%. When you work for yourself, you pay both halves. The IRS calculates it on Schedule SE in four steps:</p>
+    <ol>
+      <li><strong>Take 92.35% of your net profit.</strong> This mirrors the fact that employees don't pay this tax on the employer's half. If the result is under $400, you owe no self-employment tax.</li>
+      <li><strong>Social Security: 12.4%</strong> of that amount, but only up to the year's wage base: <strong>$184,500 for 2026</strong> and <strong>$192,300 for 2027</strong>.</li>
+      <li><strong>Medicare: 2.9%</strong> of the whole amount, with no cap.</li>
+      <li><strong>Deduct half</strong> of the total on Schedule 1 when you figure your income tax. The deduction lowers your income tax, not the self-employment tax itself.</li>
+    </ol>
+    <p>For example, with $50,000 of profit in 2026: 92.35% is $46,175. Social Security is 12.4% of that, $5,726, and Medicare is 2.9%, $1,339. Self-employment tax is <strong>$7,065</strong>, about 14.1% of profit, and you deduct half of it, $3,532.</p>
+
+    <h2>If you also have a W-2 job</h2>
+    <p>Your W-2 wages count toward the Social Security wage base first. Once wages plus self-employment earnings pass the base, the 12.4% stops; the 2.9% Medicare part never does. So if you earned $170,000 in wages in 2026, only the first $14,500 of your self-employment earnings would get the 12.4% Social Security tax. If your wages are already over the base, you pay just the 2.9% Medicare part on your business profit.</p>
+
+    <h2>Self-employment tax at common profit levels (2026)</h2>
+    <div class="table-scroll"><table id="levels">
+      <thead><tr><th>Net profit</th><th class="num">Self-employment tax</th><th class="num">Deductible half</th><th class="num">Share of profit</th></tr></thead>
+      <tbody>
+        <tr><td>$10,000</td><td class="num">$1,413</td><td class="num">$706</td><td class="num">14.1%</td></tr>
+        <tr><td>$25,000</td><td class="num">$3,532</td><td class="num">$1,766</td><td class="num">14.1%</td></tr>
+        <tr><td>$50,000</td><td class="num">$7,065</td><td class="num">$3,532</td><td class="num">14.1%</td></tr>
+        <tr><td>$75,000</td><td class="num">$10,597</td><td class="num">$5,299</td><td class="num">14.1%</td></tr>
+        <tr><td>$100,000</td><td class="num">$14,130</td><td class="num">$7,065</td><td class="num">14.1%</td></tr>
+        <tr><td>$150,000</td><td class="num">$21,194</td><td class="num">$10,597</td><td class="num">14.1%</td></tr>
+        <tr><td>$200,000</td><td class="num">$28,234</td><td class="num">$14,117</td><td class="num">14.1%</td></tr>
+        <tr><td>$250,000</td><td class="num">$29,573</td><td class="num">$14,787</td><td class="num">11.8%</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">No W-2 wages. Above about $199,800 of profit the Social Security part stops growing, so the share falls. Very high earners also owe the 0.9% Additional Medicare Tax, which is figured separately on Form 8959 (single: $250,000 of profit adds $278).</p>
+
+    <h2>What this calculator doesn't cover</h2>
+    <ul>
+      <li><strong>Income tax.</strong> Use the <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> for the full federal picture, including the standard deduction and the 20% qualified business income deduction.</li>
+      <li><strong>The optional methods</strong> (farm and nonfarm), which let people with small or negative profits pay in a little to earn Social Security credits.</li>
+      <li><strong>Church employee income</strong>, clergy, and people with an approved exemption (Form 4361 or 4029).</li>
+      <li><strong>Tips and wages not on a W-2</strong> that are subject to Social Security (Forms 4137 and 8919), which also use up the wage base.</li>
+      <li><strong>State and local taxes.</strong> Most states tax your profit as income, and a few cities and transit districts have their own self-employment taxes. Check your state's rules.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Do I have to pay self-employment tax on a small side gig?</summary><p>Only if your net earnings from self-employment (92.35% of profit) are $400 or more, which means about $433 of profit. Below that you owe none, although you still report the income for income tax.</p></details>
+    <details><summary>Is self-employment tax 15.3% of everything I earn?</summary><p>No. It's 15.3% of 92.35% of your profit (income minus business expenses), which works out to about 14.1% of profit until you reach the Social Security wage base. Business expenses you track and deduct lower it directly.</p></details>
+    <details><summary>When do I pay it?</summary><p>Self-employment tax is part of the total tax on your Form 1040, so you pay it through quarterly estimated tax payments during the year, then settle up when you file. See the <a href="../quarterly-estimated-tax-calculator/">estimated tax calculator</a> for the amounts and due dates.</p></details>
+    <details><summary>Does a business loss give me a self-employment tax refund?</summary><p>No. A loss means no self-employment tax for that business, but it doesn't create a credit against it. If you have more than one business, profits and losses are combined first.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>Self-employment tax rates, the 92.35% factor, the $400 threshold, and the 2026 Social Security wage base ($184,500): <a href="https://www.irs.gov/pub/irs-pdf/f1040es.pdf">IRS Form 1040-ES (2026)</a>, Self-Employment Tax and Deduction Worksheet, and <a href="https://www.irs.gov/forms-pubs/about-schedule-se-form-1040">Schedule SE</a>.</li>
+      <li>2027 Social Security wage base ($192,300): <a href="https://www.ssa.gov/news/en/cola/factsheets/2027.html">SSA 2027 COLA fact sheet</a>.</li>
+      <li>Additional Medicare Tax (0.9% over $200,000 single and head of household, $250,000 joint, $125,000 separate): <a href="https://www.irs.gov/forms-pubs/about-form-8959">IRS Form 8959</a>.</li>
+      <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/self-employment-tax-social-security-and-medicare-taxes">IRS: Self-Employment Tax (Social Security and Medicare Taxes)</a>.</li>
+    </ul>
+    <p class="small muted">Last checked November 6, 2026. For education and planning only, not tax advice.</p>
+
+    <h2>Related calculators</h2>
+    <p>Saving up for tax bills? The <a href="../savings-goal-calculator/">savings goal calculator</a> shows how much to put away each month, and the <a href="../budget-calculator/">50/30/20 budget calculator</a> helps you plan around irregular income.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../loan-calculator/">Loan calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/tax-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.TaxEngine;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const pos = id => Math.max(0, parseFloat($(id).value) || 0);
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const row = (label, amount, strong) => `<tr${strong ? ' style="font-weight:700"' : ''}><td>${label}</td><td class="num">${amount}</td></tr>`;
+
+  function render() {
+    const year = Number($('year').value), status = $('status').value;
+    const profit = parseFloat($('profit').value) || 0, wages = pos('wages');
+    const spouseWages = status === 'mfj' ? pos('spouseWages') : 0;
+    $('spouseBox').classList.toggle('hidden', status !== 'mfj');
+    const base = E.YEARS[year].ssWageBase;
+    const se = E.seTax(profit, wages, year);
+    const threshold = E.ADDL_MEDICARE[status];
+    const addl = 0.009 * Math.max(0, wages + spouseWages + se.earnings - threshold);
+
+    $('stats').innerHTML = stat('Self-employment tax', money(se.tax, 2), true) +
+      stat('Social Security part', money(se.socialSecurity, 2)) +
+      stat('Medicare part', money(se.medicare, 2)) +
+      stat('Deductible half', money(se.deduction, 2));
+
+    let summary;
+    if (profit <= 0) summary = 'No self-employment tax: there is no profit to tax.';
+    else if (se.tax === 0) summary = `No self-employment tax: your net earnings (92.35% of profit, ${money(se.earnings, 2)}) are under $400. You still report the income for income tax.`;
+    else {
+      summary = `That's ${(se.tax / profit * 100).toFixed(1)}% of your profit. You'll deduct half of it (${money(se.deduction, 2)}) when figuring your income tax.`;
+      if (wages >= base) summary += ` Your wages already reach the ${year} Social Security wage base (${money(base)}), so you pay only the 2.9% Medicare part.`;
+      else if (wages + se.earnings > base) summary += ` Only ${money(base - wages)} of your self-employment earnings get the 12.4% Social Security tax, because wages plus earnings pass the ${year} wage base of ${money(base)}.`;
+    }
+    $('summary').textContent = summary;
+
+    $('breakdown').innerHTML = '<tbody>' +
+      row('Net profit (Schedule C line 31)', money(profit, 2)) +
+      row('Net earnings from self-employment (92.35%)', money(se.earnings, 2)) +
+      (wages ? row('W-2 Social Security wages', money(wages, 2)) : '') +
+      row(`Earnings subject to Social Security (wage base ${money(base)})`, money(se.tax ? Math.min(se.earnings, Math.max(0, base - wages)) : 0, 2)) +
+      row('Social Security tax (12.4%)', money(se.socialSecurity, 2)) +
+      row('Medicare tax (2.9%)', money(se.medicare, 2)) +
+      row('Self-employment tax (goes on Schedule 2)', money(se.tax, 2), true) +
+      row('Deduction for half (goes on Schedule 1)', money(se.deduction, 2)) +
+      '</tbody>';
+    $('medicareNote').textContent = addl > 0.005
+      ? `You'd also owe about ${money(addl, 2)} of Additional Medicare Tax (0.9% of wages plus self-employment earnings over ${money(threshold)}), figured on Form 8959. Any of it withheld from your paycheck counts toward this.`
+      : `No Additional Medicare Tax: wages plus self-employment earnings are under the ${money(threshold)} threshold for your filing status.`;
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
