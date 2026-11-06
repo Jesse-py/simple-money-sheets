@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debt-to-Income Ratio Calculator: Find Your DTI and What Lowers It</title>
+<meta name="description" content="Free debt-to-income (DTI) ratio calculator. Enter your gross income and monthly debt payments to see your total and housing DTI, how it compares with common mortgage limits, and which debt to pay off to lower it most.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/debt-to-income-ratio-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Debt-to-Income Ratio Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Debt-to-Income Ratio Calculator</h1>
+  <p class="lede">Your debt-to-income ratio (DTI) is your monthly debt payments divided by your gross monthly income. Lenders use it to decide how much more you can borrow, especially for a mortgage. Enter your numbers to see your DTI, how it compares with common limits, and which debt would lower it most if you paid it off. Nothing you type leaves your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="income">Gross income, before taxes ($)</label><input id="income" type="number" min="0" step="100" value="6000" inputmode="decimal"></div>
+      <div><label for="period">Income is per</label>
+        <select id="period"><option value="month">Month</option><option value="year">Year</option></select></div>
+    </div>
+    <h2>Monthly debt payments</h2>
+    <div class="fields">
+      <div><label for="housing">Rent or mortgage payment ($)</label><input id="housing" type="number" min="0" step="10" value="1500" inputmode="decimal"></div>
+      <div><label for="car">Car loans and leases ($)</label><input id="car" type="number" min="0" step="10" value="350" inputmode="decimal"></div>
+      <div><label for="student">Student loans ($)</label><input id="student" type="number" min="0" step="10" value="200" inputmode="decimal"></div>
+      <div><label for="cards">Credit card minimum payments ($)</label><input id="cards" type="number" min="0" step="10" value="150" inputmode="decimal"></div>
+      <div><label for="personal">Personal and other loans ($)</label><input id="personal" type="number" min="0" step="10" value="0" inputmode="decimal"></div>
+      <div><label for="support">Child support or alimony you pay ($)</label><input id="support" type="number" min="0" step="10" value="0" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">For a mortgage, the housing payment includes principal, interest, property tax, homeowners insurance, and HOA dues. Use the minimum payment for credit cards, not what you usually pay. Don't include utilities, groceries, phone bills, or insurance other than on the home: they aren't debts.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your debt-to-income ratio</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>Against common mortgage limits</h3>
+    <div class="table-scroll"><table id="limits"></table></div>
+    <h3>If you paid one debt off</h3>
+    <div class="table-scroll"><table id="payoff"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Lower your DTI by paying debts off in the right order</h3>
+    <p>The free <a href="../debt-payoff-calculator/">debt payoff calculator</a> shows your debt-free date with the snowball or avalanche method. To plan it and track every payment month by month, the <a href="../debt-payoff-planner/">Debt Payoff Planner</a> spreadsheet for Excel builds both schedules from your own debts.</p>
+    <a class="btn" data-product="debtPlanner">Get the planner (<span data-price>$9</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How to calculate your debt-to-income ratio</h2>
+    <ol>
+      <li>Add up the monthly payments on everything you owe: rent or mortgage, car loans, student loans, credit card minimums, personal loans, and court-ordered support.</li>
+      <li>Divide by your gross monthly income, which is your pay before taxes and other deductions.</li>
+      <li>Multiply by 100 to get a percentage.</li>
+    </ol>
+    <p>For example, with $6,000 a month of gross income, a $1,500 rent payment, a $350 car payment, a $200 student loan payment, and $150 of credit card minimums, debts total $2,200 a month. $2,200 &divide; $6,000 = <strong>36.7%</strong>. The housing payment alone is $1,500 &divide; $6,000 = 25.0%, which lenders call the front-end or housing ratio. The total is the back-end ratio, and it's the one most limits refer to.</p>
+
+    <h2>What's a good debt-to-income ratio?</h2>
+    <p>There's no single cutoff; each loan program and lender sets its own. For conventional mortgages sold to Fannie Mae, the Selling Guide sets these maximums on the total ratio:</p>
+    <ul>
+      <li><strong>36%</strong> for a loan underwritten by hand.</li>
+      <li><strong>45%</strong> for a hand-underwritten loan if the borrower meets the credit score and cash reserve requirements.</li>
+      <li><strong>50%</strong> for a loan approved through Fannie Mae's automated system, Desktop Underwriter.</li>
+    </ul>
+    <p>Being under a maximum doesn't guarantee approval: lenders also look at credit history, savings, and the loan itself. And a ratio a lender will accept can still be a tight budget. If over a third of your gross pay goes to debt, taxes and living costs leave little room for savings.</p>
+
+    <h2>How to lower your DTI</h2>
+    <ul>
+      <li><strong>Pay off a small balance with a high payment.</strong> Removing a whole payment lowers DTI more than paying down part of a big loan. The "if you paid one debt off" table above shows the effect of each.</li>
+      <li><strong>Pay down credit cards.</strong> Card minimums shrink as the balance does, so paying them down lowers DTI even before they're gone.</li>
+      <li><strong>Don't take on new payments</strong> before a mortgage application, such as a car loan or a store card.</li>
+      <li><strong>Count all your income.</strong> If you have steady income you can document, such as a second job or self-employment income, ask the lender how they count it.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Is DTI based on gross or take-home pay?</summary><p>Gross: income before taxes and other deductions, as defined by the Consumer Financial Protection Bureau. That's why a DTI that looks fine can still feel tight in your budget.</p></details>
+    <details><summary>Do utilities, phone bills, or subscriptions count?</summary><p>No. DTI counts debts and debt-like obligations such as loans, leases, credit card minimums, and court-ordered support. Living expenses aren't included.</p></details>
+    <details><summary>What if a loan has only a few payments left?</summary><p>Fannie Mae's guide leaves out installment loans with ten or fewer monthly payments remaining unless they significantly affect your ability to pay. Leases count no matter how many months are left.</p></details>
+    <details><summary>My credit report shows no payment on a card or a deferred student loan. What do lenders use?</summary><p>Under Fannie Mae's rules, 5% of a card's balance if no minimum payment is reported, and for a deferred or forborne student loan, 1% of the balance or a payment based on the loan's documented terms.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>Definition (monthly debt payments divided by gross monthly income): <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-debt-to-income-ratio-en-1791/">CFPB: What is a debt-to-income ratio?</a></li>
+      <li>36% / 45% / 50% maximums: <a href="https://selling-guide.fanniemae.com/sel/b3-6-02/debt-income-ratios">Fannie Mae Selling Guide B3-6-02, Debt-to-Income Ratios</a>.</li>
+      <li>Which debts count, the ten-payment rule, the 5% card rule, and the 1% student loan rule: <a href="https://selling-guide.fanniemae.com/sel/b3-6-05/monthly-debt-obligations">Fannie Mae Selling Guide B3-6-05, Monthly Debt Obligations</a>.</li>
+    </ul>
+    <p class="small muted">Last checked November 6, 2026. For education and planning only. FHA, VA, USDA, and other lenders have their own limits.</p>
+
+    <h2>Related calculators</h2>
+    <p>See how fast one card can be paid off with the <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a>, or what extra payments save on a car or student loan with the <a href="../loan-calculator/">loan calculator</a>. The <a href="../budget-calculator/">50/30/20 budget calculator</a> helps you find money to put toward debt.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../loan-calculator/">Loan calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const pct = x => (x * 100).toFixed(1) + '%';
+  const pos = id => Math.max(0, parseFloat($(id).value) || 0);
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const DEBTS = [['housing', 'Rent or mortgage'], ['car', 'Car loans and leases'], ['student', 'Student loans'],
+    ['cards', 'Credit card minimums'], ['personal', 'Personal and other loans'], ['support', 'Child support or alimony']];
+  const LIMITS = [[0.36, 'Fannie Mae, manually underwritten'], [0.45, 'Fannie Mae, manual with credit score and reserves'],
+    [0.50, 'Fannie Mae, Desktop Underwriter']];
+
+  function render() {
+    const income = pos('income') / ($('period').value === 'year' ? 12 : 1);
+    const pay = DEBTS.map(([id, label]) => ({ id, label, amount: pos(id) }));
+    const total = pay.reduce((s, d) => s + d.amount, 0);
+    const housing = pay[0].amount;
+    if (income <= 0) {
+      $('stats').innerHTML = stat('Debt-to-income ratio', 'n/a') + stat('Monthly debt payments', money(total));
+      $('summary').textContent = 'Enter your gross income to see your ratio.';
+      $('limits').innerHTML = ''; $('payoff').innerHTML = '';
+      return;
+    }
+    const dti = total / income;
+    $('stats').innerHTML = stat('Debt-to-income ratio', pct(dti), dti <= 0.36) +
+      stat('Housing ratio', pct(housing / income)) +
+      stat('Monthly debt payments', money(total)) +
+      stat('Gross monthly income', money(income));
+
+    let s = `${money(total)} of debt payments on ${money(income)} a month of gross income is ${pct(dti)}.`;
+    if (dti <= 0.36) s += ' That is at or under 36%, the tightest of the common limits below.';
+    else if (dti <= 0.50) s += ` That's over 36%; bringing it down to 36% means cutting ${money(total - 0.36 * income)} a month of payments or earning ${money(total / 0.36 - income)} more a month.`;
+    else s += ` That's over 50%, the highest common limit for a conventional mortgage. Getting to 50% means cutting ${money(total - 0.5 * income)} a month of payments.`;
+    $('summary').textContent = s;
+
+    $('limits').innerHTML = '<thead><tr><th>Maximum DTI</th><th>Where it applies</th><th class="num">Room left per month</th></tr></thead><tbody>' +
+      LIMITS.map(([lim, label]) => {
+        const room = lim * income - total;
+        return `<tr><td>${(lim * 100).toFixed(0)}%</td><td>${label}</td><td class="num">${room >= 0 ? money(room) : 'over by ' + money(-room)}</td></tr>`;
+      }).join('') + '</tbody>';
+
+    const rows = pay.slice(1).filter(d => d.amount > 0).sort((a, b) => b.amount - a.amount);
+    $('payoff').innerHTML = rows.length
+      ? '<thead><tr><th>Debt paid off</th><th class="num">Payment freed</th><th class="num">New DTI</th></tr></thead><tbody>' +
+        rows.map(d => `<tr><td>${d.label}</td><td class="num">${money(d.amount)}</td><td class="num">${pct((total - d.amount) / income)}</td></tr>`).join('') + '</tbody>'
+      : '<tbody><tr><td>No debts other than housing entered.</td></tr></tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
