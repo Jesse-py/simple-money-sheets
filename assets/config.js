@@ -8,7 +8,7 @@ window.SITE_PRODUCTS = {
 };
 
 // Cookieless page-view counting (GoatCounter: no cookies, no personal data). Empty = off.
-window.SITE_ANALYTICS = { goatcounter: '' };
+window.SITE_ANALYTICS = { goatcounter: 'simplemoneysheets' };
 (function () {
   const code = window.SITE_ANALYTICS.goatcounter;
   if (!code || !/\.github\.io$/.test(location.hostname)) return;
