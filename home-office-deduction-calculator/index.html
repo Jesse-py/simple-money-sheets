@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Office Deduction Calculator: Simplified vs Regular Method (2026)</title>
+<meta name="description" content="Free home office deduction calculator for the self-employed. Compares the IRS simplified method ($5 per square foot, up to 300) with the regular method (Form 8829) and estimates the 2026 tax each saves.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/home-office-deduction-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Home Office Deduction Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Home Office Deduction Calculator</h1>
+  <p class="lede">If you're self-employed and use part of your home only for your business, you can deduct it on Schedule C in one of two ways: the simplified method ($5 per square foot, up to 300 square feet) or the regular method (your actual home costs times the share of your home the office takes up). This calculator works out both, tells you which is bigger, and estimates how much 2026 federal tax it saves. Everything runs in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="tenure">Do you rent or own?</label>
+        <select id="tenure"><option value="own">I own my home</option><option value="rent">I rent</option></select></div>
+      <div><label for="office">Office size (square feet)</label><input id="office" type="number" min="0" step="10" value="200" inputmode="numeric"></div>
+      <div><label for="home">Whole home size (square feet)</label><input id="home" type="number" min="0" step="50" value="1600" inputmode="numeric"></div>
+      <div><label for="months">Months you used the office in 2026</label>
+        <select id="months"><option>12</option><option>11</option><option>10</option><option>9</option><option>8</option><option>7</option><option>6</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+      <div class="rentOnly hidden"><label for="rent">Rent paid ($ for those months)</label><input id="rent" type="number" min="0" step="100" value="18000" inputmode="decimal"></div>
+      <div class="ownOnly"><label for="mortgage">Mortgage interest ($)</label><input id="mortgage" type="number" min="0" step="100" value="9000" inputmode="decimal"></div>
+      <div class="ownOnly"><label for="taxes">Property taxes ($)</label><input id="taxes" type="number" min="0" step="100" value="3600" inputmode="decimal"></div>
+      <div><label for="insurance">Home or renters insurance ($)</label><input id="insurance" type="number" min="0" step="50" value="1500" inputmode="decimal"></div>
+      <div><label for="utilities">Utilities: power, gas, water, trash ($)</label><input id="utilities" type="number" min="0" step="50" value="3600" inputmode="decimal"></div>
+      <div><label for="repairs">Repairs and upkeep for the whole home ($)</label><input id="repairs" type="number" min="0" step="50" value="800" inputmode="decimal"></div>
+      <div><label for="other">Other whole-home costs, e.g. HOA, security ($)</label><input id="other" type="number" min="0" step="50" value="0" inputmode="decimal"></div>
+      <div><label for="direct">Costs for the office only, e.g. painting it ($)</label><input id="direct" type="number" min="0" step="50" value="0" inputmode="decimal"></div>
+      <div class="ownOnly"><label for="basis">Home's value excluding land ($)</label><input id="basis" type="number" min="0" step="1000" value="240000" inputmode="decimal"></div>
+      <div class="ownOnly"><label for="firstMonth">Started using the office</label>
+        <select id="firstMonth"><option value="0">Before 2026</option><option value="1">January 2026</option><option value="2">February 2026</option><option value="3">March 2026</option><option value="4">April 2026</option><option value="5">May 2026</option><option value="6">June 2026</option><option value="7">July 2026</option><option value="8">August 2026</option><option value="9">September 2026</option><option value="10">October 2026</option><option value="11">November 2026</option><option value="12">December 2026</option></select></div>
+      <div><label for="profit">Business profit before this deduction ($)</label><input id="profit" type="number" min="0" step="100" value="60000" inputmode="decimal"></div>
+      <div><label for="status">Filing status</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option><option value="hoh">Head of household</option></select></div>
+      <div id="spouseBox" class="hidden"><label for="spouseWages">Spouse's W-2 wages ($)</label><input id="spouseWages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Enter yearly amounts, or only the months you used the office if you started or stopped partway through 2026. "Home's value excluding land" is the smaller of what you paid plus improvements or what the house was worth when you started using the office, without the land (your property tax bill usually splits land and building). Profit is Schedule C line 29: business income minus your other business expenses. The tax estimate assumes the standard deduction.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your 2026 home office deduction</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <div class="table-scroll"><table id="compare"></table></div>
+    <p id="note" class="small muted"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Put the deduction to work in your quarterly taxes</h3>
+    <p>The <a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a> spreadsheet for Excel logs your income and expenses by Schedule C line (the home office goes on line 30) and updates your quarterly estimated tax payment as you go.</p>
+    <a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a>
+  </aside>
+
+  <article>
+    <h2>Simplified method vs regular method</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th></th><th>Simplified method</th><th>Regular method (Form 8829)</th></tr></thead>
+      <tbody>
+        <tr><td>Deduction</td><td>$5 &times; office square feet, up to 300 sq ft ($1,500 max)</td><td>Office's share of rent or mortgage interest, property tax, insurance, utilities, and repairs, plus depreciation if you own</td></tr>
+        <tr><td>Records</td><td>Office size and months used</td><td>Receipts and bills for every home expense</td></tr>
+        <tr><td>Mortgage interest and property tax</td><td>Stay on Schedule A in full if you itemize</td><td>Business share moves to Schedule C</td></tr>
+        <tr><td>Depreciation</td><td>None, and nothing to recapture when you sell</td><td>Yes (39-year schedule); that part of a later gain can't be excluded</td></tr>
+        <tr><td>If it's more than your profit</td><td>The extra is lost</td><td>The extra carries over to next year</td></tr>
+      </tbody>
+    </table></div>
+    <p>You pick a method each year on your return, and you can switch from one year to the next.</p>
+
+    <h2>Quick rule: which method is bigger?</h2>
+    <p>With the regular method, your deduction is the office's share of your whole home's yearly costs. With the simplified method, it's $5 for each square foot of office. So, for an office of up to 300 square feet, the regular method wins whenever your home costs more than <strong>$5 per square foot per year</strong> to run, counting rent or mortgage interest, property tax, insurance, utilities, repairs, and depreciation. For a 1,600 square foot home, that's $8,000 a year.</p>
+    <p>Most renters clear that easily, because rent alone is usually several times $5 per square foot. Homeowners with a small or paid-off mortgage may not, and for them the simplified method can be close or better, with far less paperwork.</p>
+
+    <h2>Example: renting a 1,000 square foot apartment</h2>
+    <p>A 120 square foot office is 12% of the apartment. With $150 a month of utilities, here's the deduction each way for a full year:</p>
+    <div class="table-scroll"><table id="rentTable">
+      <thead><tr><th class="num">Monthly rent</th><th class="num">Regular method</th><th class="num">Simplified method</th></tr></thead>
+      <tbody>
+        <tr><td class="num">$1,000</td><td class="num">$1,656</td><td class="num">$600</td></tr>
+        <tr><td class="num">$1,500</td><td class="num">$2,376</td><td class="num">$600</td></tr>
+        <tr><td class="num">$2,000</td><td class="num">$3,096</td><td class="num">$600</td></tr>
+        <tr><td class="num">$2,500</td><td class="num">$3,816</td><td class="num">$600</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Example: the calculator's default homeowner</h2>
+    <p>A 200 square foot office in a 1,600 square foot home is 12.5%. Whole-home costs of $18,500 (mortgage interest $9,000, property tax $3,600, insurance $1,500, utilities $3,600, repairs $800) give $2,312.50. Depreciation on a $240,000 building (no land) is 12.5% &times; $240,000 &times; 2.564% = $769.20. The regular method totals $3,081.70, against $1,000 for the simplified method. For a single filer with $60,000 of profit, $3,081.70 saves about $710 of 2026 federal tax: $435 of self-employment tax and $275 of income tax.</p>
+
+    <h2>Who can claim it</h2>
+    <ul>
+      <li><strong>Exclusive and regular use.</strong> The space has to be used only for your business, and regularly. A guest room you also work in, or the kitchen table, doesn't count. Storage of inventory or samples and licensed daycare are the exceptions (see Pub 587).</li>
+      <li><strong>Principal place of business, or where you meet clients.</strong> Your home qualifies if you do your administrative and management work there (billing, bookkeeping, ordering) and have no other fixed location where you do much of it, even if your actual work happens elsewhere. A separate structure like a studio or detached garage used only for the business also qualifies.</li>
+      <li><strong>Self-employed, not employees.</strong> The Form 8829 instructions say employees can't deduct expenses for business use of their home on their personal return, even if they work from home every day. This calculator is for Schedule C filers.</li>
+      <li><strong>Limited to your profit.</strong> The deduction can't be more than your business profit before it (gross income from the business minus your other business expenses). With the regular method, expenses over the limit carry forward to next year, depreciation last.</li>
+    </ul>
+
+    <h2>How the calculator works</h2>
+    <p><strong>Simplified:</strong> $5 times the office area, capped at 300 square feet, times the months you used it divided by 12 (Pub 587 says to average the allowable square footage by month, and a month counts only if you used the office at least 15 days in it), then capped at your profit.</p>
+    <p><strong>Regular:</strong> business percentage = office area &divide; home area. Whole-home costs are multiplied by that percentage; office-only costs count in full. Depreciation is the business share of the building's value times 2.564% for a full year (Pub 946, years 2 to 39) or the first-year percentage from Pub 587 Table 2 for the month you started (2.461% for January down to 0.107% for December). Then the Form 8829 limit applies, with depreciation allowed last. If you take the standard deduction, mortgage interest and property tax are counted with the other expenses, as the Form 8829 instructions direct. If you itemize, the regular method moves their business share off Schedule A, so the income tax saved is smaller than shown here; the self-employment tax saved is the same.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>What is the simplified home office deduction?</summary><p>$5 per square foot of the area you use for business, up to 300 square feet, so at most $1,500 for a full year. The rate hasn't changed since the IRS created the method in 2013 (Rev. Proc. 2013-13).</p></details>
+    <details><summary>Can I take the home office deduction as a W-2 employee working from home?</summary><p>No. The Form 8829 instructions say expenses for business use of your home as an employee can't be deducted on your personal return. If you also have self-employment income and a space used only for that business, you can deduct it against that business.</p></details>
+    <details><summary>Does the home office deduction lower self-employment tax?</summary><p>Yes. It goes on Schedule C line 30 and reduces your net profit, which is what self-employment tax is figured on. While your profit is under the Social Security wage base, each $1,000 of deduction saves about $141 of self-employment tax, plus income tax at your bracket rate.</p></details>
+    <details><summary>Can I use the simplified method one year and the regular method the next?</summary><p>Yes, you choose each year. If you go back to the regular method after a simplified year, depreciation is figured with the optional MACRS tables in Pub 946, and this calculator's depreciation won't match exactly.</p></details>
+    <details><summary>What happens when I sell my home?</summary><p>For an office inside your home, you don't have to split the sale between home and business, but you can't exclude the part of your gain equal to depreciation allowed or allowable after May 6, 1997. Years you use the simplified method have no depreciation, so there's nothing to recapture for them.</p></details>
+    <p class="small muted">Sources: <a href="https://www.irs.gov/publications/p587">IRS Publication 587 (2025), Business Use of Your Home</a>, <a href="https://www.irs.gov/instructions/i8829">Instructions for Form 8829 (2025)</a>, <a href="https://www.irs.gov/businesses/small-businesses-self-employed/simplified-option-for-home-office-deduction">IRS simplified option for home office deduction</a> (Rev. Proc. 2013-13), <a href="https://www.irs.gov/publications/p946">Pub 946</a> Table A-7a; 2026 tax figures from Rev. Proc. 2025-32 and the 2026 Form 1040-ES. Federal estimate only; state tax is not included. Doesn't cover daycare use that isn't exclusive, more than one home, or rental use. For education and planning, not tax advice. Last checked November 6, 2026.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../self-employment-tax-calculator/">Self-employment tax calculator</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../mileage-deduction-calculator/">Mileage deduction calculator</a><a href="../1099-vs-w2-calculator/">1099 vs W-2 calculator</a><a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/tax-engine.js"></script>
+<script src="../assets/home-office.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const H = window.HomeOffice;
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const own = $('tenure').value === 'own', status = $('status').value;
+    document.querySelectorAll('.ownOnly').forEach(el => el.classList.toggle('hidden', !own));
+    document.querySelectorAll('.rentOnly').forEach(el => el.classList.toggle('hidden', own));
+    $('spouseBox').classList.toggle('hidden', status !== 'mfj');
+    const office = num('office'), home = num('home'), profit = num('profit'), months = num('months');
+    $('note').textContent = '';
+    if (office <= 0 || home <= 0) {
+      $('stats').innerHTML = ''; $('compare').innerHTML = '';
+      $('summary').textContent = 'Enter the size of your office and your whole home.';
+      return;
+    }
+    if (office > home) {
+      $('stats').innerHTML = ''; $('compare').innerHTML = '';
+      $('summary').textContent = "The office can't be bigger than the whole home. Check the two sizes.";
+      return;
+    }
+    const s = H.simplified({ officeSqft: office, months, limit: profit });
+    const r = H.regular({
+      officeSqft: office, homeSqft: home, limit: profit, direct: num('direct'),
+      indirect: own
+        ? { mortgage: num('mortgage'), taxes: num('taxes'), insurance: num('insurance'), utilities: num('utilities'), repairs: num('repairs'), other: num('other') }
+        : { rent: num('rent'), insurance: num('insurance'), utilities: num('utilities'), repairs: num('repairs'), other: num('other') },
+      buildingBasis: own ? num('basis') : 0, firstMonth: own ? Number($('firstMonth').value) : 0,
+    });
+    const best = r.allowed > s.allowed ? 'regular' : 'simplified';
+    const top = Math.max(r.allowed, s.allowed);
+    const saved = H.taxSaved(2026, status, profit, top, status === 'mfj' ? num('spouseWages') : 0);
+    $('stats').innerHTML = stat('Bigger deduction', best === 'regular' ? 'Regular method' : 'Simplified method', true) +
+      stat('Simplified method', money(s.allowed, 2)) + stat('Regular method', money(r.allowed, 2)) +
+      (profit > 0 ? stat('Federal tax saved (about)', money(saved.total)) : '');
+    const diff = Math.abs(r.allowed - s.allowed);
+    if (profit <= 0) {
+      $('summary').textContent = 'With no profit, neither method gives you a deduction this year (it can’t be more than your profit). Enter your business profit before the home office deduction.';
+    } else if (diff < 0.005) {
+      $('summary').textContent = `Both methods give ${money(top, 2)}. The simplified method needs far fewer records.`;
+    } else {
+      $('summary').textContent = `The ${best} method gives ${money(diff, 2)} more. Deducting ${money(top, 2)} saves about ${money(saved.total)} of 2026 federal tax: ${money(saved.se)} of self-employment tax and ${money(saved.income)} of income tax.`;
+    }
+    const pct = (r.pct * 100).toFixed(2).replace(/\.?0+$/, '');
+    $('compare').innerHTML = '<thead><tr><th>Item</th><th class="num">Simplified</th><th class="num">Regular</th></tr></thead><tbody>' +
+      `<tr><td>Area used</td><td class="num">${(+s.area.toFixed(1)).toLocaleString()} sq ft avg.</td><td class="num">${pct}% of home</td></tr>` +
+      `<tr><td>Home expenses</td><td class="num">${money(s.tentative, 2)}</td><td class="num">${money(r.operating, 2)}</td></tr>` +
+      `<tr><td>Depreciation</td><td class="num">none</td><td class="num">${money(r.depreciation, 2)}</td></tr>` +
+      `<tr><th>Deduction (after profit limit)</th><th class="num">${money(s.allowed, 2)}</th><th class="num">${money(r.allowed, 2)}</th></tr></tbody>`;
+    const notes = [];
+    if (s.lost > 0) notes.push(`Your profit limits the simplified method to ${money(s.allowed, 2)}; the other ${money(s.lost, 2)} is lost.`);
+    if (r.carryover > 0) notes.push(`With the regular method, ${money(r.carryover, 2)} is over your profit limit and carries over to next year.`);
+    if (own && r.depreciation > 0 && best === 'regular') notes.push('Depreciation you are allowed to take reduces the gain you can exclude when you sell the home, whether or not you claim it.');
+    if (office > 300) notes.push('The simplified method only counts 300 square feet.');
+    $('note').textContent = notes.join(' ');
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
