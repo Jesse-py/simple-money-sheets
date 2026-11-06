@@ -3,6 +3,7 @@
 window.SITE_PRODUCTS = {
   debtPlanner: { url: 'https://jamccormick.gumroad.com/l/debt-payoff-planner', price: '$9' },
   budgetKit: { url: 'https://jamccormick.gumroad.com/l/monthly-budget-kit', price: '$7' },
+  sinkingFunds: { url: 'https://jamccormick.gumroad.com/l/sinking-funds-tracker', price: '$6' },
 };
 
 document.addEventListener('DOMContentLoaded', () => {

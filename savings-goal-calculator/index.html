@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Savings Goal Calculator: How Much to Save Each Month</title>
+<meta name="description" content="Free savings goal calculator. Find out how much to save each month (or each paycheck) to reach a goal by a date, or how long it takes at the amount you can save, including interest.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/savings-goal-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Savings Goal Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Savings Goal Calculator</h1>
+  <p class="lede">Work out how much to set aside each month to reach a savings goal by a certain date, or how long it will take at the amount you can save now. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="goal">Savings goal ($)</label><input id="goal" type="number" min="0" step="1" value="10000" inputmode="decimal"></div>
+      <div><label for="start">Already saved ($)</label><input id="start" type="number" min="0" step="1" value="1000" inputmode="decimal"></div>
+      <div><label for="apy">Interest rate (APY %)</label><input id="apy" type="number" min="0" max="30" step="0.01" value="4" inputmode="decimal"></div>
+      <div><label for="mode">I want to</label>
+        <select id="mode"><option value="months">Reach my goal in a set time</option><option value="deposit">Save a fixed amount each month</option></select></div>
+      <div id="months-wrap"><label for="months">Reach it in (months)</label><input id="months" type="number" min="1" max="600" step="1" value="24" inputmode="numeric"></div>
+      <div id="deposit-wrap" class="hidden"><label for="deposit">I can save per month ($)</label><input id="deposit" type="number" min="0" step="1" value="300" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Use 0% for cash or a checking account. Savings account rates change often, so check your bank's current APY.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your savings plan</h2>
+    <div id="warning" class="note hidden"></div>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>Monthly saving needed to reach your goal in</h3>
+    <div class="table-scroll"><table id="targets"></table></div>
+    <h3>Month-by-month growth</h3>
+    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Saving for several things at once?</h3>
+    <p>Car insurance, holidays, a vacation, the next car repair: the <a href="../sinking-funds-tracker/">Sinking Funds Tracker</a> spreadsheet for Excel and Google Sheets works this out for up to 30 goals at once. It shows how much each one needs per month, whether you're on track, and the month each will be fully funded.</p>
+    <a class="btn" data-product="sinkingFunds">Get the tracker (<span data-price>$6</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How the calculator works</h2>
+    <p>Each month, your balance earns interest and then your deposit is added. Interest is entered as APY (annual percentage yield), the rate banks advertise for savings accounts, and it compounds monthly. For example, $1,000 already saved plus $357.80 a month at 4% APY reaches $10,000 in 24 months: you deposit $8,587 on top of the $1,000 you started with, and earn about $413 in interest.</p>
+    <p>With a set time, the calculator finds the monthly deposit that lands exactly on your goal. With a fixed deposit, it counts the months until your balance reaches the goal.</p>
+
+    <h2>Setting a savings goal you'll actually hit</h2>
+    <ul>
+      <li><strong>Price it out.</strong> Look up the real cost: the insurance premium, flight prices, the laptop you want. A specific number is easier to save for than "some money for a trip."</li>
+      <li><strong>Pick a date.</strong> A deadline turns a goal into a monthly amount. If that amount doesn't fit your budget, move the date or lower the goal now, not halfway through.</li>
+      <li><strong>Automate it.</strong> Schedule a transfer to savings for the day after payday. Paid every two weeks? Divide the monthly amount by 2.17 (that's 26 paychecks &divide; 12 months), shown above as "per paycheck."</li>
+      <li><strong>Make room in your budget.</strong> The <a href="../budget-calculator/">50/30/20 budget calculator</a> shows how much of your take-home pay could go to savings each month.</li>
+    </ul>
+
+    <h2>Sinking funds: saving for costs you know are coming</h2>
+    <p>A sinking fund is a savings goal for an expense you can see coming, even if it's months away: a six-month car insurance premium, holiday gifts, annual subscriptions, back-to-school costs. Divide the cost by the months until it's due and save that much each month. When the bill arrives, the money is already there, so it doesn't end up on a credit card. Most people keep all their sinking funds in one savings account and track how much of the balance belongs to each.</p>
+    <p>Already carrying a balance? It often makes sense to keep a small emergency fund while you pay down high-interest debt. The <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a> shows what each extra dollar saves in interest.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>Should I include interest?</summary><p>If the money sits in a savings account that pays interest, yes. For short goals (under a year) interest makes little difference, so the result is close to goal &divide; months either way. Over several years it adds up.</p></details>
+    <details><summary>Is APY the same as APR or interest rate?</summary><p>APY includes compounding, so it's the rate you actually earn in a year. If your bank shows only a nominal rate compounded monthly, the APY is slightly higher; entering the nominal rate gives a slightly conservative result.</p></details>
+    <details><summary>What about taxes and inflation?</summary><p>They aren't included. Interest on a savings account is usually taxable, and prices can rise while you save. For long goals, consider padding your target a little.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+    <p class="small muted">For education and planning only. This isn't financial advice. Results are estimates; your bank's actual interest may differ.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/savings-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.SavingsEngine;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const span = m => {
+    const y = Math.floor(m / 12), mo = m % 12;
+    return [y ? `${y} yr${y > 1 ? 's' : ''}` : '', mo ? `${mo} mo` : ''].filter(Boolean).join(' ') || '0 mo';
+  };
+  const dateAfter = m => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d.toLocaleDateString(undefined, { month: 'short', year: 'numeric' }); };
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const goal = num('goal'), start = num('start'), apy = Math.min(30, num('apy'));
+    const byMonths = $('mode').value === 'months';
+    $('months-wrap').classList.toggle('hidden', !byMonths);
+    $('deposit-wrap').classList.toggle('hidden', byMonths);
+    const n = Math.min(600, Math.max(1, Math.round(num('months')) || 1));
+    const warn = $('warning');
+    warn.classList.add('hidden');
+    $('targets').innerHTML = ''; $('schedule').innerHTML = '';
+    if (goal <= 0) {
+      $('stats').innerHTML = ''; $('summary').textContent = 'Enter your savings goal to get started.';
+      return;
+    }
+    if (start >= goal) {
+      $('stats').innerHTML = stat('Goal reached', 'Already there', true);
+      $('summary').textContent = `You've already saved ${money(start)}, which covers your ${money(goal)} goal.`;
+      return;
+    }
+    const deposit = byMonths ? E.depositForMonths(goal, start, apy, n) : num('deposit');
+    const p = byMonths ? E.project(goal, start, apy, deposit, n) : E.project(goal, start, apy, deposit);
+    const reached = p.reachedAt !== null;
+    if (!reached) {
+      warn.textContent = deposit <= 0 && apy <= 0
+        ? 'With no monthly saving and no interest, your balance stays the same. Enter an amount you can save each month.'
+        : `At ${money(deposit)} a month this would take more than ${E.MAX_MONTHS / 12} years. Try a larger amount.`;
+      warn.classList.remove('hidden');
+    }
+    const months = byMonths ? n : p.reachedAt;
+    $('stats').innerHTML = (byMonths ? stat('Save each month', money(deposit, 2), true) : stat('Goal reached in', reached ? span(months) : 'Over 100 yrs', true)) +
+      (reached ? stat('Goal date', dateAfter(months)) : '') +
+      stat('Per paycheck (every 2 weeks)', money(deposit * 12 / 26, 2)) +
+      (reached ? stat('Interest earned', money(p.interest)) : '');
+    $('summary').textContent = !reached ? '' :
+      `You'll put in ${money(start + p.deposits)} of your own money (${money(start)} already saved plus ${money(p.deposits)} in deposits) and earn ${money(p.interest)} in interest, for a balance of ${money(p.balance)}.`;
+
+    $('targets').innerHTML = '<thead><tr><th>Reach it in</th><th class="num">Per month</th><th class="num">Per paycheck</th><th class="num">Interest earned</th></tr></thead><tbody>' +
+      [6, 12, 18, 24, 36, 48, 60].map(k => {
+        const d = E.depositForMonths(goal, start, apy, k);
+        const fv = E.futureValue(start, apy, d, k);
+        return `<tr><td>${span(k)} (${dateAfter(k)})</td><td class="num">${money(d, 2)}</td><td class="num">${money(d * 12 / 26, 2)}</td><td class="num">${money(Math.max(0, fv - start - d * k))}</td></tr>`;
+      }).join('') + '</tbody>';
+
+    if (reached) {
+      $('schedule').innerHTML = '<thead><tr><th>Month</th><th class="num">Deposit</th><th class="num">Interest</th><th class="num">Balance</th></tr></thead><tbody>' +
+        p.schedule.map(s => `<tr><td>${s.month} (${dateAfter(s.month)})</td><td class="num">${money(s.deposit, 2)}</td><td class="num">${money(s.interest, 2)}</td><td class="num">${money(s.balance, 2)}</td></tr>`).join('') + '</tbody>';
+    }
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
