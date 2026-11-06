@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quarterly Estimated Tax Calculator for the Self-Employed (2026 &amp; 2027)</title>
+<meta name="description" content="Free quarterly estimated tax calculator for freelancers, 1099 contractors, and side gigs. Works out self-employment tax, income tax, the safe harbor amount, and what to pay by each 2026 and 2027 due date, using the IRS Form 1040-ES worksheet.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Quarterly Estimated Tax Calculator for the Self-Employed","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Quarterly Estimated Tax Calculator</h1>
+  <p class="lede">For freelancers, 1099 contractors, and anyone with a side business. Enter what you expect to earn this year and get your federal self-employment tax, income tax, and how much to pay by each quarterly due date. It follows the IRS Form 1040-ES worksheet, uses the official 2026 and 2027 numbers, and runs entirely in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="year">Tax year</label>
+        <select id="year"><option value="2026">2026 (payments Apr 2026 &ndash; Jan 2027)</option><option value="2027">2027 (payments Apr 2027 &ndash; Jan 2028)</option></select></div>
+      <div><label for="status">Filing status</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option><option value="hoh">Head of household</option></select></div>
+      <div><label for="profit">Self-employment profit for the year ($)</label><input id="profit" type="number" step="100" value="60000" inputmode="decimal"></div>
+      <div><label for="wages">Your W-2 wages from a job ($)</label><input id="wages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div id="spouseBox" class="hidden"><label for="spouseWages">Spouse's W-2 wages ($)</label><input id="spouseWages" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="withholding">Federal tax withheld from paychecks ($)</label><input id="withholding" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="paid">Estimated payments already made this year ($)</label><input id="paid" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">Profit means income minus business expenses (Schedule C line 31), not what clients paid you. Filing jointly and you both have self-employment income? Add your profits together; that's exact unless one of you earns more than the Social Security wage base. Withholding is the total for both of you.</p>
+    <details>
+      <summary>Last year's tax (for the safe harbor)</summary>
+      <div class="fields">
+        <div><label for="priorTax">Total tax on last year's return ($)</label><input id="priorTax" type="number" min="0" step="100" placeholder="Leave blank if unknown" inputmode="decimal"></div>
+        <div><label for="priorAgi">Last year's adjusted gross income ($)</label><input id="priorAgi" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      </div>
+      <p class="small muted">"Total tax" is Form 1040 line 24 minus refundable credits. AGI is line 11. If you paid at least this much (110% if your AGI was over $150,000), you won't owe an underpayment penalty, even if this year's tax turns out higher.</p>
+    </details>
+    <details>
+      <summary>Deductions, credits, and other income</summary>
+      <div class="fields">
+        <div><label for="otherIncome">Other income: interest, rental, etc. ($)</label><input id="otherIncome" type="number" step="100" value="0" inputmode="decimal"></div>
+        <div><label for="adjustments">Other adjustments: SEP-IRA, SE health insurance, HSA ($)</label><input id="adjustments" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+        <div><label for="itemized">Itemized deductions (0 = standard deduction) ($)</label><input id="itemized" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+        <div><label for="charity">Cash gifts to charity, if not itemizing ($)</label><input id="charity" type="number" min="0" step="50" value="0" inputmode="decimal"></div>
+        <div><label for="extraDeductions">Schedule 1-A deductions: tips, overtime, car loan interest, seniors ($)</label><input id="extraDeductions" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+        <div><label for="credits">Tax credits, e.g. child tax credit ($)</label><input id="credits" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      </div>
+      <p><label><input id="sstb" type="checkbox"> My business is a specified service business (consulting, law, accounting, health, financial services, performing arts, athletics)</label></p>
+      <p class="small muted">The service-business box only matters at high incomes, where it shrinks the qualified business income deduction faster.</p>
+    </details>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your estimate</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>Payment schedule</h3>
+    <div class="table-scroll"><table id="schedule"></table></div>
+    <p class="small muted" id="dueNote"></p>
+    <h3>How it adds up (Form 1040-ES worksheet)</h3>
+    <div class="table-scroll"><table id="breakdown"></table></div>
+  </section>
+
+  <article>
+    <h2>How quarterly estimated taxes work</h2>
+    <p>Nobody withholds tax from self-employment income, so the IRS expects you to pay it during the year in four installments. You generally have to make estimated payments if you expect to owe at least $1,000 for the year after withholding and credits. The tax has two parts:</p>
+    <ul>
+      <li><strong>Self-employment tax</strong> is Social Security and Medicare for the self-employed: 15.3% of 92.35% of your profit (12.4% Social Security up to the yearly wage base, plus 2.9% Medicare with no cap). The wage base is $184,500 for 2026 and $192,300 for 2027, and W-2 wages count toward it first. You deduct half of this tax from your income.</li>
+      <li><strong>Income tax</strong> on your total income, after the standard or itemized deduction and the 20% qualified business income (QBI) deduction, using the regular tax brackets.</li>
+    </ul>
+    <p>For example, a single freelancer with $60,000 of profit in 2026 and no other income owes $8,478 of self-employment tax. After the half-SE-tax adjustment, the $16,100 standard deduction, and a $7,932 QBI deduction, taxable income is $31,729, so income tax is $3,559. The total is $12,037, about 20% of profit. To avoid a penalty, they need to pay 90% of that, $10,833, which works out to $2,708 per quarter.</p>
+
+    <h2>How much do you have to pay? The safe harbor rules</h2>
+    <p>You won't owe an underpayment penalty if your withholding plus estimated payments, made on time, add up to the smaller of:</p>
+    <ul>
+      <li><strong>90% of this year's tax</strong>, or</li>
+      <li><strong>100% of last year's total tax</strong> (110% if last year's adjusted gross income was over $150,000, or $75,000 if married filing separately). Last year's return must cover a full 12 months.</li>
+    </ul>
+    <p>If your income is rising, paying based on last year's tax is the easy, predictable choice: you'll owe the rest when you file, but no penalty. If your income is falling, 90% of this year's estimate is lower. And if you had no tax liability at all last year (and were a U.S. citizen or resident all year), you don't have to make estimated payments this year.</p>
+
+    <h2>Due dates</h2>
+    <p><strong>For tax year 2026:</strong> April 15, 2026; June 15, 2026; September 15, 2026; and January 15, 2027. You can skip the January payment if you file your 2026 return by February 1, 2027, and pay the whole balance then.<br>
+    <strong>For tax year 2027:</strong> April 15, 2027; June 15, 2027; September 15, 2027; and January 18, 2028 (January 15 is a Saturday and January 17 is Martin Luther King Jr. Day, so the deadline moves to the next business day). Check the 2027 Form 1040-ES when it comes out to confirm.</p>
+    <p>You can pay online with IRS Direct Pay or through your IRS online account, at no cost. Starting late? Pay enough by the next due date to catch up. Penalties are figured separately for each quarter, so a catch-up payment stops a missed quarter's penalty from growing.</p>
+
+    <h2>What this calculator doesn't cover</h2>
+    <ul>
+      <li><strong>State income tax.</strong> Most states also expect quarterly payments; check your state's tax agency.</li>
+      <li><strong>Capital gains, qualified dividends, the 3.8% net investment income tax, and the alternative minimum tax.</strong> If you have these, the IRS worksheet in Publication 505 handles them.</li>
+      <li><strong>Uneven income.</strong> If most of your income comes late in the year, the annualized income installment method (Form 2210, Schedule AI) may let you pay less in the early quarters.</li>
+      <li><strong>The QBI deduction at high incomes</strong> is figured for a sole proprietor with no employees and no significant business property. If you pay W-2 wages to employees, your deduction above the income threshold may be larger than shown, so this estimate errs high.</li>
+      <li><strong>Farmers and fishermen</strong>, who have their own 66&#8532;% rule and a single January 15 deadline.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>What percentage of my self-employment income should I set aside?</summary><p>It depends on your income and filing status, which is why this calculator shows your own number ("Set aside per $1 of profit"). Self-employment tax alone is about 14% of profit (15.3% of 92.35%). Income tax at your bracket comes on top, reduced by the half-SE-tax and QBI deductions. Set aside state tax separately.</p></details>
+    <details><summary>I also have a W-2 job. Do I still need to pay quarterly?</summary><p>Maybe not. Your paycheck withholding counts toward the safe harbor. Enter your wages and withholding above. If withholding already covers the required amount, the calculator tells you so. You can also give your employer a new W-4 with extra withholding instead of making estimated payments; withholding counts as if it were paid evenly through the year.</p></details>
+    <details><summary>What if my income changes during the year?</summary><p>Re-run the numbers before each due date and pay the rest of the year's amount over the remaining quarters. Using last year's tax as your safe harbor avoids this: that amount doesn't change no matter what you earn.</p></details>
+    <details><summary>Does a loss in my business reduce my other tax?</summary><p>Yes. Enter a negative profit. There's no self-employment tax on a loss, and the loss reduces your other income.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>Tax brackets, standard deductions, and QBI thresholds for 2026: <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf">IRS Rev. Proc. 2025-32</a>; for 2027: <a href="https://www.irs.gov/pub/irs-drop/rp-26-35.pdf">IRS Rev. Proc. 2026-35</a>.</li>
+      <li>Who must pay, the safe harbor rules, due dates, the self-employment tax worksheet, the $1,000/$2,000 charitable deduction for non-itemizers, and the $400 minimum QBI deduction: <a href="https://www.irs.gov/pub/irs-pdf/f1040es.pdf">IRS Form 1040-ES (2026)</a> and <a href="https://www.irs.gov/publications/p505">Publication 505</a>.</li>
+      <li>2027 Social Security wage base ($192,300): <a href="https://www.ssa.gov/news/en/cola/factsheets/2027.html">SSA 2027 COLA fact sheet</a>.</li>
+      <li>Additional Medicare Tax (0.9% over $200,000 single and head of household, $250,000 joint, $125,000 separate): <a href="https://www.irs.gov/forms-pubs/about-form-8959">IRS Form 8959</a>.</li>
+    </ul>
+    <p class="small muted">Last checked November 5, 2026. For education and planning only, not tax advice. This is an estimate of federal tax; your actual return may differ. A tax professional can help with your exact situation.</p>
+
+    <h2>Related calculators</h2>
+    <p>Building a cushion for tax bills? The <a href="../savings-goal-calculator/">savings goal calculator</a> shows how much to save each month, and the <a href="../sinking-funds-tracker/">Sinking Funds Tracker</a> tracks a tax fund alongside your other upcoming bills. The <a href="../budget-calculator/">50/30/20 budget calculator</a> helps you plan around irregular income.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../loan-calculator/">Loan calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/tax-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.TaxEngine;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const val = id => parseFloat($(id).value) || 0;
+  const pos = id => Math.max(0, val(id));
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const row = (label, amount, strong) => `<tr${strong ? ' style="font-weight:700"' : ''}><td>${label}</td><td class="num">${amount}</td></tr>`;
+
+  function render() {
+    const priorRaw = $('priorTax').value.trim();
+    const inp = {
+      year: Number($('year').value), status: $('status').value,
+      profit: val('profit'), wages: pos('wages'), spouseWages: pos('spouseWages'), withholding: pos('withholding'), paid: pos('paid'),
+      priorTax: priorRaw === '' ? null : Math.max(0, parseFloat(priorRaw) || 0), priorAgi: pos('priorAgi'),
+      otherIncome: val('otherIncome'), adjustments: pos('adjustments'), itemized: pos('itemized'),
+      charity: pos('charity'), extraDeductions: pos('extraDeductions'), credits: pos('credits'), sstb: $('sstb').checked,
+    };
+    $('spouseBox').classList.toggle('hidden', inp.status !== 'mfj');
+    const r = E.estimate(inp);
+    const y = r.year;
+
+    $('stats').innerHTML = stat('Pay each quarter', money(r.quarterly), true) +
+      stat(`Total ${y} federal tax`, money(r.totalTax)) +
+      stat('Self-employment tax', money(r.se.tax)) +
+      stat('Set aside per $1 of profit', inp.profit > 0 ? Math.round(r.setAside * 100) + '¢' : '-');
+
+    let summary;
+    if (!r.mustPay) {
+      summary = r.reason === 'noPriorTax'
+        ? `You had no tax liability last year, so you don't have to make estimated payments for ${y} (if you were a U.S. citizen or resident all year and last year's return covered 12 months). You'll still owe about ${money(Math.max(0, r.totalTax - r.withholding))} when you file.`
+        : r.reason === 'withholding'
+          ? `Your withholding (${money(r.withholding)}) already covers the ${money(r.required)} you need to pay in to avoid a penalty, so no estimated payments are required.${r.totalTax > r.withholding ? ` You'd still owe about ${money(r.totalTax - r.withholding)} when you file.` : ''}`
+          : `You expect to owe less than $1,000 after withholding (${money(Math.max(0, r.totalTax - r.withholding))}), so you don't have to make estimated payments for ${y}. You'll pay it when you file.`;
+    } else {
+      const basis = r.priorReq !== null && r.priorReq <= r.ninety
+        ? `${r.priorPct > 1 ? '110' : '100'}% of last year's tax (${money(r.priorReq)}), which is less than 90% of this year's (${money(r.ninety)})`
+        : `90% of this year's estimated tax (${money(r.ninety)})`;
+      summary = `To avoid an underpayment penalty, pay in ${money(r.required)} for ${y}: ${basis}.` +
+        (r.withholding > 0 ? ` After ${money(r.withholding)} of withholding, that leaves ${money(r.annual)} in estimated payments.` : '') +
+        ` That's ${money(r.quarterly)} by each due date.` +
+        (inp.paid > 0 ? ` You've paid ${money(inp.paid)} so far, so ${money(r.remaining)} is left to pay.` : '') +
+        (r.balanceDue > 0.5 ? ` You'd still owe about ${money(r.balanceDue)} when you file, with no penalty.` : '');
+    }
+    $('summary').textContent = summary;
+
+    $('schedule').innerHTML = '<thead><tr><th>Payment</th><th>Due</th><th class="num">Amount</th></tr></thead><tbody>' +
+      r.due.map((d, i) => `<tr><td>${i + 1}</td><td>${d}</td><td class="num">${money(r.quarterly)}</td></tr>`).join('') +
+      `</tbody><tfoot><tr><td></td><td><strong>Total</strong></td><td class="num"><strong>${money(r.annual)}</strong></td></tr></tfoot>`;
+    $('dueNote').textContent = r.dueConfirmed
+      ? 'Dates from the 2026 Form 1040-ES. A payment made by the due date counts as on time.'
+      : 'The January 18, 2028 date is the next business day after January 15 (a Saturday) and the MLK Day holiday. Confirm it on the 2027 Form 1040-ES.';
+
+    const ded = r.itemizing ? 'Itemized deductions' : `Standard deduction${r.charity ? ' + cash charity' : ''}`;
+    $('breakdown').innerHTML = '<tbody>' +
+      row('Self-employment earnings (92.35% of profit)', money(r.se.earnings)) +
+      row('Social Security part (12.4%)', money(r.se.socialSecurity)) +
+      row('Medicare part (2.9%)', money(r.se.medicare)) +
+      row('Self-employment tax', money(r.se.tax), true) +
+      row('Adjusted gross income (after deducting half of SE tax)', money(r.agi)) +
+      row(ded, '−' + money(r.deduction)) +
+      (r.extra ? row('Schedule 1-A deductions', '−' + money(r.extra)) : '') +
+      row('Qualified business income deduction', '−' + money(r.qbi)) +
+      row('Taxable income', money(r.taxable)) +
+      row(`Income tax (${y} brackets)`, money(r.regularTax)) +
+      (inp.credits ? row('Income tax after credits', money(r.afterCredits)) : '') +
+      (r.addlMedicare ? row('Additional Medicare Tax (0.9%)', money(r.addlMedicare)) : '') +
+      row(`Total ${y} federal tax`, money(r.totalTax), true) +
+      row('90% of this year’s tax', money(r.ninety)) +
+      (r.priorReq !== null ? row(`${r.priorPct > 1 ? '110' : '100'}% of last year’s tax`, money(r.priorReq)) : '') +
+      row('Required to avoid a penalty (the smaller)', money(r.required), true) +
+      (r.withholding ? row('Withholding', '−' + money(r.withholding)) : '') +
+      '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  document.querySelectorAll('input[type=checkbox]').forEach(el => el.addEventListener('change', render));
+  render();
+})();
+</script>
+</body>
+</html>
