@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debt Snowball vs Avalanche Calculator (Free, No Sign-Up)</title>
+<meta name="description" content="Enter your debts and see your debt-free date, total interest, and a month-by-month payoff plan. Compares the snowball and avalanche methods side by side.">
+<link rel="canonical" href="https://SITE_BASE/debt-payoff-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Debt Snowball vs Avalanche Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../debt-payoff-planner/">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Debt Snowball vs Avalanche Calculator</h1>
+  <p class="lede">Add your debts, choose how much extra you can pay each month, and see exactly when you'll be debt-free under each method. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card" aria-labelledby="debts-h">
+    <h2 id="debts-h" style="margin-top:0">Your debts</h2>
+    <div id="debt-list"></div>
+    <p><button class="btn ghost" type="button" id="add-debt">+ Add a debt</button></p>
+    <div class="fields">
+      <div>
+        <label for="extra">Extra payment per month ($)</label>
+        <input id="extra" type="number" min="0" step="1" value="200" inputmode="decimal">
+      </div>
+    </div>
+    <p class="small muted">Use the current balance, the APR from your statement, and the minimum payment due. Your total monthly budget is the sum of your minimums plus the extra amount, and it stays the same as debts are paid off.</p>
+  </section>
+
+  <section class="card" aria-live="polite" id="results">
+    <h2 style="margin-top:0">Your payoff plan</h2>
+    <div id="warning" class="note hidden"></div>
+    <div class="stats" id="stats"></div>
+    <h3>Debt-free date by debt</h3>
+    <div class="table-scroll"><table id="per-debt"></table></div>
+    <h3>Remaining balance over time</h3>
+    <div class="bar-chart" id="chart"></div>
+    <h3>Month-by-month schedule (<span id="sched-method">snowball</span>)</h3>
+    <p><label for="sched-pick" class="small">Show schedule for</label>
+      <select id="sched-pick" style="max-width:220px"><option value="snowball">Snowball</option><option value="avalanche">Avalanche</option></select></p>
+    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Want this plan as a spreadsheet you can track every month?</h3>
+    <p>The <a href="../debt-payoff-planner/">Debt Payoff Planner</a> for Excel and Google Sheets builds the same snowball and avalanche schedules, adds a payment log, a progress tracker, and a printable payoff chart, and updates as you go.</p>
+    <a class="btn" data-product="debtPlanner">Get the planner (<span data-price>$9</span>)</a>
+  </aside>
+
+  <article>
+    <h2>Snowball vs avalanche: which should you use?</h2>
+    <p>Both methods pay the minimum on every debt and put all the extra money toward one target debt. When that debt is gone, its payment rolls over to the next target. The only difference is the order.</p>
+    <ul>
+      <li><strong>Debt snowball:</strong> target the <em>smallest balance</em> first. You clear whole debts sooner, and many people find those early wins keep them motivated.</li>
+      <li><strong>Debt avalanche:</strong> target the <em>highest interest rate</em> first. This always costs the same or less in total interest, and it's usually a little faster.</li>
+    </ul>
+    <p>When your highest-rate debt is also your smallest, the two methods are identical. When they differ, the calculator above shows exactly how much the avalanche saves, which is often less than people expect. If the gap is small, choose the method you're more likely to stick with.</p>
+
+    <h2>How the calculation works</h2>
+    <p>Each month, interest is added to each balance at its APR divided by 12. Then every open debt gets its minimum payment, and the rest of your budget goes to the target debt. If the target is paid off with money left over, the remainder goes to the next debt in line that same month. This matches how most people actually run the snowball and avalanche methods, but your lender may calculate interest daily, so real numbers can differ slightly.</p>
+
+    <h2>Tips that make either method faster</h2>
+    <ul>
+      <li><strong>Keep the total payment fixed.</strong> The rollover only works if you don't spend the freed-up minimum.</li>
+      <li><strong>Ask for a lower rate.</strong> A quick call to a card issuer can sometimes cut your APR, and the avalanche benefits most from that.</li>
+      <li><strong>Add windfalls to the target debt.</strong> Tax refunds, bonuses, and side income go straight to the current target.</li>
+      <li><strong>Keep a small emergency buffer</strong> so a surprise expense doesn't go back on a card.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Does this include mortgages?</summary><p>You can add one, but most people leave the mortgage out of a snowball or avalanche plan because it's a large, low-rate, long-term debt. Focus on credit cards, personal loans, car loans, and student loans first.</p></details>
+    <details><summary>What if my minimum payment doesn't cover the interest?</summary><p>Then that balance grows every month. The calculator warns you if a debt can't be paid off within 50 years at your current budget. Raising the extra payment, or asking the lender for a lower rate or a hardship plan, are the usual fixes.</p></details>
+    <details><summary>Are minimum payments fixed?</summary><p>Here they are. On real credit cards, the minimum often falls as the balance falls. Keeping your payment at the original minimum, as this calculator does, pays the debt off faster than paying only the falling minimum.</p></details>
+    <details><summary>Is my data saved or shared?</summary><p>No. The calculation runs entirely in your browser. Your debts are kept in your browser's local storage only so they're still there if you reload the page.</p></details>
+
+    <p class="small muted">This calculator is for education and planning. It isn't financial advice.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/debt-engine.js"></script>
+<script src="../assets/debt-page.js"></script>
+</body>
+</html>

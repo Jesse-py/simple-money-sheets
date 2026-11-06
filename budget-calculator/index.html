@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>50/30/20 Budget Calculator: Needs, Wants &amp; Savings</title>
+<meta name="description" content="Free 50/30/20 budget calculator. Enter your take-home pay to see how much to spend on needs and wants and how much to save, then compare it with what you actually spend.">
+<link rel="canonical" href="https://SITE_BASE/budget-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../debt-payoff-planner/">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>50/30/20 Budget Calculator</h1>
+  <p class="lede">The 50/30/20 rule splits your take-home pay into needs (50%), wants (30%), and savings or extra debt payments (20%). Enter your pay to see your numbers, and optionally what you spend now.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="pay">Take-home pay ($)</label><input id="pay" type="number" min="0" step="1" value="4500" inputmode="decimal"></div>
+      <div><label for="period">Pay period</label>
+        <select id="period"><option value="12">Monthly</option><option value="26">Every 2 weeks</option><option value="24">Twice a month</option><option value="52">Weekly</option><option value="1">Yearly</option></select></div>
+      <div><label for="split">Split</label>
+        <select id="split"><option value="50,30,20">50 / 30 / 20 (classic)</option><option value="60,30,10">60 / 30 / 10 (high cost of living)</option><option value="70,20,10">70 / 20 / 10</option><option value="40,30,30">40 / 30 / 30 (aggressive saver)</option></select></div>
+    </div>
+    <h3>What you spend now (optional, monthly)</h3>
+    <div class="fields">
+      <div><label for="a-needs">Needs ($)</label><input id="a-needs" type="number" min="0" step="1" placeholder="e.g. 2600" inputmode="decimal"></div>
+      <div><label for="a-wants">Wants ($)</label><input id="a-wants" type="number" min="0" step="1" placeholder="e.g. 1200" inputmode="decimal"></div>
+      <div><label for="a-save">Savings &amp; extra debt ($)</label><input id="a-save" type="number" min="0" step="1" placeholder="e.g. 400" inputmode="decimal"></div>
+    </div>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your monthly budget</h2>
+    <div class="stats" id="stats"></div>
+    <div class="table-scroll"><table id="compare"></table></div>
+    <p id="advice" class="small"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Paying off debt with your 20%?</h3>
+    <p>Run your numbers through the free <a href="../debt-payoff-calculator/">debt snowball vs avalanche calculator</a> to see your debt-free date, or track everything month by month with the <a href="../debt-payoff-planner/">Debt Payoff Planner spreadsheet</a>.</p>
+  </aside>
+
+  <article>
+    <h2>What counts as a need, a want, or savings?</h2>
+    <h3>Needs (about 50%)</h3>
+    <p>Bills you'd still have to pay if you cut back to the basics: rent or mortgage, utilities, groceries, insurance, transportation to work, childcare, and the <em>minimum</em> payments on your debts.</p>
+    <h3>Wants (about 30%)</h3>
+    <p>Things that make life better but could be cut: dining out, streaming and subscriptions, travel, hobbies, the upgrade from a basic phone plan, and most shopping.</p>
+    <h3>Savings and debt payoff (about 20%)</h3>
+    <p>Emergency fund contributions, retirement savings beyond any payroll deduction, investing, and any debt payment <em>above</em> the minimum. Extra debt payments go here because they improve your net worth just like saving does.</p>
+
+    <h2>Why use take-home pay?</h2>
+    <p>The rule, popularized by Elizabeth Warren and Amelia Warren Tyagi in <em>All Your Worth</em>, uses after-tax income: what actually lands in your account. If your employer already takes 401(k) or other retirement contributions out of your paycheck, you can count them toward the 20% as well.</p>
+
+    <h2>When 50/30/20 doesn't fit</h2>
+    <p>In expensive cities, or on a lower income, needs can easily take more than half your pay. That's why the calculator offers 60/30/10 and 70/20/10 splits. The goal is the habit: know where every dollar goes and send something to savings every month. If you're paying off high-interest debt, many people temporarily shift money from wants to the 20% to get out faster.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>How do I convert biweekly pay to monthly?</summary><p>Multiply your paycheck by 26 and divide by 12. The calculator does this for you when you choose "Every 2 weeks". In two months of the year you'll get a third paycheck, which is a great time to boost savings.</p></details>
+    <details><summary>Is a car payment a need or a want?</summary><p>The minimum payment counts as a need if you need the car to get to work. Paying extra on the loan counts toward savings and debt payoff.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+    <p class="small muted">For education and planning only. This isn't financial advice.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const money = n => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const names = ['Needs', 'Wants', 'Savings & extra debt'];
+  function render() {
+    const monthly = (parseFloat($('pay').value) || 0) * (+$('period').value) / 12;
+    const split = $('split').value.split(',').map(Number);
+    const target = split.map(p => monthly * p / 100);
+    const actualRaw = ['a-needs', 'a-wants', 'a-save'].map(id => $(id).value);
+    const hasActual = actualRaw.some(v => v !== '');
+    const actual = actualRaw.map(v => parseFloat(v) || 0);
+    $('stats').innerHTML = `<div class="stat"><div class="k">Monthly take-home</div><div class="v">${money(monthly)}</div></div>` +
+      target.map((t, i) => `<div class="stat"><div class="k">${names[i]} (${split[i]}%)</div><div class="v">${money(t)}</div></div>`).join('');
+    if (!hasActual) {
+      $('compare').innerHTML = '';
+      $('advice').textContent = 'Enter what you spend now to compare it with your target.';
+      return;
+    }
+    $('compare').innerHTML = '<thead><tr><th>Category</th><th class="num">Target</th><th class="num">Actual</th><th class="num">Difference</th></tr></thead><tbody>' +
+      target.map((t, i) => {
+        const d = actual[i] - t;
+        return `<tr><td>${names[i]}</td><td class="num">${money(t)}</td><td class="num">${money(actual[i])}</td><td class="num">${d >= 0 ? '+' : ''}${money(d)}</td></tr>`;
+      }).join('') + '</tbody>';
+    const unassigned = monthly - actual.reduce((s, v) => s + v, 0);
+    const tips = [];
+    if (unassigned > 1) tips.push(`You have ${money(unassigned)} a month that isn't assigned anywhere. Putting it into savings or extra debt payments is the easiest win.`);
+    if (unassigned < -1) tips.push(`You're spending ${money(-unassigned)} a month more than you take home. Start by cutting wants.`);
+    if (actual[1] > target[1] + 1) tips.push(`Wants are ${money(actual[1] - target[1])} over target. Moving even half of that to savings adds ${money((actual[1] - target[1]) / 2 * 12)} a year.`);
+    if (actual[2] + 1 < target[2] && !tips.length) tips.push(`Savings are ${money(target[2] - actual[2])} below target. Try automating a transfer on payday.`);
+    if (!tips.length) tips.push('You\'re on or ahead of target. Nice work.');
+    $('advice').textContent = tips.join(' ');
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
