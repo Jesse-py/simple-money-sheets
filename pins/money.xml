@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 06 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 07 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -24,6 +24,15 @@
     <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/debt-snowball-vs-avalanche.png" length="113039" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/debt-snowball-vs-avalanche.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Loan Calculator With Extra Payments (Free)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/loan-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=loan-extra-100</link>
+    <description>On a $25,000 car loan at 7% for 60 months, paying $100 extra a month pays it off 11 months early and saves $938.99 in interest. Try your own loan, extra payments, or a lump sum, with a full amortization schedule.</description>
+    <guid isPermaLink="false">sms-pin-loan-extra-100</guid>
+    <pubDate>Sat, 07 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/loan-extra-100.png" length="96700" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/loan-extra-100.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
