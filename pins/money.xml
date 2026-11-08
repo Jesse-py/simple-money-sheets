@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Sat, 07 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Sun, 08 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -33,6 +33,15 @@
     <pubDate>Sat, 07 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/loan-extra-100.png" length="96700" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/loan-extra-100.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Debt Payoff Calculator: See Your Debt-Free Date</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/debt-payoff-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=debt-extra-200</link>
+    <description>Keep paying the same total each month and roll each paid-off debt's payment into the next one. In this example, $200 extra a month gets you debt-free 20 months sooner and saves $3,554 in interest. Free calculator, snowball or avalanche.</description>
+    <guid isPermaLink="false">sms-pin-debt-extra-200</guid>
+    <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/debt-extra-200.png" length="116467" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/debt-extra-200.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
