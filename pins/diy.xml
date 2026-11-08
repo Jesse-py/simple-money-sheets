@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>DIY Home &amp; Yard Project Calculators</title>
+  <link>https://jesse-py.github.io/diy-project-calculators/</link>
+  <description>How much concrete, gravel, mulch, topsoil, or paint to buy, worked out before you go to the store.</description>
+  <language>en-us</language>
+  <lastBuildDate>Sun, 08 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <atom:link href="https://jesse-py.github.io/diy-project-calculators/pins/diy.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>How Many Bags of Concrete for a 10x10 Slab? (Free Calculator)</title>
+    <link>https://jesse-py.github.io/diy-project-calculators/concrete-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=concrete-10x10-slab</link>
+    <description>A 10 x 10 ft patio slab 4 inches thick takes 33.33 cubic feet (1.23 cubic yards) of concrete: 62 bags of 80 lb mix or 82 bags of 60 lb mix with 10% extra for waste. Enter your own slab, round pad, or post holes to get cubic yards and bag counts. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-concrete-10x10-slab</guid>
+    <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/concrete-10x10-slab.png" length="110943" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/concrete-10x10-slab.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+</channel>
+</rss>
