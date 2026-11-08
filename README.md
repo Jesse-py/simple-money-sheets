@@ -13,6 +13,7 @@ Tax numbers come from IRS and SSA primary sources, cited on each page.
 - [Debt-to-income ratio calculator](https://jesse-py.github.io/simple-money-sheets/debt-to-income-ratio-calculator/): your DTI against common lender limits
 - [50/30/20 budget calculator](https://jesse-py.github.io/simple-money-sheets/budget-calculator/)
 - [Savings goal calculator](https://jesse-py.github.io/simple-money-sheets/savings-goal-calculator/): how long to reach a goal, or the monthly amount you need
+- [Compound interest calculator](https://jesse-py.github.io/simple-money-sheets/compound-interest-calculator/): growth with monthly deposits, year by year, Rule of 72
 - [Emergency fund calculator](https://jesse-py.github.io/simple-money-sheets/emergency-fund-calculator/): target, milestones, and how long savings would last
 
 ## Self-employed and freelance taxes (2026 and 2027)

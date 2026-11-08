@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compound Interest Calculator with Monthly Contributions</title>
+<meta name="description" content="Free compound interest calculator. See how a starting balance plus monthly deposits grows over time, how much is interest, how long money takes to double, and a year-by-year table.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/compound-interest-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Compound Interest Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Compound Interest Calculator</h1>
+  <p class="lede">See how a starting balance and a monthly deposit grow when interest earns interest: the final balance, how much of it you put in, how much is interest, and how long your money takes to double. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="start">Starting balance ($)</label><input id="start" type="number" min="0" step="1" value="5000" inputmode="decimal"></div>
+      <div><label for="deposit">Monthly deposit ($)</label><input id="deposit" type="number" min="0" step="1" value="200" inputmode="decimal"></div>
+      <div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" max="30" step="0.01" value="5" inputmode="decimal"></div>
+      <div><label for="freq">Compounded</label>
+        <select id="freq"><option value="1">Yearly</option><option value="2">Twice a year</option><option value="4">Quarterly</option><option value="12" selected>Monthly</option><option value="365">Daily</option></select></div>
+      <div><label for="years">Years</label><input id="years" type="number" min="1" max="60" step="1" value="10" inputmode="numeric"></div>
+    </div>
+    <p class="small muted">If your bank quotes an APY, enter it with "Yearly" compounding: APY already includes compounding. Deposits are added at the end of each month.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your result</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>The same plan at other rates</h3>
+    <div class="table-scroll"><table id="rates"></table></div>
+    <h3>Year by year</h3>
+    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Saving toward something specific?</h3>
+    <p>The <a href="../savings-goal-calculator/">savings goal calculator</a> works backwards from a target: how much to save each month to reach it by a date. To plan several goals at once (a car, a trip, insurance, holidays), the <a href="../sinking-funds-tracker/">Sinking Funds Tracker</a> spreadsheet for Excel shows what each one needs per month and when each will be fully funded.</p>
+    <a class="btn" data-product="sinkingFunds">Get the tracker (<span data-price>$6</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How compound interest works</h2>
+    <p>With compound interest you earn interest on your deposits and on the interest already added to your balance, so growth speeds up the longer the money stays put (<a href="https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest">Investor.gov, U.S. SEC</a>). With simple interest you'd only ever earn on the original amount.</p>
+    <p>An example with the default numbers: $5,000 to start plus $200 a month for 10 years at 5% compounded monthly grows to about <strong>$39,292</strong>. You put in $29,000 ($5,000 plus 120 deposits of $200), and about $10,292 is interest. Most of that interest arrives in the later years: in year 1 the balance earns about $312, in year 10 about $1,849.</p>
+
+    <h2>The formula</h2>
+    <p>For a starting balance <em>P</em>, a monthly deposit <em>D</em>, and a monthly growth rate <em>i</em>, the balance after <em>n</em> months is:</p>
+    <p><strong>Balance = P &times; (1 + i)<sup>n</sup> + D &times; ((1 + i)<sup>n</sup> &minus; 1) &divide; i</strong></p>
+    <p>For monthly compounding, <em>i</em> is the annual rate divided by 12 (5% &divide; 12 = 0.4167% a month). For other compounding schedules, the calculator converts the rate to the equal monthly rate first, so the yearly growth matches what that schedule would pay. That's also why compounding more often helps only a little: on the example above, yearly compounding gives about $39,017 and daily compounding about $39,317.</p>
+
+    <h2>How long does it take to double? The Rule of 72</h2>
+    <p>Divide 72 by the annual interest rate to estimate how many years a lump sum takes to double (<a href="https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest">Investor.gov</a>). At 6%, that's about 12 years; at 9%, about 8. The calculator shows both the Rule of 72 estimate and the exact figure, ln(2) &divide; ln(1 + APY). The rule is close for rates between about 4% and 12%.</p>
+
+    <h2>What makes the biggest difference</h2>
+    <ul>
+      <li><strong>Time.</strong> Doubling the years more than doubles the interest, because interest keeps earning interest. Starting a few years earlier often beats saving a bit more later.</li>
+      <li><strong>The rate.</strong> The "other rates" table above shows how much the rate matters over long periods. A high-yield savings account and a regular savings account can differ by several percentage points.</li>
+      <li><strong>Steady deposits.</strong> A regular automatic transfer the day after payday adds up. The <a href="../budget-calculator/">50/30/20 budget calculator</a> shows how much of your take-home pay could go to savings.</li>
+      <li><strong>Debt works the same way, against you.</strong> Credit card interest compounds too, usually at 20% or more. Paying off a card is often a better "return" than any savings account: the <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a> shows how much interest you'd save.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>What rate should I use?</summary><p>For a savings account, CD, or money market account, use the bank's current rate (or its APY with "Yearly" compounding). These rates change, so check before relying on the result. Investment returns aren't fixed or guaranteed and can be negative in some years, so a single rate is only a rough planning assumption, not a prediction.</p></details>
+    <details><summary>What's the difference between APR, the interest rate, and APY?</summary><p>The interest rate (sometimes called the nominal rate) doesn't include compounding. APY (annual percentage yield) does: it's what you actually earn in a year. 5% compounded monthly is an APY of about 5.12%. The calculator shows the APY for whatever rate and schedule you enter.</p></details>
+    <details><summary>Are deposits added at the start or end of the month?</summary><p>At the end, so each deposit starts earning the following month. Depositing at the start of each month would add one extra month of interest on every deposit, a small difference.</p></details>
+    <details><summary>Does this include taxes or inflation?</summary><p>No. Interest in a regular savings account is usually taxable each year, and rising prices mean a future dollar buys less than one today. For long periods, treat the result as an upper estimate.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+    <p class="small muted">For education and planning only. This isn't financial or investment advice. Results are estimates from the numbers you enter; actual interest and returns will differ.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../emergency-fund-calculator/">Emergency fund calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/savings-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.SavingsEngine;
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const pct = n => `${n.toFixed(2).replace(/\.?0+$/, '')}%`;
+  const yrs = n => isFinite(n) ? `${n.toFixed(1)} yrs` : 'Never';
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const start = num('start'), deposit = num('deposit'), rate = Math.min(30, num('rate'));
+    const perYear = parseInt($('freq').value, 10) || 12;
+    const years = Math.min(60, Math.max(1, Math.round(num('years')) || 1));
+    const apy = E.apyFromRate(rate, perYear);
+    const rows = E.growth(start, apy, deposit, years);
+    const last = rows[rows.length - 1];
+    $('stats').innerHTML = stat(`Balance after ${years} yr${years > 1 ? 's' : ''}`, money(last.balance), true) +
+      stat('You put in', money(last.paid)) +
+      stat('Interest earned', money(last.interest)) +
+      stat('APY', pct(apy)) +
+      stat('Lump sum doubles in', rate > 0 ? `${yrs(E.doublingYears(apy))} (Rule of 72: ${yrs(E.ruleOf72(rate))})` : 'Never');
+    $('summary').textContent = last.paid <= 0 ? 'Enter a starting balance or a monthly deposit to get started.' :
+      `${money(start)} to start plus ${money(deposit)} a month for ${years} year${years > 1 ? 's' : ''} at ${pct(rate)} grows to ${money(last.balance)}. ` +
+      `${money(last.interest)} of that is interest${last.balance > 0 ? ` (${Math.round(100 * last.interest / last.balance)}% of the balance)` : ''}.`;
+
+    const others = [...new Set([2, 4, 6, 8, 10, rate])].sort((a, b) => a - b);
+    $('rates').innerHTML = `<thead><tr><th>Rate</th><th class="num">Balance after ${years} yrs</th><th class="num">Interest earned</th></tr></thead><tbody>` +
+      others.map(r => {
+        const end = E.growth(start, E.apyFromRate(r, perYear), deposit, years).pop();
+        const mine = r === rate;
+        return `<tr${mine ? ' class="win"' : ''}><td>${pct(r)}${mine ? ' (yours)' : ''}</td><td class="num">${money(end.balance)}</td><td class="num">${money(end.interest)}</td></tr>`;
+      }).join('') + '</tbody>';
+
+    let prev = start;
+    $('schedule').innerHTML = '<thead><tr><th>Year</th><th class="num">Deposits that year</th><th class="num">Interest that year</th><th class="num">Total put in</th><th class="num">Balance</th></tr></thead><tbody>' +
+      rows.map(r => {
+        const earned = r.balance - prev - deposit * 12;
+        prev = r.balance;
+        return `<tr><td>${r.year}</td><td class="num">${money(deposit * 12)}</td><td class="num">${money(earned)}</td><td class="num">${money(r.paid)}</td><td class="num">${money(r.balance)}</td></tr>`;
+      }).join('') + '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>

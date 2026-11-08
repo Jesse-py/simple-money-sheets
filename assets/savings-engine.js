@@ -39,5 +39,23 @@
     return { reachedAt, months: month, interest, deposits, balance: bal, schedule };
   }
 
-  root.SavingsEngine = { MAX_MONTHS, monthlyRate, futureValue, depositForMonths, project };
+  // APY (%) for a nominal annual rate (%) compounded `perYear` times a year (1, 2, 4, 12, 365).
+  const apyFromRate = (rate, perYear) => (Math.pow(1 + rate / 100 / perYear, perYear) - 1) * 100;
+
+  // Year-end totals for a compound interest plan: `start` now, `deposit` at the end of each month.
+  // `paid` = start + all deposits so far; `interest` = balance - paid.
+  function growth(start, apy, deposit, years) {
+    const rows = [];
+    for (let y = 1; y <= years; y++) {
+      const balance = futureValue(start, apy, deposit, 12 * y), paid = start + deposit * 12 * y;
+      rows.push({ year: y, paid, interest: balance - paid, balance });
+    }
+    return rows;
+  }
+
+  // Years for a lump sum to double at this APY (exact), and the Rule of 72 estimate.
+  const doublingYears = apy => apy > 0 ? Math.log(2) / Math.log(1 + apy / 100) : Infinity;
+  const ruleOf72 = rate => rate > 0 ? 72 / rate : Infinity;
+
+  root.SavingsEngine = { MAX_MONTHS, monthlyRate, futureValue, depositForMonths, project, apyFromRate, growth, doublingYears, ruleOf72 };
 })(typeof window !== 'undefined' ? window : module.exports);
