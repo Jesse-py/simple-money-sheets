@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estimated Tax Penalty Calculator (2026): IRS Underpayment Penalty, Form 2210</title>
+<meta name="description" content="Missed a quarterly estimated tax payment? Figure the IRS underpayment penalty for 2026 with this year's interest rates, see what each extra day costs, and how much you save by paying now. Follows Form 2210.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/estimated-tax-penalty-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Estimated Tax Penalty Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Estimated Tax Penalty Calculator</h1>
+  <p class="lede">Missed a quarterly payment, or paid less than you should have? The IRS charges a penalty on each late or short estimated tax payment, figured like interest for every day it stays unpaid. Enter what you owe and what you've paid to see the penalty for 2026, using the IRS's actual rates for each quarter, and how much paying now saves. It follows Form 2210 and runs entirely in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="year">Tax year</label>
+        <select id="year"><option value="2026">2026</option><option value="2025">2025</option></select></div>
+      <div><label for="currentTax">Total tax for this year ($)</label><input id="currentTax" type="number" min="0" step="100" value="20000" inputmode="decimal"></div>
+      <div><label for="withholding">Federal tax withheld from paychecks ($)</label><input id="withholding" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="priorTax">Last year's total tax ($, blank if you didn't file)</label><input id="priorTax" type="number" min="0" step="100" value="16000" inputmode="decimal"></div>
+    </div>
+    <p><label><input id="priorAgiHigh" type="checkbox"> Last year's adjusted gross income was over $150,000 ($75,000 if married filing separately)</label></p>
+    <p class="small muted">Total tax means your income tax after credits, plus self-employment tax and other taxes, minus refundable credits (Form 2210, lines 1 to 4). Leave out estimated payments and withholding here. Not sure what this year's will be? The <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> estimates it.</p>
+
+    <h2>Estimated tax payments you made (or plan to make)</h2>
+    <div class="table-scroll"><table id="paymentsTable">
+      <thead><tr><th>Date paid</th><th>Amount ($)</th></tr></thead>
+      <tbody>
+        <tr><td><input id="d0" type="date" aria-label="Payment 1 date" value="2026-04-15"></td><td><input id="a0" type="number" min="0" step="100" aria-label="Payment 1 amount" value="4000" inputmode="decimal"></td></tr>
+        <tr><td><input id="d1" type="date" aria-label="Payment 2 date" value="2026-06-15"></td><td><input id="a1" type="number" min="0" step="100" aria-label="Payment 2 amount" value="4000" inputmode="decimal"></td></tr>
+        <tr><td><input id="d2" type="date" aria-label="Payment 3 date" value="2026-09-15"></td><td><input id="a2" type="number" min="0" step="100" aria-label="Payment 3 amount" value="" inputmode="decimal"></td></tr>
+        <tr><td><input id="d3" type="date" aria-label="Payment 4 date" value="2027-01-15"></td><td><input id="a3" type="number" min="0" step="100" aria-label="Payment 4 amount" value="" inputmode="decimal"></td></tr>
+        <tr><td><input id="d4" type="date" aria-label="Payment 5 date"></td><td><input id="a4" type="number" min="0" step="100" aria-label="Payment 5 amount" inputmode="decimal"></td></tr>
+        <tr><td><input id="d5" type="date" aria-label="Payment 6 date"></td><td><input id="a5" type="number" min="0" step="100" aria-label="Payment 6 amount" inputmode="decimal"></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Enter each payment on the date you made it (the postmark date if you mailed it). Include last year's refund if you applied it to this year, dated April 15. Leave out tax withheld from paychecks; it goes in the field above.</p>
+    <div class="fields">
+      <div id="lastRateBox"><label for="lastRate">Rate for Jan 1 – Apr 15, 2027 (%)</label><input id="lastRate" type="number" min="0" max="20" step="1" value="7" inputmode="decimal"></div>
+      <div><label for="asOf">What if I catch up on this date?</label><input id="asOf" type="date"></div>
+    </div>
+    <p><label><input id="jan31" type="checkbox"> I'll file my return and pay all the tax I owe by <span id="jan31Date">February 1, 2027</span></label></p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your estimated tax penalty</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <p id="payNow" class="hidden"></p>
+    <h3>Each payment due date</h3>
+    <div class="table-scroll"><table id="breakdown"></table></div>
+    <ul class="small" id="detail"></ul>
+    <p class="small muted" id="rateNote"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Stop it from happening next quarter</h3>
+    <p>The penalty comes from paying too little, too late. The <a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a> spreadsheet for Excel keeps a running total of your profit and tax as you log income and expenses, and shows what to pay by each due date, so you're not guessing in September.</p>
+    <a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How the estimated tax penalty works</h2>
+    <p>The IRS expects your tax to be paid as you earn it: through withholding from a paycheck, or through four estimated tax payments. For 2026 they're due <strong>April 15, June 15, and September 15, 2026, and January 15, 2027</strong>. Each payment should be a quarter of your <em>required annual payment</em>, which is the smaller of:</p>
+    <ul>
+      <li><strong>90% of this year's tax</strong>, or</li>
+      <li><strong>100% of last year's tax</strong> (110% if last year's adjusted gross income was over $150,000, or $75,000 married filing separately). Last year's return must have covered 12 months.</li>
+    </ul>
+    <p>For each due date where you paid less than that quarter, the penalty runs on the shortfall from the due date until you pay it, or until the April 15 filing deadline, whichever comes first. It's figured separately for each due date, so you can owe a penalty for June even if you caught up in September, and even if you get a refund when you file.</p>
+    <p>Payments always go to the oldest shortfall first. If you missed June and then pay in September, that payment covers June before it counts for September.</p>
+
+    <h2>No penalty if any of these apply</h2>
+    <ul>
+      <li>This year's total tax minus your withholding is <strong>under $1,000</strong>.</li>
+      <li>You had <strong>no tax liability last year</strong>, you were a U.S. citizen or resident all year, and last year's return covered 12 months.</li>
+      <li>Your withholding plus on-time payments met the required payment for each due date.</li>
+      <li>For the January installment only: you <strong>file your return and pay everything you owe by the end of January</strong> (for 2026: by February 1, 2027, because January 31 is a Sunday).</li>
+    </ul>
+
+    <h2>2026 penalty rates</h2>
+    <p>The penalty rate is the IRS underpayment interest rate (the federal short-term rate plus 3 points), which the IRS resets every quarter. For tax year 2026 the rate periods on Form 2210 are:</p>
+    <div class="table-scroll"><table id="rates">
+      <thead><tr><th>Rate period</th><th class="num">Rate</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>April 16 – June 30, 2026</td><td class="num">6%</td><td>Rev. Rul. 2026-5</td></tr>
+        <tr><td>July 1 – September 30, 2026</td><td class="num">7%</td><td>Rev. Rul. 2026-10</td></tr>
+        <tr><td>October 1 – December 31, 2026</td><td class="num">7%</td><td>Rev. Rul. 2026-15</td></tr>
+        <tr><td>January 1 – April 15, 2027</td><td class="num">not announced yet</td><td>The IRS usually announces it in late November. The calculator assumes 7%; change it above.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Each piece is figured as <strong>amount unpaid × days unpaid ÷ 365 × rate</strong>, split across the rate periods. At 7%, every $1,000 that stays unpaid costs about 19 cents a day, or $70 a year.</p>
+
+    <h2>Example: a missed September payment</h2>
+    <p>Say your 2026 tax will be $20,000 and your 2025 tax was $16,000. The required annual payment is the smaller of $18,000 (90% of $20,000) and $16,000 (100% of $16,000), so $16,000, or <strong>$4,000 per due date</strong>. You paid $4,000 in April and June, then nothing.</p>
+    <ul>
+      <li>September's $4,000 runs from September 15, 2026 to April 15, 2027: 212 days. 4,000 × 212 ÷ 365 × 7% = <strong>$162.63</strong>.</li>
+      <li>January's $4,000 runs 90 days: 4,000 × 90 ÷ 365 × 7% = <strong>$69.04</strong>.</li>
+      <li>Total penalty: <strong>$231.67</strong> if you wait until you file.</li>
+    </ul>
+    <p>Pay the missed $4,000 on November 15, 2026 and make the January payment on time, and the penalty drops to <strong>$46.79</strong> (61 days on September's payment). Catching up early is the cheapest fix.</p>
+
+    <h2>Penalty for each $1,000 left unpaid until April 15, 2027</h2>
+    <div class="table-scroll"><table id="per1000">
+      <thead><tr><th>Missed due date</th><th class="num">Days unpaid</th><th class="num">Penalty per $1,000</th></tr></thead>
+      <tbody>
+        <tr><td>April 15, 2026</td><td class="num">365</td><td class="num">$67.92</td></tr>
+        <tr><td>June 15, 2026</td><td class="num">304</td><td class="num">$57.89</td></tr>
+        <tr><td>September 15, 2026</td><td class="num">212</td><td class="num">$40.66</td></tr>
+        <tr><td>January 15, 2027</td><td class="num">90</td><td class="num">$17.26</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Using the rates above, with 7% assumed for January 1 – April 15, 2027.</p>
+
+    <h2>Ways to lower or avoid the penalty</h2>
+    <ul>
+      <li><strong>Pay the shortfall now.</strong> The penalty stops on the day you pay. Use IRS Direct Pay or your IRS online account and choose "estimated tax" for 2026.</li>
+      <li><strong>Raise your paycheck withholding</strong> if you or your spouse has a job. Withholding counts as paid in four equal parts on the due dates, no matter when in the year it was actually withheld, so extra withholding in November and December covers earlier quarters too (submit a new Form W-4 to your employer).</li>
+      <li><strong>File and pay in full by February 1, 2027</strong> to wipe out the penalty for the January installment.</li>
+      <li><strong>Uneven income?</strong> If most of your income came late in the year, the annualized income installment method (Form 2210, Schedule AI) can lower the required payments for the early quarters. This calculator doesn't do that method; it can only lower the penalty, never raise it.</li>
+      <li><strong>Ask for a waiver</strong> if the shortfall came from a casualty, disaster, or other unusual circumstance, or if you retired after age 62 or became disabled in this year or last year and had reasonable cause. You request it on Form 2210.</li>
+    </ul>
+
+    <h2>What this calculator doesn't cover</h2>
+    <ul>
+      <li>The annualized income installment method (Schedule AI), and treating withholding as paid on the actual dates (box D).</li>
+      <li>Farmers and fishers, who use 66⅔% instead of 90%.</li>
+      <li>The failure-to-pay penalty and interest on tax still unpaid after April 15. Those are separate charges.</li>
+      <li>State estimated tax penalties. Most states have their own rules and rates.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Do I have to calculate the penalty myself?</summary><p>Usually not. If none of the Form 2210 boxes that require it apply to you, you can leave the penalty line blank and the IRS will figure it and send a bill. If you file by April 15 and pay the bill by its due date, no interest is charged on the penalty. This calculator tells you what to expect, and what paying now saves.</p></details>
+    <details><summary>I'll get a refund when I file. Can I still owe a penalty?</summary><p>Yes. The penalty is figured for each due date, so being short in June can cost a penalty even if your withholding later in the year means you're owed a refund.</p></details>
+    <details><summary>My payment was a day late. Does that matter?</summary><p>Barely. The penalty is figured by the day, so one day late on $4,000 at 7% is about 77 cents. If a due date falls on a weekend or holiday, paying on the next business day counts as on time.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>Required annual payment, exceptions, payments applied to the oldest underpayment first, withholding treated as paid one-fourth on each due date, the penalty worksheet ("× number of days ÷ 365 × rate"), the January 31 rule, and waivers: <a href="https://www.irs.gov/instructions/i2210">Instructions for Form 2210 (2025)</a> and <a href="https://www.irs.gov/pub/irs-pdf/f2210.pdf">Form 2210</a>.</li>
+      <li>Quarterly underpayment rates: <a href="https://www.irs.gov/payments/quarterly-interest-rates">IRS quarterly interest rates</a>; Rev. Rul. 2026-5 (<a href="https://www.irs.gov/irb/2026-08_IRB">IRB 2026-8</a>, 6% from April 1, 2026), Rev. Rul. 2026-10 (<a href="https://www.irs.gov/irb/2026-22_IRB">IRB 2026-22</a>, 7% from July 1, 2026), and Rev. Rul. 2026-15 (<a href="https://www.irs.gov/irb/2026-36_irb">IRB 2026-36</a>, 7% from October 1, 2026).</li>
+      <li>2026 due dates and the February 1, 2027 filing date for skipping the January payment: <a href="https://www.irs.gov/pub/irs-pdf/f1040es.pdf">IRS Form 1040-ES (2026)</a>.</li>
+      <li><a href="https://www.irs.gov/taxtopics/tc306">IRS Topic No. 306, Penalty for underpayment of estimated tax</a>.</li>
+    </ul>
+    <p class="small muted">Last checked November 9, 2026. For education and planning only, not tax advice.</p>
+
+    <h2>Related calculators</h2>
+    <p>Work out what to pay for the rest of the year with the <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a>, see the self-employment part on its own with the <a href="../self-employment-tax-calculator/">self-employment tax calculator</a>, or keep a paper record of your payments and deductions with the <a href="../printable-tax-logs/">free printable tax logs</a>.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../self-employment-tax-calculator/">Self-employment tax calculator</a><a href="../1099-vs-w2-calculator/">1099 vs W-2 calculator</a><a href="../mileage-deduction-calculator/">Mileage deduction calculator</a><a href="../home-office-deduction-calculator/">Home office deduction calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../printable-tax-logs/">Free printable tax logs</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/penalty-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const P = window.PenaltyEngine;
+  const money = (n, d = 2) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : null; };
+  const pos = id => Math.max(0, num(id) || 0);
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const long = s => { const [y, m, d] = s.split('-').map(Number); return `${MONTHS[m - 1]} ${d}, ${y}`; };
+  const pad = n => String(n).padStart(2, '0');
+  const now = new Date();
+  $('asOf').value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  let shownYear = 2026;
+
+  function render() {
+    const year = Number($('year').value);
+    const Y = P.YEARS[year];
+    if (year !== shownYear) { // move the four default dates to the other year's due dates
+      P.YEARS[shownYear].due.forEach((d, i) => { if ($('d' + i).value === d) $('d' + i).value = Y.due[i]; });
+      shownYear = year;
+    }
+    $('lastRateBox').classList.toggle('hidden', year !== 2026);
+    $('jan31Date').textContent = long(Y.jan31);
+    const priorTax = num('priorTax');
+    const inp = {
+      year, currentTax: pos('currentTax'), withholding: pos('withholding'),
+      priorTax: priorTax === null ? null : Math.max(0, priorTax), priorAgiHigh: $('priorAgiHigh').checked,
+      payments: [0, 1, 2, 3, 4, 5].map(i => ({ date: $('d' + i).value, amount: pos('a' + i) })),
+      lastRate: (num('lastRate') ?? 7) / 100, jan31: $('jan31').checked,
+    };
+    const r = P.compute(inp);
+
+    $('stats').innerHTML = stat('Estimated penalty', money(r.penalty), true) +
+      stat('Required each due date', money(r.installment)) +
+      stat(`Required for ${year}`, money(r.required, 0)) +
+      stat('Still unpaid on ' + long(r.end).replace(/,.*/, ''), money(r.unpaid, 0));
+
+    const basis = r.priorReq !== null && r.priorReq <= r.ninety
+      ? `${r.priorPct > 1 ? '110' : '100'}% of last year's tax (${money(r.priorReq, 0)}), which is less than 90% of this year's (${money(r.ninety, 0)})`
+      : `90% of this year's tax (${money(r.ninety, 0)})${r.priorReq === null ? '' : `, which is less than ${r.priorPct > 1 ? '110' : '100'}% of last year's (${money(r.priorReq, 0)})`}`;
+    let summary;
+    if (r.exception === 'under1000') summary = `No penalty: this year's tax minus withholding (${money(Math.max(0, inp.currentTax - inp.withholding), 0)}) is under $1,000.`;
+    else if (r.exception === 'noPriorTax') summary = `No penalty: you had no tax liability last year (as long as you were a U.S. citizen or resident all year and last year's return covered 12 months).`;
+    else if (r.penalty === 0) summary = `No penalty. You needed to pay in ${money(r.required, 0)} for ${year} (${basis}), ${money(r.installment)} by each due date, and your withholding and payments covered every due date on time.`;
+    else summary = `You needed to pay in ${money(r.required, 0)} for ${year}: ${basis}. That's ${money(r.installment)} by each due date. Your shortfalls add up to an estimated penalty of ${money(r.penalty)}` +
+      (r.unpaid > 0 ? `, including ${money(r.unpaid, 0)} counted as unpaid until ${long(r.end)}.` : '.');
+    $('summary').textContent = summary;
+
+    const n = $('asOf').value ? P.payNow(inp, $('asOf').value) : null;
+    const pn = $('payNow');
+    if (n && n.behind > 0) {
+      pn.textContent = `On ${long($('asOf').value)} you're ${money(n.behind, 0)} behind on due dates that have passed, and each day costs about ${money(n.perDay)}. ` +
+        `Pay ${money(n.behind, 0)} that day (and any later payments you entered above) and the penalty would be ${money(n.penalty)}` +
+        (n.penalty < r.penalty ? `, saving ${money(r.penalty - n.penalty)}.` : '.');
+      pn.classList.remove('hidden');
+    } else pn.classList.add('hidden');
+
+    $('breakdown').innerHTML = '<thead><tr><th>Due date</th><th class="num">Required</th><th class="num">Paid by due date</th><th class="num">Short</th><th class="num">Penalty</th></tr></thead><tbody>' +
+      (r.exception ? '' : r.installments.map(x => `<tr><td>${long(x.due)}</td><td class="num">${money(x.required)}</td><td class="num">${money(x.credited)}</td><td class="num">${money(x.underpayment)}</td><td class="num">${money(x.penalty)}</td></tr>`).join('')) +
+      `</tbody><tfoot><tr><td><strong>Total</strong></td><td></td><td></td><td></td><td class="num"><strong>${money(r.penalty)}</strong></td></tr></tfoot>`;
+
+    $('detail').innerHTML = r.exception ? '' : r.installments.flatMap(x => x.chunks.map(c =>
+      `<li>${money(c.amount)} due ${long(x.due)}, ${c.paid === r.end && r.unpaid > 0 ? 'counted as unpaid until' : 'paid'} ${long(c.paid)}: ${c.days} days, ${money(c.penalty)}${inp.jan31 && x.due === Y.due[3] ? ` (no penalty: filed and paid by ${long(Y.jan31)})` : ''}</li>`)).join('');
+
+    const pct = v => Math.round(v * 1000) / 10 + '%';
+    $('rateNote').textContent = year === 2026
+      ? `Rates used: ${pct(r.rates[0])} (Apr 16 – Jun 30, 2026), ${pct(r.rates[1])} (Jul – Sep), ${pct(r.rates[2])} (Oct – Dec), and ${pct(r.rates[3])} for Jan 1 – Apr 15, 2027, which the IRS hasn't announced yet.`
+      : 'Rates used: 7% in every period, as printed on the 2025 Form 2210 penalty worksheet.';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  document.querySelectorAll('input[type=checkbox], select').forEach(el => el.addEventListener('change', render));
+  render();
+})();
+</script>
+</body>
+</html>
