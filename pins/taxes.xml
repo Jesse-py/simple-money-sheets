@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Quarterly estimated tax help for freelancers and side hustles.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 06 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/taxes.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>2026 Quarterly Estimated Tax Due Dates for Freelancers</title>
@@ -24,6 +24,15 @@
     <pubDate>Fri, 06 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/freelancer-set-aside.png" length="107284" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/freelancer-set-aside.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Estimated Tax Safe Harbor: Pay 100% of Last Year's Tax</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=safe-harbor-prior-year</link>
+    <description>You can avoid the underpayment penalty by paying the smaller of 90% of this year's tax or 100% of last year's (110% if your AGI was over $150,000). With $90,000 of profit and $9,000 of tax last year, that's $2,250 a quarter instead of $4,346. The free calculator follows the IRS Form 1040-ES worksheet.</description>
+    <guid isPermaLink="false">sms-pin-safe-harbor-prior-year</guid>
+    <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/safe-harbor-prior-year.png" length="120974" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/safe-harbor-prior-year.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

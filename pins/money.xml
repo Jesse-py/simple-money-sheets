@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Sun, 08 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -42,6 +42,15 @@
     <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/debt-extra-200.png" length="116467" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/debt-extra-200.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Savings Goal Calculator: How Long to Save $10,000</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/savings-goal-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=save-10000</link>
+    <description>At 4% APY, saving $300 a month reaches $10,000 in 32 months; $500 a month gets there in 20. Enter your goal, what you have, and your rate to see your date or the monthly amount you need. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-save-10000</guid>
+    <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/save-10000.png" length="97675" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/save-10000.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
