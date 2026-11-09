@@ -133,3 +133,7 @@ footer.site { border-top: 1px solid var(--border); padding: 24px 0 40px; color: 
 footer.site a { color: var(--muted); margin-right: 14px; }
 .hidden { display: none !important; }
 tr.hl td { font-weight: 700; }
+.sheet { display: flex; flex-direction: column; gap: 10px; }
+.sheet img { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
+.sheet h3 { margin: 0; }
+.sheet p { margin: 0; color: var(--muted); }
