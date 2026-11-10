@@ -138,3 +138,4 @@ tr.hl td { font-weight: 700; }
 .sheet img { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
 .sheet h3 { margin: 0; }
 .sheet p { margin: 0; color: var(--muted); }
+.cta code { word-break: break-all; }

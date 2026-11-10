@@ -1,0 +1,309 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Simple Money Sheets//Tax deadlines//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:IRS estimated tax deadlines
+X-WR-CALDESC:Federal estimated tax due dates and filing deadlines for the s
+ elf-employed\, from Simple Money Sheets. Each event links to a free calcul
+ ator. https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-t
+ ax-calculator/
+X-WR-TIMEZONE:America/New_York
+REFRESH-INTERVAL;VALUE=DURATION:P1W
+X-PUBLISHED-TTL:P1W
+BEGIN:VEVENT
+UID:est-tax-2026-q1@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20260415
+DTEND;VALUE=DATE:20260416
+SUMMARY:Estimated tax payment 1 of 4 due (2026 taxes)
+DESCRIPTION:The 1st estimated tax payment for tax year 2026 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nPay online at no cost: https://www.irs.gov/payments/direct-pay\n\nW
+ ork out how much to pay: https://jesse-py.github.io/simple-money-sheets/qu
+ arterly-estimated-tax-calculator/?utm_source=calendar&utm_medium=ics&utm_c
+ ampaign=q1-2026\n\nBehind on an earlier payment? See what it costs and wha
+ t catching up saves: https://jesse-py.github.io/simple-money-sheets/estima
+ ted-tax-penalty-calculator/?utm_source=calendar&utm_medium=ics&utm_campaig
+ n=q1-2026
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q1-2026
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 1 of 4 due (2026 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 1 of 4 due (2026 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2026-q2@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20260615
+DTEND;VALUE=DATE:20260616
+SUMMARY:Estimated tax payment 2 of 4 due (2026 taxes)
+DESCRIPTION:The 2nd estimated tax payment for tax year 2026 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nPay online at no cost: https://www.irs.gov/payments/direct-pay\n\nW
+ ork out how much to pay: https://jesse-py.github.io/simple-money-sheets/qu
+ arterly-estimated-tax-calculator/?utm_source=calendar&utm_medium=ics&utm_c
+ ampaign=q2-2026\n\nBehind on an earlier payment? See what it costs and wha
+ t catching up saves: https://jesse-py.github.io/simple-money-sheets/estima
+ ted-tax-penalty-calculator/?utm_source=calendar&utm_medium=ics&utm_campaig
+ n=q2-2026
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q2-2026
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 2 of 4 due (2026 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 2 of 4 due (2026 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2026-q3@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+SUMMARY:Estimated tax payment 3 of 4 due (2026 taxes)
+DESCRIPTION:The 3rd estimated tax payment for tax year 2026 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nPay online at no cost: https://www.irs.gov/payments/direct-pay\n\nW
+ ork out how much to pay: https://jesse-py.github.io/simple-money-sheets/qu
+ arterly-estimated-tax-calculator/?utm_source=calendar&utm_medium=ics&utm_c
+ ampaign=q3-2026\n\nBehind on an earlier payment? See what it costs and wha
+ t catching up saves: https://jesse-py.github.io/simple-money-sheets/estima
+ ted-tax-penalty-calculator/?utm_source=calendar&utm_medium=ics&utm_campaig
+ n=q3-2026
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q3-2026
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 3 of 4 due (2026 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 3 of 4 due (2026 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2026-q4@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+SUMMARY:Estimated tax payment 4 of 4 due (2026 taxes)
+DESCRIPTION:The 4th estimated tax payment for tax year 2026 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nYou can skip this payment if you file your 2026 return by February 
+ 1\, 2027\, and pay the whole balance with it.\n\nPay online at no cost: ht
+ tps://www.irs.gov/payments/direct-pay\n\nWork out how much to pay: https:/
+ /jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-calculator
+ /?utm_source=calendar&utm_medium=ics&utm_campaign=q4-2026\n\nBehind on an 
+ earlier payment? See what it costs and what catching up saves: https://jes
+ se-py.github.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_
+ source=calendar&utm_medium=ics&utm_campaign=q4-2026
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q4-2026
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 4 of 4 due (2026 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 4 of 4 due (2026 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2027-q1@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+SUMMARY:Estimated tax payment 1 of 4 due (2027 taxes)
+DESCRIPTION:The 1st estimated tax payment for tax year 2027 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nThis date follows the usual rule (the 15th\, moved to the next busi
+ ness day). The 2027 Form 1040-ES isn't out yet\; this calendar will update
+  if the IRS sets a different date.\n\nPay online at no cost: https://www.i
+ rs.gov/payments/direct-pay\n\nWork out how much to pay: https://jesse-py.g
+ ithub.io/simple-money-sheets/quarterly-estimated-tax-calculator/?utm_sourc
+ e=calendar&utm_medium=ics&utm_campaign=q1-2027\n\nBehind on an earlier pay
+ ment? See what it costs and what catching up saves: https://jesse-py.githu
+ b.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_source=cale
+ ndar&utm_medium=ics&utm_campaign=q1-2027
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q1-2027
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 1 of 4 due (2027 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 1 of 4 due (2027 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:file-2026-return@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+SUMMARY:File your 2026 tax return (or request an extension)
+DESCRIPTION:Your 2026 federal income tax return is due today. If you need m
+ ore time to file\, request an extension with Form 4868 by today. An extens
+ ion gives more time to file\, not to pay: estimate what you owe and pay it
+  today to limit interest and penalties.\n\nIf you're self-employed\, the 1
+ st estimated tax payment for 2027 is due today too.\n\nPay online at no co
+ st: https://www.irs.gov/payments/direct-pay\n\nWork out your 2027 estimate
+ d payments: https://jesse-py.github.io/simple-money-sheets/quarterly-estim
+ ated-tax-calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=file-
+ 2026
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=file-2026
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:File your 2026 tax return (or request an extension)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:File your 2026 tax return (or request an extension)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2027-q2@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20270615
+DTEND;VALUE=DATE:20270616
+SUMMARY:Estimated tax payment 2 of 4 due (2027 taxes)
+DESCRIPTION:The 2nd estimated tax payment for tax year 2027 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nThis date follows the usual rule (the 15th\, moved to the next busi
+ ness day). The 2027 Form 1040-ES isn't out yet\; this calendar will update
+  if the IRS sets a different date.\n\nPay online at no cost: https://www.i
+ rs.gov/payments/direct-pay\n\nWork out how much to pay: https://jesse-py.g
+ ithub.io/simple-money-sheets/quarterly-estimated-tax-calculator/?utm_sourc
+ e=calendar&utm_medium=ics&utm_campaign=q2-2027\n\nBehind on an earlier pay
+ ment? See what it costs and what catching up saves: https://jesse-py.githu
+ b.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_source=cale
+ ndar&utm_medium=ics&utm_campaign=q2-2027
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q2-2027
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 2 of 4 due (2027 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 2 of 4 due (2027 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2027-q3@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20270915
+DTEND;VALUE=DATE:20270916
+SUMMARY:Estimated tax payment 3 of 4 due (2027 taxes)
+DESCRIPTION:The 3rd estimated tax payment for tax year 2027 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nThis date follows the usual rule (the 15th\, moved to the next busi
+ ness day). The 2027 Form 1040-ES isn't out yet\; this calendar will update
+  if the IRS sets a different date.\n\nPay online at no cost: https://www.i
+ rs.gov/payments/direct-pay\n\nWork out how much to pay: https://jesse-py.g
+ ithub.io/simple-money-sheets/quarterly-estimated-tax-calculator/?utm_sourc
+ e=calendar&utm_medium=ics&utm_campaign=q3-2027\n\nBehind on an earlier pay
+ ment? See what it costs and what catching up saves: https://jesse-py.githu
+ b.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_source=cale
+ ndar&utm_medium=ics&utm_campaign=q3-2027
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q3-2027
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 3 of 4 due (2027 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 3 of 4 due (2027 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:extension-2026-return@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20271015
+DTEND;VALUE=DATE:20271016
+SUMMARY:Extended 2026 tax returns due
+DESCRIPTION:If you requested an extension (Form 4868) for your 2026 return\
+ , it's due today.\n\nTrack deductible business expenses all year with the 
+ free printable logs: https://jesse-py.github.io/simple-money-sheets/printa
+ ble-tax-logs/?utm_source=calendar&utm_medium=ics&utm_campaign=extension-20
+ 26
+URL:https://jesse-py.github.io/simple-money-sheets/printable-tax-logs/?utm_
+ source=calendar&utm_medium=ics&utm_campaign=extension-2026
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Extended 2026 tax returns due
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Extended 2026 tax returns due
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:est-tax-2027-q4@simple-money-sheets
+DTSTAMP:20261109T120000Z
+DTSTART;VALUE=DATE:20280118
+DTEND;VALUE=DATE:20280119
+SUMMARY:Estimated tax payment 4 of 4 due (2027 taxes)
+DESCRIPTION:The 4th estimated tax payment for tax year 2027 is due today (F
+ orm 1040-ES). A payment made or postmarked by the due date counts as on ti
+ me.\n\nThis date follows the usual rule (the 15th\, moved to the next busi
+ ness day). The 2027 Form 1040-ES isn't out yet\; this calendar will update
+  if the IRS sets a different date.\n\nPay online at no cost: https://www.i
+ rs.gov/payments/direct-pay\n\nWork out how much to pay: https://jesse-py.g
+ ithub.io/simple-money-sheets/quarterly-estimated-tax-calculator/?utm_sourc
+ e=calendar&utm_medium=ics&utm_campaign=q4-2027\n\nBehind on an earlier pay
+ ment? See what it costs and what catching up saves: https://jesse-py.githu
+ b.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_source=cale
+ ndar&utm_medium=ics&utm_campaign=q4-2027
+URL:https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-
+ calculator/?utm_source=calendar&utm_medium=ics&utm_campaign=q4-2027
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 4 of 4 due (2027 taxes)
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment 4 of 4 due (2027 taxes)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
