@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/diy-project-calculators/</link>
   <description>How much concrete, gravel, mulch, topsoil, or paint to buy, worked out before you go to the store.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/diy-project-calculators/pins/diy.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>How Many Bags of Concrete for a 10x10 Slab? (Free Calculator)</title>
@@ -24,6 +24,15 @@
     <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/mulch-200-sqft.png" length="91274" type="image/png"/>
     <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/mulch-200-sqft.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>How Much Soil for a 4x8 Raised Bed? (Free Topsoil Calculator)</title>
+    <link>https://jesse-py.github.io/diy-project-calculators/topsoil-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=topsoil-raised-bed-4x8</link>
+    <description>A 4 x 8 ft raised bed filled 10 inches deep needs about 29 cubic feet of soil with 10% added for settling: 20 bags of 1.5 cu ft or 15 bags of 2 cu ft (1.09 cubic yards in bulk). Enter your own beds or lawn area to get cubic yards and bag counts. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-topsoil-raised-bed-4x8</guid>
+    <pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/topsoil-raised-bed-4x8.png" length="98302" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/topsoil-raised-bed-4x8.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -51,6 +51,15 @@
     <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/save-10000.png" length="97675" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/save-10000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>50/30/20 Budget Calculator (Free)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/budget-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=budget-50-30-20-4000</link>
+    <description>The 50/30/20 rule splits take-home pay into needs, wants, and savings. On $4,000 a month that's $2,000, $1,200, and $800. Enter your own pay and, if you like, what you spend now to see where you stand.</description>
+    <guid isPermaLink="false">sms-pin-budget-50-30-20-4000</guid>
+    <pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/budget-50-30-20-4000.png" length="97833" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/budget-50-30-20-4000.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
