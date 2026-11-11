@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/diy-project-calculators/</link>
   <description>How much concrete, gravel, mulch, topsoil, or paint to buy, worked out before you go to the store.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/diy-project-calculators/pins/diy.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>How Many Bags of Concrete for a 10x10 Slab? (Free Calculator)</title>
@@ -33,6 +33,15 @@
     <pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/topsoil-raised-bed-4x8.png" length="98302" type="image/png"/>
     <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/topsoil-raised-bed-4x8.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>How Many Tons of Gravel for a Driveway? (Free Gravel Calculator)</title>
+    <link>https://jesse-py.github.io/diy-project-calculators/gravel-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=gravel-driveway-12x50</link>
+    <description>A 12 x 50 ft gravel driveway 4 inches deep takes 7.41 cubic yards, about 10 tons at 1.35 tons per cubic yard. Weight per yard varies by stone, so the calculator lets you enter your supplier's figure. Get tons, cubic yards, and 50 lb bags for any driveway, path, or patio base. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-gravel-driveway-12x50</guid>
+    <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/gravel-driveway-12x50.png" length="110983" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/gravel-driveway-12x50.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

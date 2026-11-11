@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Quarterly estimated tax help for freelancers and side hustles.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/taxes.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>2026 Quarterly Estimated Tax Due Dates for Freelancers</title>
@@ -51,6 +51,24 @@
     <pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/self-employment-tax-explained.png" length="98595" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/self-employment-tax-explained.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Freelancer Tax Tracker Spreadsheet (Excel)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/freelancer-tax-tracker/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=freelancer-tax-tracker</link>
+    <description>Log what you earn and spend; the spreadsheet sorts expenses into Schedule C lines, works out each quarterly estimated tax payment with the IRS worksheet, and tracks what you've paid against every due date. 2026 and 2027, all filing statuses.</description>
+    <guid isPermaLink="false">sms-pin-freelancer-tax-tracker</guid>
+    <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/freelancer-tax-tracker.png" length="92485" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/freelancer-tax-tracker.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Free Printable Daily Tip Log for Servers and Bartenders (PDF)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/printable-tax-logs/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=printable-tip-log</link>
+    <description>A free one-month tip log: cash tips, card tips, tips from others, tips paid out with names, and tips kept, the daily record IRS Publication 531 asks tipped employees to keep. Includes a box for the report due to your employer by the 10th of the next month and notes on the new tips deduction (up to $25,000 for 2025-2028). US Letter PDF, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-printable-tip-log</guid>
+    <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/printable-tip-log.png" length="108884" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/printable-tip-log.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -60,6 +60,15 @@
     <pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/budget-50-30-20-4000.png" length="97833" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/budget-50-30-20-4000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Loan Calculator: 36 vs 48 vs 60 Month Loan Interest</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/loan-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=loan-term-20000</link>
+    <description>On a $20,000 loan at 8%, stretching from 36 to 60 months drops the payment from $626.73 to $405.53 a month but raises total interest from $2,562.18 to $4,331.67. See your payment, interest, and what extra payments save. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-loan-term-20000</guid>
+    <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/loan-term-20000.png" length="110052" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/loan-term-20000.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
