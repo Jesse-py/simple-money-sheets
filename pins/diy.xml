@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/diy-project-calculators/</link>
   <description>How much concrete, gravel, mulch, topsoil, or paint to buy, worked out before you go to the store.</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 12 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/diy-project-calculators/pins/diy.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>How Many Bags of Concrete for a 10x10 Slab? (Free Calculator)</title>
@@ -42,6 +42,15 @@
     <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/gravel-driveway-12x50.png" length="110983" type="image/png"/>
     <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/gravel-driveway-12x50.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>How Much Paint for a 12x12 Room? (Free Paint Calculator)</title>
+    <link>https://jesse-py.github.io/diy-project-calculators/paint-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=paint-12x12-room</link>
+    <description>A 12 x 12 ft bedroom with 8 ft walls, one door, and two windows has 334 square feet of wall. Two coats at 350 sq ft per gallon is 1.91 gallons, so buy 2 gallons (3 if you paint the ceiling too). Enter your room, coats, and the coverage on your paint can. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-paint-12x12-room</guid>
+    <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/paint-12x12-room.png" length="100192" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/paint-12x12-room.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

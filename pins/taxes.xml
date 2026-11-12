@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Quarterly estimated tax help for freelancers and side hustles.</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 12 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/taxes.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>2026 Quarterly Estimated Tax Due Dates for Freelancers</title>
@@ -69,6 +69,24 @@
     <pubDate>Wed, 11 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/printable-tip-log.png" length="108884" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/printable-tip-log.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Home Office Deduction Calculator: Simplified vs Regular</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/home-office-deduction-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=home-office-renter</link>
+    <description>A freelancer renting a 1,000 sq ft apartment for $1,800 a month, with a 150 sq ft office, deducts $750 with the simplified method but $3,630 with the regular method (Form 8829). Compare both with your rent, utilities, and office size. Follows IRS Pub 587.</description>
+    <guid isPermaLink="false">sms-pin-home-office-renter</guid>
+    <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/home-office-renter.png" length="110660" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/home-office-renter.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Free Printable Income and Expense Log for Self-Employed (PDF)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/printable-tax-logs/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=printable-income-expense-log</link>
+    <description>A free income and expense log for freelancers and small businesses: date, payer or payee, what it was for, a Schedule C line code, income, expense, and receipt kept. The 2026 Schedule C line key is printed on the sheet, and page 2 covers what IRS Publication 583 says your books must show. US Letter PDF, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-printable-income-expense-log</guid>
+    <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/printable-income-expense-log.png" length="131413" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/printable-income-expense-log.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
