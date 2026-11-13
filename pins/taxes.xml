@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Quarterly estimated tax help for freelancers and side hustles.</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 12 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 13 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/taxes.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>2026 Quarterly Estimated Tax Due Dates for Freelancers</title>
@@ -87,6 +87,24 @@
     <pubDate>Thu, 12 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/printable-income-expense-log.png" length="131413" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/printable-income-expense-log.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Mileage Deduction Calculator 2026 (72.5c and 76c Rates)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/mileage-deduction-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=mileage-10000</link>
+    <description>The 2026 IRS business mileage rate is 72.5 cents for January-June and 76 cents for July-December. 10,000 business miles split evenly is a $7,425 deduction, which saves a freelancer with $60,000 profit about $1,712 in federal tax. Enter your miles for each half of the year.</description>
+    <guid isPermaLink="false">sms-pin-mileage-10000</guid>
+    <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/mileage-10000.png" length="98946" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/mileage-10000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Estimated Tax Penalty Calculator: Missed Quarterly Payment (2026)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=missed-september-penalty</link>
+    <description>Missed your September 15 estimated tax payment? On $4,000, catching up by November 15 costs about $46.79 in IRS penalty; waiting until you file costs $162.63. The penalty grows by the day, so paying now is the cheapest fix. Free calculator with the IRS's 2026 quarterly rates, following Form 2210. No sign-up.</description>
+    <guid isPermaLink="false">sms-pin-missed-september-penalty</guid>
+    <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/missed-september-penalty.png" length="126147" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/missed-september-penalty.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
