@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/diy-project-calculators/</link>
   <description>How much concrete, gravel, mulch, topsoil, or paint to buy, worked out before you go to the store.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 13 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 14 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/diy-project-calculators/pins/diy.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>How Many Bags of Concrete for a 10x10 Slab? (Free Calculator)</title>
@@ -60,6 +60,15 @@
     <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/concrete-fence-posts.png" length="93937" type="image/png"/>
     <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/concrete-fence-posts.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>How Much Does a Cubic Yard of Mulch Cover?</title>
+    <link>https://jesse-py.github.io/diy-project-calculators/mulch-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=mulch-yard-coverage</link>
+    <description>One cubic yard of mulch covers 162 square feet at 2 inches deep, 108 square feet at 3 inches, or 81 square feet at 4 inches. Enter your beds and tree rings to get cubic yards and bags, minus any old mulch already there. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-mulch-yard-coverage</guid>
+    <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/diy-project-calculators/pins/mulch-yard-coverage.png" length="88982" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/diy-project-calculators/pins/mulch-yard-coverage.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

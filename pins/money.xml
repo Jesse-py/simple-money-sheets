@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 13 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 14 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -87,6 +87,15 @@
     <pubDate>Fri, 13 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/monthly-budget-kit.png" length="97383" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/monthly-budget-kit.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>How Much Car Can I Afford? Free Calculator</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/car-affordability-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=car-350-month</link>
+    <description>$350 a month at 7% APR with $5,000 down buys an $18,506 car on a 4-year loan, or $26,594 on a 7-year loan, but interest nearly triples, from $2,184 to $6,210. Start from your income and budget to find your price.</description>
+    <guid isPermaLink="false">sms-pin-car-350-month</guid>
+    <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/car-350-month.png" length="107602" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/car-350-month.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
