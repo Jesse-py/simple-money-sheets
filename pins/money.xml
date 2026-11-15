@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Sat, 14 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Sun, 15 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -96,6 +96,15 @@
     <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/car-350-month.png" length="107602" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/car-350-month.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Sinking Funds Tracker Spreadsheet (Excel)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/sinking-funds-tracker/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=sinking-funds-tracker</link>
+    <description>List what's coming, from car insurance to holidays, and the tracker tells you how much to save each month, whether you're on track, and when each fund will be ready.</description>
+    <guid isPermaLink="false">sms-pin-sinking-funds-tracker</guid>
+    <pubDate>Sun, 15 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/sinking-funds-tracker.png" length="97829" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/sinking-funds-tracker.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
