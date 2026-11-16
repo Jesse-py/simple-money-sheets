@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Sun, 15 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 16 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -105,6 +105,24 @@
     <pubDate>Sun, 15 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/sinking-funds-tracker.png" length="97829" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/sinking-funds-tracker.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>How Much to Save Each Month for a $30,000 Down Payment</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/savings-goal-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=down-payment-30000</link>
+    <description>To save $30,000 in 3 years at 4% APY, put away about $787 a month; in 5 years it's $453. Enter your goal, what you've saved, and your rate to see the monthly amount or the date you'll get there. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-down-payment-30000</guid>
+    <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/down-payment-30000.png" length="96491" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/down-payment-30000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Emergency Fund Calculator: How Much and How Long</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/emergency-fund-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=emergency-fund-3000</link>
+    <description>With $3,000 a month of essential expenses, a 3-month emergency fund is $9,000: saving $500 a month at 4% APY gets there in 18 months. Enter your essentials and savings to see your target, your milestones, and how long your savings would last.</description>
+    <guid isPermaLink="false">sms-pin-emergency-fund-3000</guid>
+    <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/emergency-fund-3000.png" length="103220" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/emergency-fund-3000.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>

@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Quarterly estimated tax help for freelancers and side hustles.</description>
   <language>en-us</language>
-  <lastBuildDate>Sun, 15 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 16 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/taxes.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>2026 Quarterly Estimated Tax Due Dates for Freelancers</title>
@@ -123,6 +123,15 @@
     <pubDate>Sun, 15 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/se-tax-by-profit.png" length="108676" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/se-tax-by-profit.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Estimated Tax Penalty: Why Skipping April Costs More Than January</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/estimated-tax-penalty-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=skip-april-vs-january</link>
+    <description>The IRS applies each estimated tax payment to the oldest missed quarter, so a skipped April payment stays missing all year. On $4,000 quarters in 2026, skipping only January costs $69.04, skipping only April costs $271.67 (at 6-7% IRS rates; Jan-Apr 2027 rate assumed 7%). Free calculator following Form 2210. No sign-up.</description>
+    <guid isPermaLink="false">sms-pin-skip-april-vs-january</guid>
+    <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/skip-april-vs-january.png" length="120942" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/skip-april-vs-january.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
