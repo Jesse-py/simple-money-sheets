@@ -76,6 +76,20 @@
     </table></div>
     <p>Both plans are debt-free in month 28, because the car loan is last either way. The avalanche saves <strong>$277.66</strong> in interest by paying the 24.99% credit card before the 11.5% personal loan. The snowball gets you a second paid-off debt 5 months sooner (month 13 instead of 18). With $500 extra instead of $200, both finish in month 19 and the avalanche saves $193.66: the more you pay, the less time interest has to build up, so the order matters less. With no extra at all, the two methods give the same result here.</p>
 
+    <h2 id="avalanche-order">How the debt avalanche picks the order</h2>
+    <p>The avalanche ranks debts by interest rate, not by how many dollars of interest each one charges. That can look backwards at first. In the example, the car loan charges more interest each month than the store card, yet it comes last:</p>
+    <div class="table-scroll"><table id="avalanche-order-table">
+      <thead><tr><th scope="col">Debt (avalanche order)</th><th scope="col">Interest this month</th><th scope="col">Interest saved per month by an extra $100</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">1. Store card ($850, 29.99%)</th><td>$21.24</td><td>$2.50</td></tr>
+        <tr><th scope="row">2. Credit card ($4,200, 24.99%)</th><td>$87.47</td><td>$2.08</td></tr>
+        <tr><th scope="row">3. Personal loan ($3,100, 11.5%)</th><td>$29.71</td><td>$0.96</td></tr>
+        <tr><th scope="row">4. Car loan ($9,800, 7.4%)</th><td>$60.43</td><td>$0.62</td></tr>
+      </tbody>
+    </table></div>
+    <p>Interest this month is the balance times the APR divided by 12. The last column is what matters for your extra money: every $100 sent to the store card stops $2.50 of interest a month, while the same $100 on the car loan stops only $0.62. The car loan charges a lot of interest because its balance is large, not because its rate is high, so paying it early buys you the least.</p>
+    <p>When two debts have the same APR, this calculator's avalanche pays the smaller balance first, and its snowball breaks a tie in balance by paying the higher APR first. If you'd rather start with a quick win and then switch to the avalanche, pay off one small debt first, delete it from the list, and run the avalanche on the rest.</p>
+
     <h2>How the calculation works</h2>
     <p>Each month, interest is added to each balance at its APR divided by 12. Then every open debt gets its minimum payment, and the rest of your budget goes to the target debt. If the target is paid off with money left over, the remainder goes to the next debt in line that same month. This matches how most people actually run the snowball and avalanche methods, but your lender may calculate interest daily, so real numbers can differ slightly.</p>
 
@@ -90,6 +104,8 @@
     <h2>FAQ</h2>
     <details><summary>Does this include mortgages?</summary><p>You can add one, but most people leave the mortgage out of a snowball or avalanche plan because it's a large, low-rate, long-term debt. Focus on credit cards, personal loans, car loans, and student loans first.</p></details>
     <details><summary>What if my minimum payment doesn't cover the interest?</summary><p>Then that balance grows every month. The calculator warns you if a debt can't be paid off within 50 years at your current budget. Raising the extra payment, or asking the lender for a lower rate or a hardship plan, are the usual fixes.</p></details>
+    <details><summary>How do I enter a 0% balance transfer or promo APR?</summary><p>Enter the rate you're paying now (0%), and the avalanche will put that debt last. Check your statement for the date the promo ends: after that, the regular APR applies, and some store-card deals charge deferred interest back to the purchase date if the balance isn't paid in full by then. Before the promo ends, rerun the calculator with the new rate, and aim to clear a deferred-interest balance in time.</p></details>
+    <details><summary>Is the avalanche always cheaper than the snowball?</summary><p>With the same monthly budget, the avalanche never costs more in total interest, because every extra dollar goes where it stops the most interest. It can't make the debt-free date later either, since the same total is paid each month. The snowball can still be the better choice for you if early paid-off debts keep you going; the calculator shows how big the gap is for your own numbers.</p></details>
     <details><summary>Are minimum payments fixed?</summary><p>Here they are. On real credit cards, the minimum often falls as the balance falls. Keeping your payment at the original minimum, as this calculator does, pays the debt off faster than paying only the falling minimum. To see the difference for a single card, try the <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a>.</p></details>
     <details><summary>Is my data saved or shared?</summary><p>No. The calculation runs entirely in your browser. Your debts are kept in your browser's local storage only so they're still there if you reload the page.</p></details>
 
