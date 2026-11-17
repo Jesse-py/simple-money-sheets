@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balance Transfer Calculator: Is the Fee Worth It?</title>
+<meta name="description" content="Free balance transfer calculator. Compare keeping your credit card with moving it to a 0% intro APR card: the transfer fee, interest saved, what's left when the promo ends, and the payment that clears it in time.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/balance-transfer-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Balance Transfer Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Balance Transfer Calculator</h1>
+  <p class="lede">See whether moving a credit card balance to a 0% intro APR card actually saves you money once the transfer fee is paid, how much will be left when the promo ends, and what to pay each month to clear it in time. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <h2 style="margin-top:0">Your card now</h2>
+    <div class="fields">
+      <div><label for="bal">Balance to transfer ($)</label><input id="bal" type="number" min="0" step="1" value="6000" inputmode="decimal"></div>
+      <div><label for="apr">Current APR (%)</label><input id="apr" type="number" min="0" max="100" step="0.01" value="22.99" inputmode="decimal"></div>
+      <div><label for="pay">Monthly payment ($)</label><input id="pay" type="number" min="0" step="1" value="300" inputmode="decimal"></div>
+    </div>
+    <h2>The balance transfer offer</h2>
+    <div class="fields">
+      <div><label for="fee">Transfer fee (%)</label><input id="fee" type="number" min="0" max="20" step="0.1" value="3" inputmode="decimal"></div>
+      <div><label for="feemin">Minimum fee ($)</label><input id="feemin" type="number" min="0" step="1" value="5" inputmode="decimal"></div>
+      <div><label for="intro">Intro APR (%)</label><input id="intro" type="number" min="0" max="100" step="0.01" value="0" inputmode="decimal"></div>
+      <div><label for="months">Intro period (months)</label><input id="months" type="number" min="0" max="60" step="1" value="18" inputmode="numeric"></div>
+      <div><label for="post">APR after the promo (%)</label><input id="post" type="number" min="0" max="100" step="0.01" value="24.99" inputmode="decimal"></div>
+    </div>
+    <p class="small muted">The offer's fee, intro APR, intro length, and the rate after it are in the card's rate and fee table. "Fee: 3% of each transfer, $5 minimum" means the larger of the two.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Keep the card or transfer?</h2>
+    <div id="warning" class="note hidden"></div>
+    <div class="stats" id="stats"></div>
+    <p id="verdict"></p>
+    <div class="table-scroll"><table id="compare"></table></div>
+    <h3>Savings for other fees and promo lengths</h3>
+    <p class="small muted">Same balance, rates, and payment. Negative numbers mean the transfer costs more than staying put.</p>
+    <div class="table-scroll"><table id="grid"></table></div>
+    <h3>Month-by-month on the new card</h3>
+    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Moving more than one card?</h3>
+    <p>The free <a href="../debt-payoff-calculator/">debt snowball vs avalanche calculator</a> orders several debts (enter a 0% balance at its promo rate, then rerun when the promo ends). To track the plan month after month, the <a href="../debt-payoff-planner/">Debt Payoff Planner</a> spreadsheet for Excel builds both schedules, logs your real payments, and shows your progress.</p>
+    <a class="btn" data-product="debtPlanner">Get the planner (<span data-price>$9</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How a balance transfer works</h2>
+    <p>A new card pays off your old card, and you owe the new card instead. The new card charges a fee for this, usually a percentage of the amount moved, and that fee is added to your new balance on day one. In return, you pay a low intro APR (often 0%) for a set number of months. When the intro period ends, whatever is left starts building interest at the card's regular APR.</p>
+    <p>So a transfer saves money when the interest you avoid during the promo is bigger than the fee, and it saves the most when you clear the balance before the promo ends.</p>
+
+    <h2>Example: $6,000 at 22.99%</h2>
+    <p>You owe $6,000 on a card at 22.99% APR and can pay $300 a month. A new card offers 0% for 18 months with a 3% transfer fee, then 24.99%.</p>
+    <div class="table-scroll"><table id="example-table">
+      <thead><tr><th></th><th class="num">Keep the card</th><th class="num">Transfer</th></tr></thead>
+      <tbody>
+        <tr><td>Transfer fee</td><td class="num">$0.00</td><td class="num">$180.00</td></tr>
+        <tr><td>Interest</td><td class="num">$1,638.69</td><td class="num">$30.88</td></tr>
+        <tr><td>Total cost (fee + interest)</td><td class="num">$1,638.69</td><td class="num">$210.88</td></tr>
+        <tr><td>Debt-free in</td><td class="num">26 months</td><td class="num">21 months</td></tr>
+      </tbody>
+    </table></div>
+    <p>The transfer saves <strong>$1,427.81</strong> and gets you out of debt 5 months sooner. But at $300 a month, <strong>$780.00</strong> is still owed when the 18 months are up, and that part picks up 24.99% interest. Paying <strong>$343.33</strong> a month instead clears the whole $6,180 inside the promo, for a total cost of just the $180 fee.</p>
+
+    <h2>When a transfer doesn't pay</h2>
+    <ul>
+      <li><strong>You'd pay it off soon anyway.</strong> Paying $3,000 a month, that same $6,000 is gone in 3 months and costs $177.97 in interest at 22.99%, less than the $180 fee. The shorter your payoff, the less interest there is to save.</li>
+      <li><strong>The promo is short and the rate after it is high.</strong> Try a 6-month intro period above: with the example's $300 payment, most of the balance is still there when the higher rate starts.</li>
+      <li><strong>You keep spending on either card.</strong> New purchases on the transfer card usually don't get the intro rate. And on the old card, a fresh balance undoes the progress.</li>
+      <li><strong>You miss payments.</strong> A payment more than 60 days late lets the issuer raise your APR (see the rules below), which can wipe out the savings.</li>
+    </ul>
+
+    <h2>The federal rules that apply</h2>
+    <p>Credit card promotions in the US are governed by Regulation Z (the Truth in Lending rules, including changes from the Credit CARD Act of 2009):</p>
+    <ul>
+      <li><strong>An intro rate must last at least 6 months,</strong> and the issuer must tell you in writing, before it starts, how long it lasts and what rate applies after it (12 CFR 1026.55(b)(1)).</li>
+      <li><strong>The rate can go up if a minimum payment is more than 60 days late.</strong> If that happens, the issuer must lower it again after you make six on-time minimum payments in a row (12 CFR 1026.55(b)(4)).</li>
+      <li><strong>Payments above the minimum go to the highest-APR balance first</strong> (12 CFR 1026.53(a)). If you also carry purchases at a higher rate on the transfer card, your extra payments pay those first, but the minimum payment itself can be applied to the low-rate balance. That's one reason to keep the transfer card for the transfer only.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Is the transfer fee added to my balance?</summary><p>Usually, yes: it's charged to the new card when the transfer posts, so you pay it off along with the balance. This calculator adds it to the new card's starting balance. If the fee is a flat amount, enter 0% and put the amount in "Minimum fee".</p></details>
+    <details><summary>What if the promo isn't 0%?</summary><p>Enter the intro rate (for example 3.99%). The calculator charges that rate during the intro months and the regular APR after.</p></details>
+    <details><summary>What if I can only transfer part of my balance?</summary><p>Card issuers set a transfer limit, often tied to your credit line. Enter the amount you can move. The rest stays on the old card, so run the <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a> for that part, or the <a href="../debt-payoff-calculator/">debt payoff calculator</a> to plan both cards together.</p></details>
+    <details><summary>Is this the same as a deferred-interest promotion?</summary><p>No. With deferred interest (common on store cards and financing deals), interest is added up from the start and charged back if any balance remains when the promo ends. This calculator assumes a true intro APR, where only the balance left after the promo pays the regular rate. If your offer's terms say "deferred interest" or "no interest if paid in full," plan to clear the full amount before the deadline.</p></details>
+    <details><summary>Does a balance transfer hurt my credit?</summary><p>Applying for a new card usually means a hard inquiry, and a new account lowers the average age of your accounts. Paying the balance down lowers how much of your credit you're using. Credit scoring models weigh these differently, so we can't give you a number.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li><a href="https://www.ecfr.gov/current/title-12/chapter-X/part-1026/subpart-G/section-1026.55">12 CFR 1026.55</a>: limits on raising APRs, including the 6-month minimum for promotional rates and the 60-day delinquency rule.</li>
+      <li><a href="https://www.ecfr.gov/current/title-12/chapter-X/part-1026/subpart-G/section-1026.53">12 CFR 1026.53</a>: how card issuers must apply payments above the minimum.</li>
+    </ul>
+    <p class="small muted">Math: interest is charged monthly (APR &divide; 12) on the balance, then your payment is applied, the same model as our <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a>. Issuers usually charge daily interest, so real statements differ by a few dollars. For education and planning only. This isn't financial advice.</p>
+
+    <h2>Related calculators</h2>
+    <ul>
+      <li><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a>: payoff date and the true cost of minimum payments for one card.</li>
+      <li><a href="../debt-payoff-calculator/">Debt snowball vs avalanche calculator</a>: the best order to pay off several debts.</li>
+      <li><a href="../budget-calculator/">50/30/20 budget calculator</a>: find room in your budget for a bigger payment.</li>
+    </ul>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../loan-calculator/">Loan calculator with extra payments</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/card-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.CardEngine;
+  const money = (n, d = 0) => (n < 0 ? '-' : '') + Math.abs(n).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const span = m => {
+    const y = Math.floor(m / 12), mo = m % 12;
+    return [y ? `${y} yr${y > 1 ? 's' : ''}` : '', mo ? `${mo} mo` : ''].filter(Boolean).join(' ') || '0 mo';
+  };
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+
+  function render() {
+    const bal = num('bal'), apr = num('apr'), pay = num('pay');
+    const fee = num('fee'), feeMin = num('feemin'), intro = num('intro'), post = num('post');
+    const n = Math.min(60, Math.round(num('months')));
+    const warn = $('warning');
+    warn.classList.add('hidden');
+    if (bal <= 0) {
+      $('stats').innerHTML = ''; $('verdict').textContent = 'Enter the balance you want to move to get started.';
+      $('compare').innerHTML = ''; $('grid').innerHTML = ''; $('schedule').innerHTML = '';
+      return;
+    }
+    const s = E.fixedPayoff(bal, apr, pay);
+    const t = E.transferPayoff(bal, fee, feeMin, intro, n, post, pay);
+    const clear = n > 0 ? E.paymentToClearPromo(bal, fee, feeMin, intro, n) : 0;
+    if (!s.finished || !t.finished) {
+      warn.textContent = `At ${money(pay)} a month, ${!s.finished ? 'the current card' : 'the new card (after the promo)'} would never be paid off: the payment doesn't keep up with the interest. Try a larger payment.`;
+      warn.classList.remove('hidden');
+    }
+    const both = s.finished && t.finished;
+    const save = s.interest - t.cost;
+    $('stats').innerHTML = stat(save >= 0 ? 'You save' : 'Transfer costs you', both ? money(Math.abs(save), 2) : '–', both && save > 0) +
+      stat('Transfer fee', money(t.fee, 2)) +
+      stat('Left when the promo ends', t.finished || t.months >= n ? money(t.promoEndBalance, 2) : '–') +
+      (n > 0 ? stat(`To clear it in ${n} months, pay`, money(clear, 2) + '/mo') : '');
+    if (!both) $('verdict').textContent = '';
+    else if (save > 0) $('verdict').innerHTML = `Transferring saves <strong>${money(save, 2)}</strong> after the ${money(t.fee, 2)} fee` +
+      (t.months < s.months ? ` and gets you debt-free <strong>${span(s.months - t.months)}</strong> sooner.` : '.') +
+      (t.promoEndBalance > 0.005 ? ` ${money(t.promoEndBalance, 2)} is still owed when the intro rate ends; paying ${money(clear, 2)} a month would clear it in time.` : ' You clear the balance before the intro rate ends.');
+    else $('verdict').innerHTML = `This transfer <strong>costs ${money(-save, 2)} more</strong> than keeping your card: the fee and any interest after the promo outweigh the interest you'd save.`;
+
+    $('compare').innerHTML = '<thead><tr><th></th><th class="num">Keep the card</th><th class="num">Transfer</th></tr></thead><tbody>' +
+      `<tr><td>Transfer fee</td><td class="num">${money(0, 2)}</td><td class="num">${money(t.fee, 2)}</td></tr>` +
+      `<tr><td>Interest</td><td class="num">${s.finished ? money(s.interest, 2) : '–'}</td><td class="num">${t.finished ? money(t.interest, 2) : '–'}</td></tr>` +
+      `<tr><td>Total cost</td><td class="num">${s.finished ? money(s.interest, 2) : '–'}</td><td class="num">${t.finished ? money(t.cost, 2) : '–'}</td></tr>` +
+      `<tr><td>Debt-free in</td><td class="num">${s.finished ? span(s.months) : 'Never'}</td><td class="num">${t.finished ? span(t.months) : 'Never'}</td></tr></tbody>`;
+
+    const fees = [0, 3, 4, 5], lens = [6, 12, 15, 18, 21];
+    $('grid').innerHTML = !s.finished ? '' : '<thead><tr><th>Intro period</th>' + fees.map(f => `<th class="num">${f}% fee</th>`).join('') + '</tr></thead><tbody>' +
+      lens.map(m => `<tr><td>${m} months</td>` + fees.map(f => {
+        const g = E.transferPayoff(bal, f, feeMin, intro, m, post, pay);
+        return `<td class="num">${g.finished ? money(s.interest - g.cost) : '–'}</td>`;
+      }).join('') + '</tr>').join('') + '</tbody>';
+
+    $('schedule').innerHTML = !t.finished ? '' : '<thead><tr><th>Month</th><th>Rate</th><th class="num">Payment</th><th class="num">Interest</th><th class="num">Balance</th></tr></thead><tbody>' +
+      t.schedule.map(r => `<tr><td>${r.month}</td><td>${r.promo ? 'Intro ' + intro + '%' : post + '%'}</td><td class="num">${money(r.payment, 2)}</td><td class="num">${money(r.interest, 2)}</td><td class="num">${money(r.balance, 2)}</td></tr>`).join('') + '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>

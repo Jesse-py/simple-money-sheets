@@ -58,7 +58,42 @@
     return { months: month, interest, paid, firstPayment: first, finished: bal === 0 };
   }
 
-  const api = { fixedPayoff, paymentForMonths, minimumPayoff, MIN_RULES, MAX_MONTHS };
+  // Balance transfer: the fee is added to the new card's balance on day one, then the intro APR applies
+  // for introMonths, then the regular APR. Same fixed payment every month, same monthly interest model.
+  function transferFee(balance, feePct, feeMin) {
+    return balance > 0 ? Math.max(feeMin || 0, balance * feePct / 100) : 0;
+  }
+
+  function transferPayoff(balance, feePct, feeMin, introApr, introMonths, postApr, payment) {
+    const fee = transferFee(balance, feePct, feeMin);
+    let bal = balance + fee, month = 0, interest = 0, paid = 0, promoEndBalance = null;
+    const schedule = [];
+    if (balance <= 0) return { fee: 0, months: 0, interest: 0, paid: 0, cost: 0, promoEndBalance: 0, finished: true, schedule };
+    while (bal > 0.005 && month < MAX_MONTHS) {
+      month++;
+      const promo = month <= introMonths;
+      const i = bal * (promo ? introApr : postApr) / 100 / 12;
+      bal += i;
+      interest += i;
+      const pay = Math.min(payment, bal);
+      bal -= pay;
+      paid += pay;
+      if (bal <= 0.005) bal = 0;
+      schedule.push({ month, promo, payment: pay, interest: i, balance: bal });
+      if (month === introMonths) promoEndBalance = bal;
+      if (!promo && pay <= i && bal > 0) break; // never pays down after the promo
+    }
+    if (introMonths <= 0) promoEndBalance = balance + fee; // no promo: nothing is paid before the regular rate
+    else if (promoEndBalance === null) promoEndBalance = bal; // paid off before the promo ended (0), or stopped early
+    return { fee, months: month, interest, paid, cost: fee + interest, promoEndBalance, finished: bal === 0, schedule };
+  }
+
+  // Fixed payment that clears balance + fee by the last promo month.
+  function paymentToClearPromo(balance, feePct, feeMin, introApr, introMonths) {
+    return paymentForMonths(balance + transferFee(balance, feePct, feeMin), introApr, introMonths);
+  }
+
+  const api = { fixedPayoff, paymentForMonths, minimumPayoff, transferFee, transferPayoff, paymentToClearPromo, MIN_RULES, MAX_MONTHS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.CardEngine = api;
 })(typeof window !== 'undefined' ? window : globalThis);
