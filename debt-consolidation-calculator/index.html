@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debt Consolidation Calculator: Will a Loan Save You Money?</title>
+<meta name="description" content="Compare your debts with one consolidation loan: the new payment, interest plus the origination fee, payoff date, and the loan's real APR.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/debt-consolidation-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Debt Consolidation Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Debt Consolidation Calculator</h1>
+  <p class="lede">Compare paying off your cards and loans as you are now with rolling them into one consolidation loan. See the new monthly payment, what each path costs in interest and fees, when you'd be debt-free, and the loan's real APR once the origination fee is counted. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <h2 style="margin-top:0">Your debts now</h2>
+    <div id="debt-list"></div>
+    <p class="small muted">Use what you actually pay each month, not just the minimum. Leave a row's balance at 0 to skip it.</p>
+    <h2>The consolidation loan</h2>
+    <div class="fields">
+      <div><label for="rate">Interest rate (%)</label><input id="rate" type="number" min="0" max="100" step="0.01" value="13.99" inputmode="decimal"></div>
+      <div><label for="term">Term (months)</label><input id="term" type="number" min="1" max="120" step="1" value="36" inputmode="numeric"></div>
+      <div><label for="fee">Origination fee (%)</label><input id="fee" type="number" min="0" max="20" step="0.1" value="5" inputmode="decimal"></div>
+      <div><label for="mode">How the fee is charged</label><select id="mode"><option value="deducted">Taken out of the loan</option><option value="added">Added to the loan</option></select></div>
+    </div>
+    <p class="small muted">Enter the loan's interest rate, not its APR: the APR already includes the fee, so using it here would count the fee twice. With "taken out of the loan", you borrow enough that the money you receive still pays off every debt.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Consolidate or keep paying?</h2>
+    <div id="warning" class="note hidden"></div>
+    <div class="stats" id="stats"></div>
+    <p id="verdict"></p>
+    <div class="table-scroll"><table id="compare"></table></div>
+    <h3>Other loan terms</h3>
+    <p class="small muted">Same debts, rate, and fee. A longer term lowers the payment but usually costs more in total. "At the same payment" compares the loan with your debts at the loan's payment (or the loan at your current payment, whichever is larger), so it shows what the rate and fee are worth on their own.</p>
+    <div class="table-scroll"><table id="terms"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Not sure a loan is the answer?</h3>
+    <p>Paying the debts in the right order often saves most of what a loan would, with no fee and no new account. The free <a href="../debt-payoff-calculator/">debt snowball vs avalanche calculator</a> shows both orders. To track the plan month after month, the <a href="../debt-payoff-planner/">Debt Payoff Planner</a> spreadsheet for Excel builds both schedules, logs your real payments, and shows your progress.</p>
+    <a class="btn" data-product="debtPlanner">Get the planner (<span data-price>$9</span>)</a>
+  </aside>
+
+  <article>
+    <h2>How the comparison works</h2>
+    <p><strong>Keep paying:</strong> you keep paying the same total each month. When one debt is paid off, its payment goes to the debt with the highest APR (the avalanche order), so the total never drops until you're debt-free. That's the cheapest way to pay off what you have now, so the loan has to beat your best plan, not a plan of only paying minimums.</p>
+    <p><strong>Consolidate:</strong> a fixed-rate loan pays off every debt on day one, and you make one payment for the loan's term. The origination fee is part of what the loan costs you.</p>
+    <p><strong>At the same payment:</strong> a loan with a bigger payment than yours can look like a winner just because it pays the debt off faster, and you could do that without a loan. So the calculator also compares both sides at the same monthly payment. That number is what the loan's rate and fee are actually worth.</p>
+
+    <h2 id="example">Example: $8,500 on three cards</h2>
+    <p>Card A: $4,500 at 24.99%, paying $135. Card B: $2,800 at 21.49%, paying $85. A store card: $1,200 at 29.99%, paying $50. That's $270 a month. The loan offer: 13.99% for 36 months with a 5% origination fee taken out of the loan.</p>
+    <div class="table-scroll"><table id="example-table">
+      <thead><tr><th></th><th class="num">Keep paying</th><th class="num">36-month loan</th><th class="num">60-month loan</th></tr></thead>
+      <tbody>
+        <tr><td>Monthly payment</td><td class="num">$270.00</td><td class="num">$305.76</td><td class="num">$208.14</td></tr>
+        <tr><td>Origination fee</td><td class="num">$0.00</td><td class="num">$447.37</td><td class="num">$447.37</td></tr>
+        <tr><td>Interest</td><td class="num">$5,217.77</td><td class="num">$2,059.86</td><td class="num">$3,541.23</td></tr>
+        <tr><td>Total cost (fee + interest)</td><td class="num">$5,217.77</td><td class="num">$2,507.23</td><td class="num">$3,988.59</td></tr>
+        <tr><td>Debt-free in</td><td class="num">51 months</td><td class="num">36 months</td><td class="num">60 months</td></tr>
+      </tbody>
+    </table></div>
+    <p>To have $8,500 left after a 5% fee, you borrow <strong>$8,947.37</strong>. The 36-month loan saves <strong>$2,710.54</strong> and ends 15 months sooner, but its payment is $35.76 a month higher than you pay now. Paying that same $305.76 a month on the cards themselves would take <strong>42 months</strong> and cost $4,046.76 in interest, so the loan's lower rate is worth <strong>$1,539.53</strong>; the rest of the savings comes from paying more each month. The 60-month loan has the lower payment and still saves <strong>$1,229.17</strong>, but you'd be paying for 9 months longer. Pay your current $270 into the 60-month loan instead, and it's gone in <strong>43 months</strong> for $2,874.98, if the loan has no prepayment penalty. The fee lifts the 36-month loan's APR from 13.99% to <strong>17.64%</strong>.</p>
+
+    <h2>When consolidation doesn't pay</h2>
+    <ul>
+      <li><strong>The fee eats the savings.</strong> A 5% to 8% fee on a small or short payoff can cost more than the interest you'd avoid. Try a 0% fee above to see how much of the gap is the fee.</li>
+      <li><strong>The longer term hides the cost.</strong> The Consumer Financial Protection Bureau warns that a lower monthly payment "may be because you're paying over a longer time." Look at total cost, not just the payment.</li>
+      <li><strong>Your rate isn't much lower.</strong> If your debts are already near the loan's rate, the fee usually makes the loan a loss.</li>
+      <li><strong>The cards fill up again.</strong> Paying off cards frees up their limits. New balances on top of the loan leave you with more debt than you started with.</li>
+      <li><strong>The loan is secured by your home.</strong> A home equity loan can have a lower rate, but as the CFPB puts it, "If you don't pay back the loan, you could lose your home in foreclosure."</li>
+    </ul>
+
+    <h2>Interest rate vs APR on a consolidation loan</h2>
+    <p>Under the Truth in Lending rules (Regulation Z), loan fees are part of the finance charge (12 CFR 1026.4(b)(3)). The "amount financed" on your disclosure is the loan amount minus any prepaid finance charge such as an origination fee taken out up front (12 CFR 1026.18(b)), and the APR is the yearly cost of credit on that amount (1026.18(e)). So a loan with a fee always has an APR above its interest rate. When you compare offers, compare APRs with each other, or use this calculator with each offer's interest rate and fee.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>Should I enter minimum payments or what I actually pay?</summary><p>What you actually pay. If you pay more than the minimums now, the "keep paying" plan finishes sooner, and the loan has to beat that.</p></details>
+    <details><summary>Is a balance transfer card better?</summary><p>It can be, for card debt you can clear within the promo. The <a href="../balance-transfer-calculator/">balance transfer calculator</a> compares the transfer fee with the interest saved and shows what's left when the promo ends.</p></details>
+    <details><summary>What's the difference between "taken out" and "added"?</summary><p>Most personal loans take the fee out of the money you receive, so to pay off $8,500 at 5% you need to borrow $8,947.37. If your lender adds the fee to the balance instead, you'd borrow $8,925.00. The difference is small; use whichever your offer describes.</p></details>
+    <details><summary>Does the calculator include a prepayment penalty?</summary><p>No. Many personal loans have none, but check your offer. The "pay your current amount into the loan" figure assumes extra payments are allowed with no fee.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li><a href="https://www.ecfr.gov/current/title-12/chapter-X/part-1026/subpart-A/section-1026.4">12 CFR 1026.4</a>: the finance charge, including loan fees (b)(3).</li>
+      <li><a href="https://www.ecfr.gov/current/title-12/chapter-X/part-1026/subpart-C/section-1026.18">12 CFR 1026.18</a>: closed-end loan disclosures, including the amount financed (b) and the annual percentage rate (e).</li>
+      <li>Consumer Financial Protection Bureau, <a href="https://www.consumerfinance.gov/ask-cfpb/what-do-i-need-to-know-if-im-thinking-about-consolidating-my-credit-card-debt-en-1861/">What do I need to know if I'm thinking about consolidating my credit card debt?</a></li>
+    </ul>
+    <p class="small muted">Math: interest is charged monthly (APR &divide; 12) on each balance, then payments are applied, the same model as our <a href="../debt-payoff-calculator/">debt payoff calculator</a> and <a href="../loan-calculator/">loan calculator</a>. The loan APR is the monthly rate at which the payments are worth the amount you receive, times 12. Card issuers usually charge daily interest, so real statements differ slightly. For education and planning only. This isn't financial advice.</p>
+
+    <h2>Related calculators</h2>
+    <ul>
+      <li><a href="../debt-payoff-calculator/">Debt snowball vs avalanche calculator</a>: the best order to pay off several debts without a loan.</li>
+      <li><a href="../balance-transfer-calculator/">Balance transfer calculator</a>: is a 0% intro APR card worth the fee?</li>
+      <li><a href="../loan-calculator/">Loan calculator with extra payments</a>: the full schedule for any fixed-rate loan.</li>
+      <li><a href="../debt-to-income-ratio-calculator/">Debt-to-income ratio calculator</a>: one of the numbers lenders check before approving a loan.</li>
+    </ul>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../balance-transfer-calculator/">Balance transfer calculator</a><a href="../loan-calculator/">Loan calculator with extra payments</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/loan-engine.js"></script>
+<script src="../assets/debt-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const L = window.LoanEngine, D = window.DebtEngine;
+  const money = (n, d = 2) => (n < 0 ? '-' : '') + Math.abs(n).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const span = m => {
+    const y = Math.floor(m / 12), mo = m % 12;
+    return [y ? `${y} yr${y > 1 ? 's' : ''}` : '', mo ? `${mo} mo` : ''].filter(Boolean).join(' ') || '0 mo';
+  };
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const ROWS = [['Card A', 4500, 24.99, 135], ['Card B', 2800, 21.49, 85], ['Store card', 1200, 29.99, 50], ['', 0, 0, 0], ['', 0, 0, 0], ['', 0, 0, 0]];
+  const TERMS = [24, 36, 48, 60, 72];
+
+  $('debt-list').innerHTML = ROWS.map(([n, b, a, p], i) => `<div class="debt-row">` +
+    `<div class="name"><label for="n${i}">Debt ${i + 1}</label><input id="n${i}" type="text" value="${n}" placeholder="Name (optional)"></div>` +
+    `<div><label for="b${i}">Balance ($)</label><input id="b${i}" type="number" min="0" step="1" value="${b}" inputmode="decimal"></div>` +
+    `<div><label for="a${i}">APR (%)</label><input id="a${i}" type="number" min="0" max="100" step="0.01" value="${a}" inputmode="decimal"></div>` +
+    `<div><label for="p${i}">Monthly payment ($)</label><input id="p${i}" type="number" min="0" step="1" value="${p}" inputmode="decimal"></div></div>`).join('');
+
+  function render() {
+    const debts = ROWS.map((_, i) => ({ name: $('n' + i).value.trim() || `Debt ${i + 1}`, balance: num('b' + i), apr: num('a' + i), min: num('p' + i) }))
+      .filter(x => x.balance > 0);
+    const rate = num('rate'), term = Math.min(120, Math.round(num('term'))), fee = Math.min(20, num('fee')), mode = $('mode').value;
+    const warn = $('warning');
+    warn.classList.add('hidden');
+    if (!debts.length || term < 1) {
+      $('stats').innerHTML = ''; $('compare').innerHTML = ''; $('terms').innerHTML = '';
+      $('verdict').textContent = 'Enter at least one debt and the loan term to compare.';
+      return;
+    }
+    const total = debts.reduce((s, x) => s + x.balance, 0);
+    const now = D.simulate(debts, 0, 'avalanche');
+    const loan = L.consolidation(total, rate, term, fee, mode, now.budget);
+    if (!now.finished) {
+      warn.textContent = `At ${money(now.budget)} a month, your current debts would take more than ${D.MAX_MONTHS / 12} years to pay off: the payments barely cover the interest. The comparison below stops there.`;
+      warn.classList.remove('hidden');
+    }
+    const save = now.totalInterest - loan.cost, diff = loan.payment - now.budget;
+    // Like for like: the same monthly payment on both sides, so the difference is the rate and the fee, not paying more.
+    // Loan payment above yours: your debts at the loan's payment. Below: the loan at your current payment.
+    const fair = c => {
+      if (c.payment > now.budget + 0.005) {
+        const s = D.simulate(debts, c.payment - now.budget, 'avalanche');
+        return { pay: c.payment, debts: s.totalInterest, debtsMonths: s.months, loan: c.cost, loanMonths: c.months, sim: s };
+      }
+      const f = c.atBudget || c;
+      return { pay: now.budget, debts: now.totalInterest, debtsMonths: now.months, loan: f.cost, loanMonths: f.months };
+    };
+    const same = fair(loan), fairSave = same.debts - same.loan;
+    $('stats').innerHTML = stat(fairSave >= 0 ? 'Loan saves (same payment)' : 'Loan costs more (same payment)', money(Math.abs(fairSave)), fairSave >= 0) +
+      stat(save >= 0 ? 'Saves vs your plan now' : 'Costs more vs your plan now', money(Math.abs(save))) +
+      stat('New payment', `${money(loan.payment)}/mo`) + stat('You pay now', `${money(now.budget)}/mo`) +
+      stat('Debt-free', `${span(loan.months)} vs ${now.finished ? span(now.months) : 'never'}`) +
+      stat('You borrow', money(loan.principal)) + stat('Loan APR with the fee', `${loan.apr.toFixed(2)}%`);
+    let v = (save >= 0
+      ? `Compared with what you pay now, the loan saves ${money(save)} in interest and fees` + (diff > 0.005 ? `, but its payment is ${money(diff)} a month more.` : diff < -0.005 ? `, and lowers your payment by ${money(-diff)} a month.` : '.')
+      : `Compared with what you pay now, the loan costs ${money(-save)} more` + (diff < -0.005 ? `, even though its payment is ${money(-diff)} a month lower.` : '.'));
+    if (same.sim) {
+      v += ` Paying the same ${money(same.pay)} a month on your current debts would clear them in ${same.debtsMonths} months for ${money(same.debts)} in interest, so ` +
+        (fairSave >= 0 ? `the loan's rate and fee are worth ${money(fairSave)} of that; the rest comes from paying more each month.`
+          : `the loan costs ${money(-fairSave)} more at the same payment: its savings come only from paying more each month, which you can do without a loan.`);
+    } else if (loan.atBudget) {
+      v += ` Paying your current ${money(now.budget)} into the loan instead clears it in ${loan.atBudget.months} months for ${money(loan.atBudget.cost)} in total` +
+        (fairSave >= 0 ? `, saving ${money(fairSave)}.` : `, still ${money(-fairSave)} more than keeping your plan.`);
+    }
+    $('verdict').textContent = v;
+    const cols = [['Keep paying', now.budget, 0, now.totalInterest, now.finished ? `${now.months} months` : 'Never']];
+    if (same.sim) cols.push([`Your debts at ${money(same.pay, 0)}/mo`, same.pay, 0, same.debts, `${same.debtsMonths} months`]);
+    cols.push([`${term}-month loan`, loan.payment, loan.fee, loan.interest, `${loan.months} months`]);
+    if (loan.atBudget) cols.push([`Loan at ${money(now.budget, 0)}/mo`, now.budget, loan.fee, loan.atBudget.interest, `${loan.atBudget.months} months`]);
+    const row = (label, f) => `<tr><td>${label}</td>${cols.map(c => `<td class="num">${f(c)}</td>`).join('')}</tr>`;
+    $('compare').innerHTML = `<thead><tr><th></th>${cols.map(c => `<th class="num">${c[0]}</th>`).join('')}</tr></thead><tbody>` +
+      row('Monthly payment', c => money(c[1])) + row('Origination fee', c => money(c[2])) + row('Interest', c => money(c[3])) +
+      row('Total cost (fee + interest)', c => money(c[2] + c[3])) + row('Debt-free in', c => c[4]) + '</tbody>';
+    $('terms').innerHTML = '<thead><tr><th>Term</th><th class="num">Payment</th><th class="num">Fee + interest</th><th class="num">Savings vs your plan now</th><th class="num">Savings at the same payment</th></tr></thead><tbody>' +
+      TERMS.map(n => {
+        const c = L.consolidation(total, rate, n, fee, mode, now.budget), f = fair(c);
+        return `<tr${n === term ? ' class="hl"' : ''}><td>${n} months</td><td class="num">${money(c.payment)}</td><td class="num">${money(c.cost)}</td><td class="num">${money(now.totalInterest - c.cost)}</td><td class="num">${money(f.debts - f.loan)}</td></tr>`;
+      }).join('') + '</tbody>';
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
