@@ -31,7 +31,38 @@
     return { payment: pay, months: month, interest, paid, schedule };
   }
 
-  const api = { payment, amortize };
+  // Debt consolidation loan that pays off `payoff` dollars of debt. An origination fee (percent) is either taken out of
+  // the loan ('deducted': you borrow payoff / (1 - fee) so the proceeds still cover the debts) or added on top ('added':
+  // you borrow payoff x (1 + fee)). The fee is a finance charge (12 CFR 1026.4(b)(3)), so the loan's APR, the rate that
+  // makes the payments worth exactly the money you receive (the amount financed, 1026.18(b)), is above the interest rate.
+  function consolidation(payoff, ratePct, n, feePct = 0, feeMode = 'deducted', budget = 0) {
+    const f = Math.max(0, feePct) / 100;
+    const principal = !(payoff > 0) ? 0 : feeMode === 'added' ? payoff * (1 + f) : f < 1 ? payoff / (1 - f) : 0;
+    const fee = principal - payoff;
+    const loan = amortize(principal, ratePct, n);
+    const res = { principal, fee, payment: loan.payment, months: loan.months, interest: loan.interest, cost: loan.interest + fee,
+      apr: principal > 0 ? aprFor(payoff, loan.payment, n) : 0 };
+    // Paying a larger monthly budget into the same loan (no prepayment penalty assumed).
+    if (budget > loan.payment + 0.005) {
+      const fast = amortize(principal, ratePct, n, budget - loan.payment);
+      res.atBudget = { months: fast.months, interest: fast.interest, cost: fast.interest + fee };
+    }
+    return res;
+  }
+  // APR (percent, monthly compounding x 12) at which n payments of `pay` are worth `amount` today. Bisection on the
+  // monthly rate; the present value falls as the rate rises.
+  function aprFor(amount, pay, n) {
+    if (!(amount > 0) || !(pay > 0) || n <= 0 || pay * n <= amount) return 0;
+    const pv = r => pay * (1 - Math.pow(1 + r, -n)) / r;
+    let lo = 1e-12, hi = 1;
+    for (let i = 0; i < 200; i++) {
+      const mid = (lo + hi) / 2;
+      if (pv(mid) > amount) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2 * 12 * 100;
+  }
+
+  const api = { payment, amortize, consolidation, aprFor };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.LoanEngine = api;
 })(typeof window !== 'undefined' ? window : globalThis);
