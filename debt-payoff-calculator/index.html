@@ -90,6 +90,32 @@
     <p>Interest this month is the balance times the APR divided by 12. The last column is what matters for your extra money: every $100 sent to the store card stops $2.50 of interest a month, while the same $100 on the car loan stops only $0.62. The car loan charges a lot of interest because its balance is large, not because its rate is high, so paying it early buys you the least.</p>
     <p>When two debts have the same APR, this calculator's avalanche pays the smaller balance first, and its snowball breaks a tie in balance by paying the higher APR first. If you'd rather start with a quick win and then switch to the avalanche, pay off one small debt first, delete it from the list, and run the avalanche on the rest.</p>
 
+    <h2 id="spreadsheet">Debt avalanche spreadsheet: the formulas</h2>
+    <p>If you'd rather keep the plan in your own spreadsheet, these formulas run the same month-by-month avalanche as the calculator above, in Excel or Google Sheets. They're free to copy. The layout is for four debts.</p>
+    <ol>
+      <li>In rows 2 to 5, list your debts <strong>highest APR first</strong>: name in column A, balance in B, APR in C (type it as a percent, like 29.99%), and minimum payment in D. Put your total monthly payment (all the minimums plus your extra) in F2.</li>
+      <li>Starting balances go in row 7: D7 <code>=B2</code>, G7 <code>=B3</code>, J7 <code>=B4</code>, M7 <code>=B5</code>. Row 8 is month 1 (put 1 in A8).</li>
+      <li>Enter the row 8 formulas below. Each debt uses three columns: owed (with interest), paid, and balance left. Column N is the leftover money.</li>
+      <li>Select A8:N8 and fill down to row 400 (about 33 years), and put <code>=A8+1</code> in A9 before you fill.</li>
+    </ol>
+    <div class="table-scroll"><table id="spreadsheet-table">
+      <thead><tr><th scope="col">Cell</th><th scope="col">Formula</th><th scope="col">What it does</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">B8</th><td><code data-cell="B8">=D7*(1+$C$2/12)</code></td><td>Debt 1 owed: last month's balance plus a month of interest</td></tr>
+        <tr><th scope="row">E8</th><td><code data-cell="E8">=G7*(1+$C$3/12)</code></td><td>Debt 2 owed (same idea)</td></tr>
+        <tr><th scope="row">H8</th><td><code data-cell="H8">=J7*(1+$C$4/12)</code></td><td>Debt 3 owed</td></tr>
+        <tr><th scope="row">K8</th><td><code data-cell="K8">=M7*(1+$C$5/12)</code></td><td>Debt 4 owed</td></tr>
+        <tr><th scope="row">N8</th><td><code data-cell="N8">=$F$2-MIN($D$2,B8)-MIN($D$3,E8)-MIN($D$4,H8)-MIN($D$5,K8)</code></td><td>Money left after every open debt gets its minimum</td></tr>
+        <tr><th scope="row">C8</th><td><code data-cell="C8">=MIN(B8,MIN($D$2,B8)+N8)</code></td><td>Debt 1 paid: its minimum plus all the leftover, but never more than it owes</td></tr>
+        <tr><th scope="row">F8</th><td><code data-cell="F8">=MIN(E8,MIN($D$3,E8)+N8-(C8-MIN($D$2,B8)))</code></td><td>Debt 2 paid: its minimum plus whatever leftover debt 1 didn't need</td></tr>
+        <tr><th scope="row">I8</th><td><code data-cell="I8">=MIN(H8,MIN($D$4,H8)+N8-(C8-MIN($D$2,B8))-(F8-MIN($D$3,E8)))</code></td><td>Debt 3 paid: the same rollover, one step further</td></tr>
+        <tr><th scope="row">L8</th><td><code data-cell="L8">=MIN(K8,MIN($D$5,K8)+N8-(C8-MIN($D$2,B8))-(F8-MIN($D$3,E8))-(I8-MIN($D$4,H8)))</code></td><td>Debt 4 paid</td></tr>
+        <tr><th scope="row">D8</th><td><code data-cell="D8">=B8-C8</code></td><td>Debt 1 balance left (G8 =E8-F8, J8 =H8-I8, M8 =K8-L8 for the others)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Each debt's paid-off month is <code>=MATCH(0,D8:D400,0)</code> (use G, J, or M for debts 2 to 4), and the total interest is <code>=SUM(C8:C400,F8:F400,I8:I400,L8:L400)-SUM(B2:B5)</code>. With the four debts from the worked example and 755 in F2, the sheet gives the same answer as the calculator: paid off in months 4, 18, 21, and 28, with $2,504.70 of interest.</p>
+    <p>For the <strong>snowball</strong> instead, sort the rows smallest balance first; the formulas stay the same. With three debts, delete columns K to M and the last part of the N and L formulas; for a fifth debt, add three columns and one more term the same way. If you want this already built, with a payment log, a progress tracker, and a payoff chart, that's what the <a href="../debt-payoff-planner/">Debt Payoff Planner</a> is.</p>
+
     <h2>How the calculation works</h2>
     <p>Each month, interest is added to each balance at its APR divided by 12. Then every open debt gets its minimum payment, and the rest of your budget goes to the target debt. If the target is paid off with money left over, the remainder goes to the next debt in line that same month. This matches how most people actually run the snowball and avalanche methods, but your lender may calculate interest daily, so real numbers can differ slightly.</p>
 
