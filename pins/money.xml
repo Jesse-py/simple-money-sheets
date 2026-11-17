@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Free debt, budget, and savings calculators, plus Excel templates.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 16 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 17 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/money.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>Credit Card Payoff Calculator: How Long Will It Take?</title>
@@ -123,6 +123,24 @@
     <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/emergency-fund-3000.png" length="103220" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/emergency-fund-3000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Debt-to-Income Ratio Calculator (DTI)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/debt-to-income-ratio-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=dti-5000</link>
+    <description>$2,100 of monthly debt payments on $5,000 of gross monthly income is a 42% debt-to-income ratio. Lenders' common limits are 36%, 45%, and 50%. Enter your income and payments to see your DTI and exactly what it takes to lower it.</description>
+    <guid isPermaLink="false">sms-pin-dti-5000</guid>
+    <pubDate>Tue, 17 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/dti-5000.png" length="104029" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/dti-5000.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Loan Calculator: How Much a Lump-Sum Payment Saves</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/loan-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=loan-lump-2000</link>
+    <description>Putting a $2,000 tax refund toward a $25,000 car loan at 7% in month 6 pays it off 5 months early and saves $702.26 in interest. The sooner the extra goes in, the more it saves. Try your own loan, extra monthly payments, or a lump sum. Free, no sign-up.</description>
+    <guid isPermaLink="false">sms-pin-loan-lump-2000</guid>
+    <pubDate>Tue, 17 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/loan-lump-2000.png" length="110444" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/loan-lump-2000.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
