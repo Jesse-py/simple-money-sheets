@@ -18,7 +18,7 @@
 </div></header>
 <main><div class="wrap">
   <h1>Savings Goal Calculator</h1>
-  <p class="lede">Work out how much to set aside each month to reach a savings goal by a certain date, or how long it will take at the amount you can save now. Everything runs in your browser, and nothing is sent anywhere.</p>
+  <p class="lede">Work out how much to set aside each month, week, or paycheck to reach a savings goal by a certain date, or how long it will take at the amount you can save now. Everything runs in your browser, and nothing is sent anywhere.</p>
 
   <section class="card">
     <div class="fields">
@@ -30,7 +30,7 @@
       <div id="months-wrap"><label for="months">Reach it in (months)</label><input id="months" type="number" min="1" max="600" step="1" value="24" inputmode="numeric"></div>
       <div id="deposit-wrap" class="hidden"><label for="deposit">I can save per month ($)</label><input id="deposit" type="number" min="0" step="1" value="300" inputmode="decimal"></div>
     </div>
-    <p class="small muted">Use 0% for cash or a checking account. Savings account rates change often, so check your bank's current APY.</p>
+    <p class="small muted">Use 0% for cash or a checking account. Rates vary a lot: the FDIC's national average for savings accounts was 0.39% on November 16, 2026 (<a href="https://www.fdic.gov/national-rates-and-rate-caps">FDIC national rates</a>), while many high-yield accounts pay several times that. Check your bank's current APY.</p>
   </section>
 
   <section class="card" aria-live="polite">
@@ -51,6 +51,29 @@
   </aside>
 
   <article>
+    <h2 id="common-goals">How much to save for common goals</h2>
+    <p>Starting from $0, with no interest, so the amounts are slightly more than you'd need in a savings account that pays interest. Weekly amounts are the monthly amount &times; 12 &divide; 52. Rounded to the nearest dollar.</p>
+    <div class="table-scroll"><table id="goal-table">
+      <thead><tr><th>Goal</th><th class="num">3 months</th><th class="num">6 months</th><th class="num">12 months</th><th class="num">24 months</th></tr></thead>
+      <tbody>
+        <tr><td>$1,000</td><td class="num">$333/mo<br><span class="small muted">$77/wk</span></td><td class="num">$167/mo<br><span class="small muted">$38/wk</span></td><td class="num">$83/mo<br><span class="small muted">$19/wk</span></td><td class="num">$42/mo<br><span class="small muted">$10/wk</span></td></tr>
+        <tr><td>$5,000</td><td class="num">$1,667/mo<br><span class="small muted">$385/wk</span></td><td class="num">$833/mo<br><span class="small muted">$192/wk</span></td><td class="num">$417/mo<br><span class="small muted">$96/wk</span></td><td class="num">$208/mo<br><span class="small muted">$48/wk</span></td></tr>
+        <tr><td>$10,000</td><td class="num">$3,333/mo<br><span class="small muted">$769/wk</span></td><td class="num">$1,667/mo<br><span class="small muted">$385/wk</span></td><td class="num">$833/mo<br><span class="small muted">$192/wk</span></td><td class="num">$417/mo<br><span class="small muted">$96/wk</span></td></tr>
+        <tr><td>$20,000</td><td class="num">$6,667/mo<br><span class="small muted">$1,538/wk</span></td><td class="num">$3,333/mo<br><span class="small muted">$769/wk</span></td><td class="num">$1,667/mo<br><span class="small muted">$385/wk</span></td><td class="num">$833/mo<br><span class="small muted">$192/wk</span></td></tr>
+        <tr><td>$40,000</td><td class="num">$13,333/mo<br><span class="small muted">$3,077/wk</span></td><td class="num">$6,667/mo<br><span class="small muted">$1,538/wk</span></td><td class="num">$3,333/mo<br><span class="small muted">$769/wk</span></td><td class="num">$1,667/mo<br><span class="small muted">$385/wk</span></td></tr>
+        <tr><td>$50,000</td><td class="num">$16,667/mo<br><span class="small muted">$3,846/wk</span></td><td class="num">$8,333/mo<br><span class="small muted">$1,923/wk</span></td><td class="num">$4,167/mo<br><span class="small muted">$962/wk</span></td><td class="num">$2,083/mo<br><span class="small muted">$481/wk</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <h2 id="save-40k">Example: how to save $40,000 in 6 months (or 12, or 24)</h2>
+    <p>In 6 months, $40,000 takes $6,666.67 a month, or about $1,538 a week. Interest barely helps over a period that short. That's only realistic if most of it comes from a lump sum (a bonus, a tax refund, selling a car) or from a very high income with low costs. Stretching the timeline changes the picture quickly:</p>
+    <ul>
+      <li><strong>12 months:</strong> $3,333.33 a month with no interest, or $3,273.74 at 4% APY (about $715 of the $40,000 is interest).</li>
+      <li><strong>24 months:</strong> $1,666.67 a month with no interest, or $1,604.77 at 4% APY (about $1,485 in interest). At the 0.39% national average rate it's $1,660.46, so where you keep the money matters more as the goal gets longer.</li>
+      <li><strong>$1,000 a month:</strong> 40 months with no interest, 38 months at 4% APY.</li>
+    </ul>
+    <p>To try your own numbers, enter them in the calculator above. "Save a fixed amount each month" shows how long your amount takes.</p>
+
     <h2>How the calculator works</h2>
     <p>Each month, your balance earns interest and then your deposit is added. Interest is entered as APY (annual percentage yield), the rate banks advertise for savings accounts, and it compounds monthly. For example, $1,000 already saved plus $357.80 a month at 4% APY reaches $10,000 in 24 months: you deposit $8,587 on top of the $1,000 you started with, and earn about $413 in interest.</p>
     <p>With a set time, the calculator finds the monthly deposit that lands exactly on your goal. With a fixed deposit, it counts the months until your balance reaches the goal. To see how a balance grows over many years instead, use the <a href="../compound-interest-calculator/">compound interest calculator</a>.</p>
@@ -125,15 +148,16 @@
     $('stats').innerHTML = (byMonths ? stat('Save each month', money(deposit, 2), true) : stat('Goal reached in', reached ? span(months) : 'Over 100 yrs', true)) +
       (reached ? stat('Goal date', dateAfter(months)) : '') +
       stat('Per paycheck (every 2 weeks)', money(deposit * 12 / 26, 2)) +
+      stat('Per week', money(deposit * 12 / 52, 2)) +
       (reached ? stat('Interest earned', money(p.interest)) : '');
     $('summary').textContent = !reached ? '' :
       `You'll put in ${money(start + p.deposits)} of your own money (${money(start)} already saved plus ${money(p.deposits)} in deposits) and earn ${money(p.interest)} in interest, for a balance of ${money(p.balance)}.`;
 
-    $('targets').innerHTML = '<thead><tr><th>Reach it in</th><th class="num">Per month</th><th class="num">Per paycheck</th><th class="num">Interest earned</th></tr></thead><tbody>' +
+    $('targets').innerHTML = '<thead><tr><th>Reach it in</th><th class="num">Per month</th><th class="num">Per paycheck</th><th class="num">Per week</th><th class="num">Interest earned</th></tr></thead><tbody>' +
       [6, 12, 18, 24, 36, 48, 60].map(k => {
         const d = E.depositForMonths(goal, start, apy, k);
         const fv = E.futureValue(start, apy, d, k);
-        return `<tr><td>${span(k)} (${dateAfter(k)})</td><td class="num">${money(d, 2)}</td><td class="num">${money(d * 12 / 26, 2)}</td><td class="num">${money(Math.max(0, fv - start - d * k))}</td></tr>`;
+        return `<tr><td>${span(k)} (${dateAfter(k)})</td><td class="num">${money(d, 2)}</td><td class="num">${money(d * 12 / 26, 2)}</td><td class="num">${money(d * 12 / 52, 2)}</td><td class="num">${money(Math.max(0, fv - start - d * k))}</td></tr>`;
       }).join('') + '</tbody>';
 
     if (reached) {
