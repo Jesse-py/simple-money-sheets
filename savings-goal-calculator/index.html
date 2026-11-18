@@ -7,6 +7,49 @@
 <meta name="description" content="Free savings goal calculator. Find out how much to save each month (or each paycheck) to reach a goal by a date, or how long it takes at the amount you can save, including interest.">
 <link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/savings-goal-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+  .sg-answer { font-size: 1.3rem; line-height: 1.4; margin: 4px 0 16px; }
+  .sg-answer:empty { display: none; }
+  .sg-answer strong { color: var(--accent-strong); }
+  #target-wrap input { min-height: 42px; }
+  /* Chart colors: checked with the palette validator (CVD + contrast) on both surfaces. */
+  .sg-chart { --s1: #1f7a52; --s2: #3b5bab; --grid: #e6ebe8; position: relative; margin: 22px 0 6px; }
+  @media (prefers-color-scheme: dark) { .sg-chart { --s1: #38a571; --s2: #7590de; --grid: #2c3532; } }
+  .sg-chart figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; margin-bottom: 8px; }
+  .sg-chart-title { font-weight: 600; }
+  .sg-legend { display: flex; gap: 14px; font-size: .85rem; color: var(--muted); }
+  .sg-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .sg-legend .k1, .sg-tip .k1 { background: var(--s1); }
+  .sg-legend .k2, .sg-tip .k2 { background: var(--s2); }
+  .sg-plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .sg-plot svg:focus { outline: none; }
+  .sg-plot svg:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+  .sg-plot text { font: 12px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .sg-plot .goal-label { fill: var(--text); font-weight: 600; }
+  .sg-plot .col { transition: opacity .12s; }
+  .sg-plot.hovering .col { opacity: .45; }
+  .sg-plot.hovering .col.on { opacity: 1; }
+  .sg-tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: .85rem; box-shadow: 0 4px 14px rgba(0,0,0,.12); min-width: 170px; z-index: 2; }
+  .sg-tip .t { color: var(--muted); margin-bottom: 4px; }
+  .sg-tip .r { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+  .sg-tip .r span { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+  .sg-tip .r b { font-variant-numeric: tabular-nums; }
+  .sg-tip i { display: inline-block; width: 12px; height: 2px; border-radius: 1px; }
+  .sg-miles { list-style: none; padding: 0; margin: 8px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sg-miles li { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: var(--bg); }
+  .sg-miles .pct { font-weight: 700; font-size: 1.05rem; }
+  .sg-miles .bar { display: block; height: 4px; border-radius: 2px; background: var(--border); margin: 6px 0 8px; overflow: hidden; }
+  .sg-miles .bar span { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+  .sg-miles .when { font-weight: 600; }
+  .sg-miles .amt { color: var(--muted); font-size: .85rem; }
+  @media (max-width: 600px) { .sg-miles { grid-template-columns: 1fr 1fr; } .sg-answer { font-size: 1.15rem; } }
+  .sg-share { margin: 18px 0 4px; }
+  .sg-share .small { display: block; margin-top: 6px; word-break: break-all; }
+  #stats { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 600px) { #stats { grid-template-columns: 1fr 1fr; } }
+  .sg-more { margin-top: 18px; }
+  .sg-more summary { padding: 4px 0; }
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"Savings Goal Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 </script>
@@ -28,20 +71,34 @@
       <div><label for="mode">I want to</label>
         <select id="mode"><option value="months">Reach my goal in a set time</option><option value="deposit">Save a fixed amount each month</option></select></div>
       <div id="months-wrap"><label for="months">Reach it in (months)</label><input id="months" type="number" min="1" max="600" step="1" value="24" inputmode="numeric"></div>
+      <div id="target-wrap"><label for="target">or by (month)</label><input id="target" type="month"></div>
       <div id="deposit-wrap" class="hidden"><label for="deposit">I can save per month ($)</label><input id="deposit" type="number" min="0" step="1" value="300" inputmode="decimal"></div>
     </div>
     <p class="small muted">Use 0% for cash or a checking account. Rates vary a lot: the FDIC's national average for savings accounts was 0.39% on November 16, 2026 (<a href="https://www.fdic.gov/national-rates-and-rate-caps">FDIC national rates</a>), while many high-yield accounts pay several times that. Check your bank's current APY.</p>
   </section>
 
-  <section class="card" aria-live="polite">
+  <section class="card">
     <h2 style="margin-top:0">Your savings plan</h2>
     <div id="warning" class="note hidden"></div>
+    <p class="sg-answer" id="answer" aria-live="polite"></p>
     <div class="stats" id="stats"></div>
+    <figure class="sg-chart" id="chart-fig">
+      <figcaption><span class="sg-chart-title">How your balance builds</span>
+        <span class="sg-legend"><span><i class="k1"></i>Your money (saved + deposits)</span><span><i class="k2"></i>Interest</span></span></figcaption>
+      <div class="sg-plot" id="chart"></div>
+      <div class="sg-tip hidden" id="tip"></div>
+    </figure>
+    <div id="miles-wrap">
+      <h3>Milestones</h3>
+      <ol class="sg-miles" id="miles"></ol>
+    </div>
     <p id="summary"></p>
+    <p class="sg-share"><button type="button" class="btn ghost" id="share">Copy a link to this plan</button> <span class="small muted" id="share-note">Bookmark or share it; the link keeps your numbers.</span></p>
     <h3>Monthly saving needed to reach your goal in</h3>
     <div class="table-scroll"><table id="targets"></table></div>
-    <h3>Month-by-month growth</h3>
-    <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+    <details class="sg-more"><summary>Month-by-month growth</summary>
+      <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+    </details>
   </section>
 
   <aside class="cta">
@@ -108,31 +165,178 @@
 (function () {
   const $ = id => document.getElementById(id);
   const E = window.SavingsEngine;
+  const SVG = 'http://www.w3.org/2000/svg';
   const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const compact = n => n >= 1e6 ? '$' + +(n / 1e6).toFixed(2) + 'M' : n >= 1000 ? '$' + +(n / 1000).toFixed(1) + 'K' : '$' + Math.round(n);
   const num = id => Math.max(0, parseFloat($(id).value) || 0);
   const span = m => {
     const y = Math.floor(m / 12), mo = m % 12;
     return [y ? `${y} yr${y > 1 ? 's' : ''}` : '', mo ? `${mo} mo` : ''].filter(Boolean).join(' ') || '0 mo';
   };
-  const dateAfter = m => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d.toLocaleDateString(undefined, { month: 'short', year: 'numeric' }); };
+  const monthDate = m => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d; };
+  const dateAfter = m => monthDate(m).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
   const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const el = (name, attrs, parent) => { const e = document.createElementNS(SVG, name); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
 
+  // Target month <-> months from now.
+  const monthValue = m => { const d = monthDate(m); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); };
+  function syncTarget() { $('target').value = monthValue(Math.min(600, Math.max(1, Math.round(num('months')) || 1))); }
+  $('target').addEventListener('input', () => {
+    const [y, m] = $('target').value.split('-').map(Number);
+    if (!y || !m) return;
+    const now = new Date();
+    $('months').value = Math.min(600, Math.max(1, (y * 12 + m - 1) - (now.getFullYear() * 12 + now.getMonth())));
+  });
+  $('target').min = monthValue(1);
+
+  // A plan in the address bar, so a bookmark or shared link opens with the same numbers.
+  const FIELDS = ['goal', 'start', 'apy', 'mode', 'months', 'deposit'];
+  const params = new URLSearchParams(location.search);
+  FIELDS.forEach(f => { if (params.has(f)) $(f).value = params.get(f); });
+  function planUrl() {
+    const q = new URLSearchParams();
+    const mode = $('mode').value;
+    FIELDS.forEach(f => {
+      if ((f === 'months' && mode !== 'months') || (f === 'deposit' && mode !== 'deposit')) return;
+      q.set(f, $(f).value);
+    });
+    return location.href.split(/[?#]/)[0] + '?' + q;
+  }
+  const SHARE_HINT = 'Bookmark or share it; the link keeps your numbers.';
+  $('share').addEventListener('click', () => {
+    const url = planUrl();
+    try { history.replaceState(null, '', url); } catch (e) { /* file:// previews */ }
+    const show = () => { $('share-note').textContent = url; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(() => { $('share-note').textContent = 'Link copied.'; }, show);
+    else show();
+  });
+
+  // Stacked columns: your money (start + deposits) under interest, with the goal as a reference line.
+  let chartState = null;
+  function drawChart(schedule, start, goal) {
+    const box = $('chart'); box.textContent = ''; $('tip').classList.add('hidden');
+    $('chart-fig').classList.toggle('hidden', !schedule.length);
+    if (!schedule.length) { chartState = null; return; }
+    const n = schedule.length, step = n <= 36 ? 1 : n <= 120 ? 3 : 12;
+    const pts = [];
+    let own = start;
+    schedule.forEach((s, i) => {
+      own += s.deposit;
+      if ((i + 1) % step === 0 || i === n - 1) pts.push({ month: s.month, own: Math.min(own, s.balance), interest: Math.max(0, s.balance - own), balance: s.balance });
+    });
+    const W = Math.max(300, Math.round(box.clientWidth || 720)), H = W < 480 ? 220 : 260;
+    const m = { l: 48, r: 8, t: 22, b: 26 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const top = Math.max(goal, pts[pts.length - 1].balance);
+    // About 5 gridlines at a round step (1, 2, 2.5 or 5 x a power of ten), with headroom above the goal.
+    const raw = top * 1.08 / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), nice = [1, 2, 2.5, 5, 10].map(x => x * mag).find(x => x >= raw - 1e-9);
+    const yMax = Math.ceil(top * 1.08 / nice) * nice;
+    const y = v => m.t + ih - (v / yMax) * ih;
+    const last = pts[pts.length - 1];
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', tabindex: '0',
+      'aria-label': `Column chart of your balance over time. It reaches ${money(last.balance)} in month ${last.month}. Use the left and right arrow keys to read each column; the month-by-month table below has every value.` }, box);
+    for (let v = 0; v <= yMax + 1e-9; v += nice) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: 'var(--grid)', 'stroke-width': 1 }, svg);
+      el('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end' }, svg).textContent = compact(v);
+    }
+    const slot = iw / pts.length, bw = Math.max(3, Math.min(24, slot * 0.72)), gap = 2;
+    const cols = pts.map((p, i) => {
+      const cx = m.l + slot * (i + 0.5), x = cx - bw / 2;
+      const g = el('g', { class: 'col' }, svg);
+      const yOwn = y(p.own), yAll = y(p.balance), base = y(0);
+      const showInt = yOwn - yAll >= gap + 1;
+      const r = Math.min(4, bw / 2);
+      const rounded = (yTop, yBot, fill) => {
+        const h = yBot - yTop; if (h <= 0) return;
+        const rr = Math.min(r, h);
+        el('path', { fill, d: `M${x} ${yBot}V${yTop + rr}Q${x} ${yTop} ${x + rr} ${yTop}H${x + bw - rr}Q${x + bw} ${yTop} ${x + bw} ${yTop + rr}V${yBot}Z` }, g);
+      };
+      if (showInt) {
+        el('rect', { x, y: yOwn, width: bw, height: Math.max(0, base - yOwn), fill: 'var(--s1)' }, g);
+        rounded(yAll, yOwn - gap, 'var(--s2)');
+      } else rounded(yOwn, base, 'var(--s1)');
+      el('rect', { x: m.l + slot * i, y: m.t, width: slot, height: ih, fill: 'transparent' }, g).addEventListener('pointermove', () => focusCol(i));
+      return { g, cx, top: yAll };
+    });
+    // Goal line on top of the columns, labeled at the right end.
+    el('line', { x1: m.l, x2: W - m.r, y1: y(goal), y2: y(goal), stroke: 'var(--text)', 'stroke-width': 1 }, svg);
+    el('text', { x: W - m.r, y: y(goal) - 6, 'text-anchor': 'end', class: 'goal-label' }, svg).textContent = 'Goal ' + money(goal);
+    const ticks = [...new Set([0, Math.floor((pts.length - 1) / 2), pts.length - 1])];
+    ticks.forEach(i => {
+      const anchor = pts.length > 1 && i === 0 ? 'start' : pts.length > 1 && i === pts.length - 1 ? 'end' : 'middle';
+      const tx = anchor === 'start' ? cols[i].cx - bw / 2 : anchor === 'end' ? cols[i].cx + bw / 2 : cols[i].cx;
+      el('text', { x: tx, y: H - 6, 'text-anchor': anchor }, svg).textContent = dateAfter(pts[i].month);
+    });
+    chartState = { pts, cols, W, active: -1 };
+    svg.addEventListener('pointerleave', clearFocus);
+    svg.addEventListener('blur', clearFocus);
+    svg.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      const a = chartState.active < 0 ? (d > 0 ? 0 : pts.length - 1) : Math.max(0, Math.min(pts.length - 1, chartState.active + d));
+      focusCol(a);
+    });
+  }
+  function focusCol(i) {
+    const s = chartState; if (!s) return;
+    s.active = i;
+    $('chart').classList.add('hovering');
+    s.cols.forEach((c, k) => c.g.classList.toggle('on', k === i));
+    const p = s.pts[i], tip = $('tip');
+    tip.innerHTML = `<div class="t">${dateAfter(p.month)} · month ${p.month}</div>` +
+      `<div class="r"><span>Balance</span><b>${money(p.balance, 2)}</b></div>` +
+      `<div class="r"><span><i class="k1"></i>Your money</span><b>${money(p.own, 2)}</b></div>` +
+      `<div class="r"><span><i class="k2"></i>Interest</span><b>${money(p.interest, 2)}</b></div>`;
+    tip.classList.remove('hidden');
+    const svg = $('chart').querySelector('svg'), plot = svg.getBoundingClientRect(), fig = $('chart-fig').getBoundingClientRect();
+    const scale = plot.width / s.W || 1, tw = tip.offsetWidth || 180, th = tip.offsetHeight || 90;
+    const cx = plot.left - fig.left + s.cols[i].cx * scale;
+    let left = cx + 14;
+    if (left + tw > fig.width) left = cx - tw - 14;
+    tip.style.left = Math.max(0, left) + 'px';
+    tip.style.top = Math.max(0, plot.top - fig.top + s.cols[i].top * scale - th / 2) + 'px';
+  }
+  function clearFocus() {
+    if (!chartState) return;
+    chartState.active = -1;
+    $('chart').classList.remove('hovering');
+    $('tip').classList.add('hidden');
+  }
+
+  function drawMiles(schedule, start, goal) {
+    $('miles').innerHTML = [25, 50, 75, 100].map(pct => {
+      const target = goal * pct / 100;
+      const hit = start >= target ? { month: 0 } : schedule.find(s => s.balance >= target - 0.005);
+      const when = !hit ? 'Not reached' : hit.month === 0 ? 'Already there' : dateAfter(hit.month);
+      const sub = !hit || hit.month === 0 ? money(target) : `${money(target)} · month ${hit.month}`;
+      return `<li><span class="pct">${pct}%</span><span class="bar"><span style="width:${pct}%"></span></span><span class="when">${when}</span><br><span class="amt">${sub}</span></li>`;
+    }).join('');
+  }
+
+  let lastChart = null;
+  function showPlan(on) {
+    $('miles-wrap').classList.toggle('hidden', !on);
+    if (!on) { lastChart = null; drawChart([], 0, 0); }
+  }
   function render() {
     const goal = num('goal'), start = num('start'), apy = Math.min(30, num('apy'));
     const byMonths = $('mode').value === 'months';
     $('months-wrap').classList.toggle('hidden', !byMonths);
+    $('target-wrap').classList.toggle('hidden', !byMonths);
     $('deposit-wrap').classList.toggle('hidden', byMonths);
+    if (document.activeElement !== $('target')) syncTarget();
     const n = Math.min(600, Math.max(1, Math.round(num('months')) || 1));
     const warn = $('warning');
     warn.classList.add('hidden');
-    $('targets').innerHTML = ''; $('schedule').innerHTML = '';
+    $('targets').innerHTML = ''; $('schedule').innerHTML = ''; $('answer').innerHTML = '';
     if (goal <= 0) {
-      $('stats').innerHTML = ''; $('summary').textContent = 'Enter your savings goal to get started.';
+      $('stats').innerHTML = ''; $('summary').textContent = 'Enter your savings goal to get started.'; showPlan(false);
       return;
     }
     if (start >= goal) {
       $('stats').innerHTML = stat('Goal reached', 'Already there', true);
       $('summary').textContent = `You've already saved ${money(start)}, which covers your ${money(goal)} goal.`;
+      showPlan(false);
       return;
     }
     const deposit = byMonths ? E.depositForMonths(goal, start, apy, n) : num('deposit');
@@ -145,9 +349,16 @@
       warn.classList.remove('hidden');
     }
     const months = byMonths ? n : p.reachedAt;
+    if (reached) {
+      $('answer').innerHTML = byMonths
+        ? (deposit > 0 ? `Save <strong>${money(deposit, 2)} a month</strong> to reach <strong>${money(goal)}</strong> by <strong>${dateAfter(months)}</strong>.`
+          : `Interest alone grows your ${money(start)} to <strong>${money(goal)}</strong> by <strong>${dateAfter(months)}</strong>, with no deposits.`)
+        : `At ${money(deposit)} a month, you'll reach <strong>${money(goal)}</strong> in <strong>${span(months)}</strong>, around <strong>${dateAfter(months)}</strong>.`;
+    }
     $('stats').innerHTML = (byMonths ? stat('Save each month', money(deposit, 2), true) : stat('Goal reached in', reached ? span(months) : 'Over 100 yrs', true)) +
       (reached ? stat('Goal date', dateAfter(months)) : '') +
       stat('Per paycheck (every 2 weeks)', money(deposit * 12 / 26, 2)) +
+      stat('Twice a month', money(deposit / 2, 2)) +
       stat('Per week', money(deposit * 12 / 52, 2)) +
       (reached ? stat('Interest earned', money(p.interest)) : '');
     $('summary').textContent = !reached ? '' :
@@ -160,12 +371,18 @@
         return `<tr><td>${span(k)} (${dateAfter(k)})</td><td class="num">${money(d, 2)}</td><td class="num">${money(d * 12 / 26, 2)}</td><td class="num">${money(d * 12 / 52, 2)}</td><td class="num">${money(Math.max(0, fv - start - d * k))}</td></tr>`;
       }).join('') + '</tbody>';
 
+    showPlan(reached);
     if (reached) {
       $('schedule').innerHTML = '<thead><tr><th>Month</th><th class="num">Deposit</th><th class="num">Interest</th><th class="num">Balance</th></tr></thead><tbody>' +
         p.schedule.map(s => `<tr><td>${s.month} (${dateAfter(s.month)})</td><td class="num">${money(s.deposit, 2)}</td><td class="num">${money(s.interest, 2)}</td><td class="num">${money(s.balance, 2)}</td></tr>`).join('') + '</tbody>';
+      lastChart = [p.schedule, start, goal];
+      drawChart(p.schedule, start, goal);
+      drawMiles(p.schedule, start, goal);
     }
   }
-  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', () => { render(); $('share-note').textContent = SHARE_HINT; }));
+  let resizeTimer;
+  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (lastChart) drawChart(...lastChart); }, 150); });
   render();
 })();
 </script>
