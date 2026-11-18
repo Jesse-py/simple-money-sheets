@@ -5,7 +5,7 @@
   <link>https://jesse-py.github.io/simple-money-sheets/</link>
   <description>Quarterly estimated tax help for freelancers and side hustles.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 16 Nov 2026 09:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 18 Nov 2026 09:00:00 +0000</lastBuildDate>
   <atom:link href="https://jesse-py.github.io/simple-money-sheets/pins/taxes.xml" rel="self" type="application/rss+xml"/>
   <item>
     <title>2026 Quarterly Estimated Tax Due Dates for Freelancers</title>
@@ -132,6 +132,24 @@
     <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
     <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/skip-april-vs-january.png" length="120942" type="image/png"/>
     <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/skip-april-vs-january.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Free Printable Mileage Log for Self-Employed Drivers (PDF)</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/printable-tax-logs/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=printable-mileage-log-drivers</link>
+    <description>A free printable mileage log for self-employed and business drivers: date, destination, business purpose, odometer start and end, miles, parking and tolls. Publication 463 says to record each trip at or near the time, so keep a page in the car. US Letter PDF with a how-to page. No sign-up.</description>
+    <guid isPermaLink="false">sms-pin-printable-mileage-log-drivers</guid>
+    <pubDate>Tue, 17 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/printable-mileage-log-drivers.png" length="107237" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/printable-mileage-log-drivers.png" medium="image" type="image/png" width="1000" height="1500"/>
+  </item>
+  <item>
+    <title>Side Hustle Tax Calculator: Extra Tax on 1099 Income With a W-2 Job</title>
+    <link>https://jesse-py.github.io/simple-money-sheets/quarterly-estimated-tax-calculator/?utm_source=pinterest&amp;utm_medium=pin&amp;utm_campaign=side-gig-tax-w2</link>
+    <description>With a $50,000 W-2 job (single, 2026), $10,000 of side-gig profit adds about $2,305 in federal tax: self-employment tax plus income tax, about 23% of the profit. Work out your own number and what to pay each quarter with the free estimated tax calculator (2026 and 2027, IRS sources). No sign-up.</description>
+    <guid isPermaLink="false">sms-pin-side-gig-tax-w2</guid>
+    <pubDate>Wed, 18 Nov 2026 09:00:00 +0000</pubDate>
+    <enclosure url="https://jesse-py.github.io/simple-money-sheets/pins/side-gig-tax-w2.png" length="116841" type="image/png"/>
+    <media:content url="https://jesse-py.github.io/simple-money-sheets/pins/side-gig-tax-w2.png" medium="image" type="image/png" width="1000" height="1500"/>
   </item>
 </channel>
 </rss>
