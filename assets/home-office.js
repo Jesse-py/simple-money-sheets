@@ -50,7 +50,7 @@
     const operatingAllowed = Math.min(operating, afterTier1);                                 // line 27
     const rate = firstMonth >= 1 && firstMonth <= 12 ? FIRST_YEAR[firstMonth] : LATER_YEAR;  // line 41
     const depreciation = pos(buildingBasis) * pct * rate;                                     // lines 40-42
-    const depreciationAllowed = Math.min(depreciation, afterTier1 - operatingAllowed);        // line 31
+    const depreciationAllowed = Math.min(depreciation, afterTier1 - operatingAllowed);        // line 33
     // Itemizers' business share of mortgage interest and taxes is deductible either way, so it's allowed in full.
     const allowed = tier1 + operatingAllowed + depreciationAllowed;                           // line 36
     return {
