@@ -22,7 +22,9 @@
 
   <section class="card">
     <div class="fields">
-      <div><label for="income">Gross income, before taxes, per year ($)</label><input id="income" type="number" min="0" step="1000" value="60000" inputmode="decimal"></div>
+      <div><label for="income">Gross income, before taxes ($)</label><input id="income" type="number" min="0" step="1000" value="60000" inputmode="decimal"></div>
+      <div><label for="per">That income is</label>
+        <select id="per"><option value="year" selected>Per year</option><option value="month">Per month</option></select></div>
       <div><label for="pct">Share of gross monthly income for the car payment and insurance (%)</label><input id="pct" type="number" min="0" max="50" step="1" value="10" inputmode="decimal"></div>
       <div><label for="insurance">Car insurance per month ($)</label><input id="insurance" type="number" min="0" step="10" value="150" inputmode="decimal"></div>
       <div><label for="down">Down payment plus trade-in value ($)</label><input id="down" type="number" min="0" step="500" value="5000" inputmode="decimal"></div>
@@ -50,6 +52,23 @@
   </aside>
 
   <article>
+    <h2>How much car can I afford on my salary?</h2>
+    <p>This table runs the calculator's defaults for common salaries: 10% of gross pay for the payment and insurance, $150 a month of insurance, $5,000 down, 7% APR, and 6% tax and fees. Salaries are before taxes; the second column is the same pay per month, so you can read it either way.</p>
+    <div class="table-scroll"><table id="salaries">
+      <thead><tr><th>Salary per year</th><th class="num">Per month</th><th class="num">10% for the car</th><th class="num">Left for the loan payment</th><th class="num">Car price, 48-month loan</th><th class="num">Car price, 60-month loan</th></tr></thead>
+      <tbody>
+        <tr><td>$30,000</td><td class="num">$2,500</td><td class="num">$250</td><td class="num">$100</td><td class="num">$8,657</td><td class="num">$9,481</td></tr>
+        <tr><td>$40,000</td><td class="num">$3,333</td><td class="num">$333</td><td class="num">$183</td><td class="num">$11,940</td><td class="num">$13,452</td></tr>
+        <tr><td>$50,000</td><td class="num">$4,167</td><td class="num">$417</td><td class="num">$267</td><td class="num">$15,223</td><td class="num">$17,422</td></tr>
+        <tr><td>$60,000</td><td class="num">$5,000</td><td class="num">$500</td><td class="num">$350</td><td class="num">$18,506</td><td class="num">$21,392</td></tr>
+        <tr><td>$65,000</td><td class="num">$5,417</td><td class="num">$542</td><td class="num">$392</td><td class="num">$20,147</td><td class="num">$23,377</td></tr>
+        <tr><td>$75,000</td><td class="num">$6,250</td><td class="num">$625</td><td class="num">$475</td><td class="num">$23,430</td><td class="num">$27,348</td></tr>
+        <tr><td>$100,000</td><td class="num">$8,333</td><td class="num">$833</td><td class="num">$683</td><td class="num">$31,638</td><td class="num">$37,273</td></tr>
+        <tr><td>$150,000</td><td class="num">$12,500</td><td class="num">$1,250</td><td class="num">$1,100</td><td class="num">$48,053</td><td class="num">$57,125</td></tr>
+      </tbody>
+    </table></div>
+    <p>Two things stand out. On a lower income, insurance takes most of the 10%: at $30,000 a year, $150 of the $250 goes to insurance, so the payment only supports about a $4,176 loan. On a higher income, a flat $5,000 down falls short of the 20% guideline (it's 16% of the price at $100,000 and 10% at $150,000), so save more or aim below the table. Your own insurance quote and APR move these numbers more than anything else; enter them above.</p>
+
     <h2>How the calculator works</h2>
     <ol>
       <li><strong>Monthly budget.</strong> $60,000 a year is $5,000 a month before taxes. 10% of that is $500 for the car payment and insurance together.</li>
@@ -76,6 +95,7 @@
 
     <h2>FAQ</h2>
     <details><summary>How much car can I afford on $50,000 a year?</summary><p>With the defaults (10% of gross pay for payment and insurance, $150 insurance, $5,000 down, 7% APR, 48 months, 6% tax and fees), $50,000 a year gives $416.67 a month, a $266.67 payment, an $11,136 loan, and a price of about $15,223. Enter your own numbers above; the insurance and APR change the answer a lot.</p></details>
+    <details><summary>Can I start from my monthly income?</summary><p>Yes. Set "That income is" to per month and enter your gross monthly pay. Switching it converts the number you already typed, so $60,000 a year becomes $5,000 a month and the answer stays the same.</p></details>
     <details><summary>Should I use gross or take-home pay?</summary><p>The 10% rule is usually stated on gross pay, which is what this calculator uses. If your take-home pay is much lower than gross (for example, large retirement contributions or high state taxes), lower the percentage.</p></details>
     <details><summary>Is a 72 or 84 month car loan a bad idea?</summary><p>It lowers the payment, but you pay much more interest and are more likely to owe more than the car is worth for years. If the only way to afford a car is a 7-year loan, that's usually a sign to look at a cheaper car.</p></details>
     <details><summary>Does this include the trade-in?</summary><p>Yes: add your trade-in value to the down payment. Many states tax only the price minus the trade-in, which this calculator doesn't model, so if yours does, your price can be a little higher.</p></details>
@@ -87,7 +107,7 @@
       <li>Negative equity study (about 34 million loans, 2018&ndash;2022): <a href="https://files.consumerfinance.gov/f/documents/cfpb_negative-equity-in-auto-lending-report_2024-06.pdf">CFPB, Negative Equity in Auto Lending (June 2024)</a>.</li>
       <li>What you can negotiate: <a href="https://www.consumerfinance.gov/ask-cfpb/what-things-can-i-negotiate-when-shopping-for-a-car-or-auto-loan-en-2132/">CFPB: What things can I negotiate when shopping for a car or auto loan?</a></li>
     </ul>
-    <p class="small muted">Last checked November 7, 2026. For education and planning only; your lender's numbers are what count.</p>
+    <p class="small muted">Last checked November 19, 2026. For education and planning only; your lender's numbers are what count.</p>
 
     <h2>Related calculators</h2>
     <p>Already have a car loan? See what extra payments save with the <a href="../loan-calculator/">loan calculator</a>, or plan paying it off alongside other debts with the <a href="../debt-payoff-calculator/">debt payoff calculator</a>.</p>
@@ -109,7 +129,7 @@
   const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
 
   function render() {
-    const inp = { income: pos('income'), pct: pos('pct'), insurance: pos('insurance'), down: pos('down'),
+    const inp = { income: pos('income') * ($('per').value === 'month' ? 12 : 1), pct: pos('pct'), insurance: pos('insurance'), down: pos('down'),
       apr: pos('apr'), term: parseInt($('term').value, 10), taxPct: pos('tax') };
     const a = C.afford(inp);
     if (a.budget <= 0) {
@@ -136,7 +156,13 @@
         return `<tr${t === inp.term ? ' class="hl"' : ''}><td>${t} months</td><td class="num">${money(x.price)}</td><td class="num">${money(x.loan)}</td><td class="num">${money(x.interest)}</td><td class="num">${money(x.totalCost)}</td></tr>`;
       }).join('') + '</tbody>';
   }
-  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  $('per').addEventListener('change', () => {
+    const v = pos('income');
+    $('income').value = $('per').value === 'month' ? Math.round(v / 12) : v * 12;
+    $('income').step = $('per').value === 'month' ? '100' : '1000';
+    render();
+  });
+  document.querySelectorAll('input, select:not(#per)').forEach(el => el.addEventListener('input', render));
   render();
 })();
 </script>
