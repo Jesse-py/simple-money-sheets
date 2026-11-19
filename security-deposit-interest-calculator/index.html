@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security Deposit Interest Calculator: SF, CT, MD, MA, NY, OH, MN, IL (2026 Rates)</title>
+<meta name="description" content="Free security deposit interest calculator for landlords and tenants. Uses each year's official rate (San Francisco 4.2%, Connecticut 0.49%, Maryland 3.47% for 2026) and each law's rules, and shows the interest owed for every year of the tenancy.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/security-deposit-interest-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Security Deposit Interest Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Security Deposit Interest Calculator</h1>
+  <p class="lede">Some states and cities make landlords pay interest on a tenant's security deposit, and each one has its own rate and rules. Pick where the rental is, enter the deposit and the dates, and this works out the interest owed for each year of the tenancy, using the official rate for each year and the law's own rules on who's covered, part years, and when it's due. For landlords working out a payment and tenants checking one. Everything runs in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="juris">Where is the rental?</label>
+        <select id="juris">
+          <option value="sf">San Francisco, CA</option>
+          <option value="ct">Connecticut</option>
+          <option value="md">Maryland</option>
+          <option value="ma">Massachusetts</option>
+          <option value="ny">New York</option>
+          <option value="oh">Ohio</option>
+          <option value="mn">Minnesota</option>
+          <option value="il">Illinois (outside Chicago)</option>
+        </select></div>
+      <div><label for="deposit">Security deposit ($)</label><input id="deposit" type="number" min="0" step="50" value="2000" inputmode="decimal"></div>
+      <div><label for="start">Date the deposit was paid</label><input id="start" type="date" value="2024-11-01"></div>
+      <div><label for="ongoing">Is the tenant still there?</label>
+        <select id="ongoing"><option value="yes">Yes: show interest up to today</option><option value="no">No: they moved out</option></select></div>
+      <div id="endBox" class="hidden"><label for="end">Move-out date (or date the deposit was returned)</label><input id="end" type="date" value="2026-11-01"></div>
+      <div class="only-oh hidden"><label for="rent">Monthly rent ($)</label><input id="rent" type="number" min="0" step="50" value="1000" inputmode="decimal"></div>
+      <div class="only-ny only-il hidden"><label for="units">Units in the building or complex</label><input id="units" type="number" min="1" step="1" value="10" inputmode="numeric"></div>
+      <div class="only-ny only-ma only-il hidden"><label for="bank" id="bankLabel">Rate the bank pays on the deposit account (%)</label><input id="bank" type="number" min="0" step="0.01" value="" inputmode="decimal"></div>
+      <div class="only-ma hidden"><label for="lmr">Last month's rent paid in advance ($, if any)</label><input id="lmr" type="number" min="0" step="50" value="0" inputmode="decimal"></div>
+    </div>
+    <p id="hint" class="small muted"></p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0" id="resultTitle">Interest owed</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <div class="table-scroll"><table id="schedule"></table></div>
+    <p id="note" class="small muted"></p>
+  </section>
+
+  <article>
+    <h2>The rules in each place this calculator covers</h2>
+    <div class="table-scroll"><table id="rules">
+      <thead><tr><th>Where</th><th>Rate</th><th>Who it covers</th><th>When it's paid</th></tr></thead>
+      <tbody>
+        <tr><td>San Francisco</td><td>Set by the Rent Board each year: <strong>4.2%</strong> from March 1, 2026 to February 28, 2027 (5.0% the year before)</td><td>Every residential rental in the city, including units exempt from rent control, except where a government agency subsidizes the rent. Deposits held over one year.</td><td>Every year on the "annual due date" (the day and month the deposit was paid), at the rate in effect that day. On move-out, a part year is prorated at the rate in effect on the move-out date and is due within two weeks. Nothing is due if the tenant leaves before one full year.</td></tr>
+        <tr><td>Connecticut</td><td>At least the Banking Commissioner's deposit index for each calendar year: <strong>0.49%</strong> for 2026</td><td>Landlords of residential units, except student housing owned by a school. Interest isn't paid for any month the rent was more than 10 days late, unless the landlord charged a late fee.</td><td>On each anniversary of the tenancy, in cash or as a credit toward the next rent. When the tenancy ends, accrued interest is due within 21 days.</td></tr>
+        <tr><td>Maryland</td><td>The greater of 1.5% or the 1-year U.S. Treasury rate on the first business day of each year: <strong>3.47%</strong> for 2026. Leases signed before 2015: 3%.</td><td>Deposits of $50 or more held at least 6 months.</td><td>With the deposit, within 45 days after the tenancy ends. Simple interest, accruing each full month from the day the deposit was paid; nothing for a part month.</td></tr>
+        <tr><td>Massachusetts</td><td><strong>5%</strong> a year, or the lower rate the bank actually paid on the account</td><td>Deposits the landlord holds one year or longer. Last month's rent paid in advance earns the same rate, except for that last month.</td><td>At the end of each year of the tenancy. If the tenancy ends before an anniversary, all accrued interest within 30 days. If it isn't paid within 30 days after a tenancy year ends, the tenant may deduct it from the next rent.</td></tr>
+        <tr><td>New York</td><td>What the bank account earns, minus the landlord's <strong>1% a year</strong> administration fee</td><td>Buildings with six or more apartments.</td><td>Paid each year, or held in trust and paid or applied to rent later.</td></tr>
+        <tr><td>Ohio</td><td><strong>5%</strong> a year on the part of the deposit over $50 or one month's rent, whichever is greater</td><td>Tenants who stay six months or more.</td><td>Computed and paid every year.</td></tr>
+        <tr><td>Minnesota</td><td><strong>1%</strong> a year, simple</td><td>All residential deposits. Interest under $1 isn't owed.</td><td>With the deposit after the tenancy ends (within three weeks). Counted from the first day of the month after the deposit was paid in full to the last day of the month it's returned.</td></tr>
+        <tr><td>Illinois</td><td>The largest Illinois bank's minimum savings rate on December 31 before the lease began: <strong>0.005%</strong> for leases starting in 2026</td><td>Buildings or complexes with 25 or more units, deposits held six months or more; not public housing.</td><td>Within 30 days after each 12-month rental period, in cash or as a rent credit.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Chicago has its own ordinance with a separate yearly rate and isn't included yet. Many states don't require interest on deposits at all, and others have rules this calculator doesn't cover yet. If your state isn't listed, check its landlord-tenant law and your lease.</p>
+
+    <h2>San Francisco security deposit interest rates</h2>
+    <p>The Rent Board sets each rate from the prior year's average 90-day AA financial commercial paper rate. Each one runs from March 1 to the end of February. The rate that applies to a year's interest is the one in effect on the annual due date, not the one in effect when the deposit was paid.</p>
+    <div class="table-scroll"><table id="sfRates">
+      <thead><tr><th>Period</th><th class="num">Rate</th></tr></thead>
+      <tbody>
+<tr><td>Mar 1, 2026 &ndash; Feb 28, 2027</td><td class="num">4.2%</td></tr>
+<tr><td>Mar 1, 2025 &ndash; Feb 28, 2026</td><td class="num">5.0%</td></tr>
+<tr><td>Mar 1, 2024 &ndash; Feb 28, 2025</td><td class="num">5.2%</td></tr>
+<tr><td>Mar 1, 2023 &ndash; Feb 29, 2024</td><td class="num">2.3%</td></tr>
+<tr><td>Mar 1, 2022 &ndash; Feb 28, 2023</td><td class="num">0.1%</td></tr>
+<tr><td>Mar 1, 2021 &ndash; Feb 28, 2022</td><td class="num">0.6%</td></tr>
+<tr><td>Mar 1, 2020 &ndash; Feb 28, 2021</td><td class="num">2.2%</td></tr>
+<tr><td>Mar 1, 2019 &ndash; Feb 29, 2020</td><td class="num">2.2%</td></tr>
+<tr><td>Mar 1, 2018 &ndash; Feb 28, 2019</td><td class="num">1.2%</td></tr>
+<tr><td>Mar 1, 2017 &ndash; Feb 28, 2018</td><td class="num">0.6%</td></tr>
+<tr><td>Mar 1, 2016 &ndash; Feb 28, 2017</td><td class="num">0.2%</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Example (the Rent Board's own):</strong> a $2,000 deposit paid November 1, 2024. On November 1, 2025 the rate in effect is 5.0%, so $100 is due. On November 1, 2026 it's 4.2%, so $84 is due: $184 for the two years. If the tenant instead moved out May 1, 2026, the second year would be prorated: $2,000 &times; 4.2% &times; 181 &divide; 365 = <strong>$41.65</strong>, due within two weeks. Landlords of rent-controlled units may deduct half of the year's Rent Board fee from the interest.</p>
+
+    <h2>Connecticut security deposit interest rates</h2>
+    <p>Since 2012 the rate for each calendar year is at least the deposit index the Banking Commissioner publishes each December. Before that it was never less than 1.5%.</p>
+    <div class="table-scroll"><table id="ctRates">
+      <thead><tr><th>Year</th><th class="num">Rate</th></tr></thead>
+      <tbody>
+<tr><td>2026</td><td class="num">0.49%</td></tr>
+<tr><td>2025</td><td class="num">0.52%</td></tr>
+<tr><td>2024</td><td class="num">0.55%</td></tr>
+<tr><td>2023</td><td class="num">0.27%</td></tr>
+<tr><td>2022</td><td class="num">0.06%</td></tr>
+<tr><td>2021</td><td class="num">0.08%</td></tr>
+<tr><td>2020</td><td class="num">0.15%</td></tr>
+<tr><td>2019</td><td class="num">0.15%</td></tr>
+<tr><td>2018</td><td class="num">0.09%</td></tr>
+<tr><td>2017</td><td class="num">0.08%</td></tr>
+<tr><td>2016</td><td class="num">0.08%</td></tr>
+<tr><td>2015</td><td class="num">0.08%</td></tr>
+<tr><td>2014</td><td class="num">0.09%</td></tr>
+<tr><td>2013</td><td class="num">0.11%</td></tr>
+<tr><td>2012</td><td class="num">0.16%</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Example:</strong> a $2,000 deposit paid July 1, 2023. The first tenancy year is 6 months of 2023 at 0.27% and 6 months of 2024 at 0.55%: $2,000 &times; (0.27% + 0.55%) &divide; 2 = <strong>$8.20</strong>, due July 1, 2024. The next two years come to $10.70 and $10.10, so <strong>$29.00</strong> over three years. The statute says unpaid interest compounds once a year; if none of it had been paid, the total would be $29.14.</p>
+
+    <h2>Maryland security deposit interest rates</h2>
+    <p>For leases signed on or after January 1, 2015, the rate for each year is the 1-year Treasury yield curve rate on the first business day of the year, or 1.5% if that's higher. Interest is simple and builds up month by month until the deposit comes back.</p>
+    <div class="table-scroll"><table id="mdRates">
+      <thead><tr><th>Year</th><th class="num">1-year Treasury, first business day</th><th class="num">Rate owed</th></tr></thead>
+      <tbody>
+<tr><td>2026</td><td class="num">3.47%</td><td class="num">3.47%</td></tr>
+<tr><td>2025</td><td class="num">4.17%</td><td class="num">4.17%</td></tr>
+<tr><td>2024</td><td class="num">4.80%</td><td class="num">4.80%</td></tr>
+<tr><td>2023</td><td class="num">4.72%</td><td class="num">4.72%</td></tr>
+<tr><td>2022</td><td class="num">0.40%</td><td class="num">1.50%</td></tr>
+<tr><td>2021</td><td class="num">0.10%</td><td class="num">1.50%</td></tr>
+<tr><td>2020</td><td class="num">1.56%</td><td class="num">1.56%</td></tr>
+<tr><td>2019</td><td class="num">2.60%</td><td class="num">2.60%</td></tr>
+<tr><td>2018</td><td class="num">1.83%</td><td class="num">1.83%</td></tr>
+<tr><td>2017</td><td class="num">0.89%</td><td class="num">1.50%</td></tr>
+<tr><td>2016</td><td class="num">0.61%</td><td class="num">1.50%</td></tr>
+<tr><td>2015</td><td class="num">0.25%</td><td class="num">1.50%</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Example:</strong> a $2,000 deposit paid January 1, 2024 and returned after the tenant leaves on January 1, 2026: $2,000 &times; 4.80% = $96.00 for 2024, plus $2,000 &times; 4.17% = $83.40 for 2025, so <strong>$179.40</strong> comes back with the deposit.</p>
+
+    <h2>Quick examples for the fixed-rate states</h2>
+    <ul id="examples">
+      <li><strong>Massachusetts:</strong> a $1,500 deposit earns 5%, or $75.00, each tenancy year (less if the bank paid a lower rate).</li>
+      <li><strong>Ohio:</strong> a $1,500 deposit with $1,000 monthly rent: only the $500 over one month's rent earns interest, so 5% &times; $500 = $25.00 a year.</li>
+      <li><strong>Minnesota:</strong> a $1,200 deposit paid January 15, 2024 and returned in March 2026 earns interest for February 2024 through March 2026, 26 months: $1,200 &times; 1% &times; 26 &divide; 12 = $26.00.</li>
+      <li><strong>New York:</strong> a $3,000 deposit in an account paying 3.5% in a 20-unit building: the landlord keeps 1%, so the tenant gets 2.5%, or $75.00 a year.</li>
+    </ul>
+
+    <h2>How the calculator works</h2>
+    <p>It splits the tenancy into years starting from the date the deposit was paid. A full year earns the deposit times that year's rate, as simple interest. A part year at the end is prorated by days, except in Maryland and Connecticut, where the calculator counts full months and gives each month 1/12 of the rate for the calendar year the month starts in. Minnesota counts months the way its statute does. Where a law uses the bank's rate (New York, a lower Massachusetts rate, an Illinois lease from before 2026), type the rate in. The rates are built in through February 2027 for San Francisco and through 2026 for Connecticut and Maryland; a year without a published rate shows as "not published yet".</p>
+    <p>Things the calculator doesn't do: Connecticut's rule that drops a month's interest when the rent was more than 10 days late without a late fee, the San Francisco Rent Board fee deduction, any deduction the landlord is allowed for damages, and local rules other than San Francisco's. Some cities have their own deposit interest ordinances, so check local law too.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>What is the security deposit interest rate for 2026?</summary><p>San Francisco: 4.2% (March 1, 2026 to February 28, 2027). Connecticut: 0.49%. Maryland: 3.47%. Massachusetts and Ohio: 5% (Massachusetts allows the bank's lower rate). Minnesota: 1%. Illinois Security Deposit Interest Act: 0.005% for leases that started in 2026. New York: whatever the account earns, less 1%.</p></details>
+    <details><summary>Is security deposit interest simple or compound?</summary><p>Simple in San Francisco ("the interest may not be compounded"), Maryland ("Interest is not compounded"), and Minnesota ("simple noncompounded interest"). Connecticut defines accrued interest as "compounded annually to the extent applicable", which matters only when past years' interest wasn't paid. Massachusetts, Ohio, and New York pay it every year, so there's nothing left to compound.</p></details>
+    <details><summary>Does a tenant get interest after moving out before a year is up?</summary><p>It depends on the place. San Francisco: no interest if the tenant leaves before one full year. Massachusetts: the law covers deposits held one year or longer. Maryland: the deposit must be held at least 6 months. Ohio and Illinois: six months. Connecticut and Minnesota: interest accrues from the start, with no minimum stay.</p></details>
+    <details><summary>Can the landlord pay the interest as a rent credit?</summary><p>Yes in Connecticut (the landlord chooses cash or a credit toward the next rent), San Francisco, and Illinois. In Massachusetts the tenant may deduct unpaid interest from the next rent once it's 30 days late.</p></details>
+    <p class="small muted">Sources: San Francisco Rent Board, <a href="https://www.sf.gov/reports--security-deposits">Security deposits</a>, <a href="https://www.sf.gov/news--new-interest-rate-security-deposits-effective-3126">New interest rate effective 3/1/26</a> and form 572 "Security Deposit Interest Rates" (1/26), under Administrative Code Chapter 49; Connecticut General Statutes <a href="https://prdext3.cga.ct.gov/2026/sup/chap_831.htm">&sect; 47a-21</a> (2026 supplement) and the Department of Banking's <a href="https://portal.ct.gov/dob/rental-security-deposits/rental-security-deposits/deposit-index-and-interest-rates">Deposit Index and Interest Rates</a> and "Previous Interest Rates" (12/2025); Maryland Real Property <a href="https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&amp;section=8-203&amp;enactments=false">&sect; 8-203(e)</a>, the <a href="https://mgaleg.maryland.gov/2014RS/fnotes/bil_0005/sb0345.pdf">SB 345 (2014) fiscal note</a> (effective January 1, 2015), DHCD's <a href="https://dhcd.maryland.gov/Pages/RSDCalculator/Default.aspx">security deposit calculator</a> page, and U.S. Treasury <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rate-archives">daily par yield curve rates</a> (1 Yr); Massachusetts <a href="https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section15B">G.L. c. 186 &sect; 15B</a>; New York <a href="https://www.nysenate.gov/legislation/laws/GOB/7-103">General Obligations Law &sect; 7-103</a>; Ohio <a href="https://codes.ohio.gov/ohio-revised-code/section-5321.16">R.C. 5321.16</a>; Minnesota <a href="https://www.revisor.mn.gov/statutes/cite/504B.178">&sect; 504B.178</a>; Illinois Security Deposit Interest Act (765 ILCS 715) and the <a href="https://idfpr.illinois.gov/content/dam/soi/en/web/idfpr/news/2026/2026-interest-rates-affecting-security-deposit-interest-act-announcement.pdf">IDFPR 2026 rate announcement</a> (January 5, 2026). For information, not legal advice. Last checked November 19, 2026.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../budget-calculator/">Budget calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../compound-interest-calculator/">Compound interest calculator</a><a href="../emergency-fund-calculator/">Emergency fund calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/deposit-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.DepositEngine;
+  const money = n => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const long = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' }); };
+  const pct = r => (Array.isArray(r) ? r.map(pct).join(' / ') : r == null ? 'not published yet' : (+r.toFixed(3)) + '%');
+  const today = () => { const t = new Date(); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`; };
+  // When each year's interest is due, and when the last part year is due after move-out.
+  const DUE = {
+    sf: ['on the annual due date', 'within 2 weeks of move-out'],
+    ct: ['on the anniversary (cash or rent credit)', 'within 21 days after the tenancy ends'],
+    md: ['with the deposit, within 45 days after the tenancy ends', 'with the deposit, within 45 days after the tenancy ends'],
+    ma: ['at the end of the tenancy year', 'within 30 days after the tenancy ends'],
+    ny: ['yearly, or held and paid later', 'when the deposit is returned'],
+    oh: ['yearly', 'when the deposit is returned'],
+    mn: ['with the deposit, within 3 weeks after the tenancy ends', ''],
+    il: ['within 30 days after the 12-month period', 'when the deposit is returned'],
+  };
+  const HINT = {
+    sf: 'Rates are the Rent Board’s, March 1 to February 28. Units whose rent is subsidized by a government agency are exempt.',
+    ct: 'Uses the Banking Commissioner’s rate for each calendar year (1994 on). No interest is owed for a month the rent was over 10 days late, unless a late fee was charged.',
+    md: 'Maryland counts full months from the day the deposit was paid. Leases signed before January 1, 2015 earn 3%.',
+    ma: 'Leave the bank rate blank for 5%. Enter it only if the bank paid less than 5% on the account.',
+    ny: 'Enter what the bank account pays. The landlord may keep 1% a year of it.',
+    oh: 'Interest is on the part of the deposit over $50 or one month’s rent, whichever is greater.',
+    mn: 'Counted from the first of the month after the deposit was paid in full to the end of the month it’s returned.',
+    il: 'Leave the rate blank for a lease that started in 2026 (0.005%). For an earlier lease, enter the rate IDFPR announced for December 31 of the year before it began.',
+  };
+
+  function render() {
+    const juris = $('juris').value, ongoing = $('ongoing').value === 'yes';
+    document.querySelectorAll('[class*="only-"]').forEach(el => el.classList.toggle('hidden', !el.classList.contains('only-' + juris)));
+    $('endBox').classList.toggle('hidden', ongoing);
+    $('bankLabel').textContent = juris === 'il' ? 'Illinois rate for the lease’s start year (%)' : juris === 'ma' ? 'Bank’s rate if under 5% (%)' : 'Rate the bank pays on the deposit account (%)';
+    $('hint').textContent = HINT[juris];
+    const end = ongoing ? today() : $('end').value;
+    const r = E.calc({ juris, deposit: parseFloat($('deposit').value) || 0, start: $('start').value, end, ongoing,
+      rent: parseFloat($('rent').value) || 0, units: parseFloat($('units').value) || 0, bankRate: $('bank').value === '' ? null : parseFloat($('bank').value),
+      lmr: parseFloat($('lmr').value) || 0 });
+    $('resultTitle').textContent = ongoing ? `Interest owed through ${long(end)}` : 'Interest owed';
+    $('note').textContent = r.notes.join(' ');
+    if (juris === 'ny' && r.owed && $('bank').value === '') { r.owed = false; r.reason = 'Enter the rate the bank pays on the deposit account.'; }
+    if (!r.owed) { $('stats').innerHTML = ''; $('schedule').innerHTML = ''; $('summary').textContent = r.reason; return; }
+    const [dueYear, dueEnd] = DUE[juris];
+    const rows = r.rows.map(row => {
+      const label = (row.lmr ? 'Last month’s rent: ' : '') + `${long(row.from)} – ${long(row.to)}` + (row.months != null && juris !== 'mn' ? ` (${row.months} mo)` : '');
+      let due = row.full !== false ? (juris === 'sf' || juris === 'ct' || juris === 'ma' || juris === 'il' ? `${dueYear}, ${long(row.to)}` : dueYear) : ongoing ? 'building up, not due yet' : dueEnd;
+      if (juris === 'mn') due = ongoing ? 'building up, not due yet' : dueYear;
+      if ((juris === 'md' || juris === 'ct') && ongoing && row.full === false) due = 'building up, not due yet';
+      if (juris === 'md' && ongoing) due = 'building up, due with the deposit';
+      return `<tr><td>${label}</td><td class="num">${pct(row.rate)}</td><td class="num">${row.interest == null ? '—' : money(row.interest)}</td><td>${due}</td></tr>`;
+    });
+    $('schedule').innerHTML = '<thead><tr><th>Period</th><th class="num">Rate</th><th class="num">Interest</th><th>Due</th></tr></thead><tbody>' + rows.join('') +
+      `<tr><th>Total</th><th></th><th class="num">${money(r.total)}</th><th></th></tr></tbody>`;
+    const years = (E.dayNum(end) - E.dayNum($('start').value)) / 365.25;
+    $('stats').innerHTML = stat('Interest owed', money(r.total), true) + stat('Deposit earning interest', money(r.base)) +
+      stat('Time held', years >= 1 ? years.toFixed(1) + ' years' : Math.round(years * 12) + ' months');
+    let s = `${E.J[juris].name}: ${money(r.total)} of interest on a ${money(parseFloat($('deposit').value) || 0)} deposit`;
+    s += ongoing ? ` so far.` : '.';
+    if (r.unknown) s += ' Part of the tenancy falls in a year without a published rate, so the total leaves it out.';
+    if (r.compounded != null && r.compounded > r.total) s += ` If none of the yearly interest was ever paid, annual compounding makes it ${money(r.compounded)}.`;
+    $('summary').textContent = s;
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
