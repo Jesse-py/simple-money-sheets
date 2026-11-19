@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Side Hustle Tax Calculator: W-2 Job + Side Income, Extra W-4 Withholding</title>
+<meta name="description" content="Free side hustle tax calculator for people with a W-2 job and 1099 or side-business income. See how much federal tax the side income adds, what share to set aside, and the extra W-4 withholding per paycheck that covers it instead of quarterly payments.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/side-hustle-tax-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Side Hustle Tax Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Side Hustle Tax Calculator</h1>
+  <p class="lede">Have a regular job and money coming in on the side (freelancing, gig apps, reselling, a small business)? Your employer only withholds tax on your paycheck, so the side income can leave you owing at tax time. Enter both to see how much federal tax the side income adds, what share of it to set aside, and how much extra to have withheld from each paycheck so you don't need quarterly payments at all. It uses the IRS 2026 Form 1040-ES worksheets and runs entirely in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="year">Tax year</label>
+        <select id="year"><option value="2026">2026</option><option value="2027">2027</option></select></div>
+      <div><label for="status">Filing status</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option><option value="hoh">Head of household</option></select></div>
+      <div><label for="wages">Your W-2 salary for the year ($)</label><input id="wages" type="number" min="0" step="1000" value="60000" inputmode="decimal"></div>
+      <div id="spouseBox" class="hidden"><label for="spouseWages">Spouse's W-2 wages ($)</label><input id="spouseWages" type="number" min="0" step="1000" value="0" inputmode="decimal"></div>
+      <div><label for="profit">Side income profit for the year ($)</label><input id="profit" type="number" step="500" value="15000" inputmode="decimal"></div>
+      <div><label for="perCheck">Federal income tax withheld per paycheck ($)</label><input id="perCheck" type="number" min="0" step="1" value="193" inputmode="decimal"></div>
+      <div><label for="periods">Paychecks per year</label>
+        <select id="periods"><option value="52">52 (weekly)</option><option value="26" selected>26 (every two weeks)</option><option value="24">24 (twice a month)</option><option value="12">12 (monthly)</option></select></div>
+      <div><label for="left">Paychecks left this year</label><input id="left" type="number" min="1" step="1" value="26" inputmode="numeric"></div>
+      <div><label for="paid">Estimated tax already paid this year ($)</label><input id="paid" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+    </div>
+    <details>
+      <summary>Last year's tax (optional, often lowers what you must prepay)</summary>
+      <div class="fields">
+        <div><label for="priorTax">Total tax on last year's return ($)</label><input id="priorTax" type="number" min="0" step="100" inputmode="decimal" placeholder="Form 1040 line 24"></div>
+        <div><label for="priorAgi">Last year's adjusted gross income ($)</label><input id="priorAgi" type="number" min="0" step="1000" inputmode="decimal" placeholder="Form 1040 line 11"></div>
+      </div>
+    </details>
+    <p class="small muted">Side income profit means what's left after business expenses (Schedule C line 31), not what customers paid you. Withholding per paycheck is the "Federal income tax" line on your pay stub. The calculator assumes the standard deduction, no other income, and that your withholding stays the same all year.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">What your side income costs in tax</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <h3>Two ways to cover it</h3>
+    <div class="table-scroll"><table id="options"></table></div>
+    <p class="small muted" id="optionsNote"></p>
+    <h3>How it's calculated</h3>
+    <div class="table-scroll"><table id="breakdown"></table></div>
+  </section>
+
+  <aside class="cta">
+    <h3>Keep the side income records in one place</h3>
+    <p>The <a href="../freelancer-tax-tracker/">Freelancer Tax Tracker</a> spreadsheet for Excel sorts your side business expenses into Schedule C lines and updates your tax estimate as you go. Prefer paper? Our <a href="https://www.amazon.com/dp/B0HRDJ4ZMS" data-goatcounter-click="kdp-expense" rel="noopener">Self-Employed Income &amp; Expense Log Book</a> (paperback on Amazon, $9.99 list price) codes each entry by Schedule C line, and there are <a href="../printable-tax-logs/">free printable logs</a> too.</p>
+    <a class="btn" data-product="taxTracker">Get the tracker (<span data-price>$12</span>)</a>
+  </aside>
+
+  <article>
+    <h2>Why side income can leave you owing</h2>
+    <p>Your employer figures withholding from your Form W-4 and your salary alone. It doesn't know about your side income, so nothing is set aside for the two taxes that income brings:</p>
+    <ul>
+      <li><strong>Income tax</strong> at your top bracket. Side profit stacks on top of your salary, so it's taxed at your highest rate (12%, 22%, 24% and up), less the 20% qualified business income deduction most small side businesses get.</li>
+      <li><strong>Self-employment tax</strong>: 15.3% of 92.35% of your profit (Social Security and Medicare, both halves), once that amount reaches $400. W-2 wages use up the Social Security wage base first ($184,500 in 2026, $192,300 in 2027), so a high salary leaves only the 2.9% Medicare part. The <a href="../self-employment-tax-calculator/">self-employment tax calculator</a> breaks this out line by line.</li>
+    </ul>
+    <p>The IRS expects tax to be paid during the year. You avoid an underpayment penalty if what you prepay (withholding plus estimated payments) covers at least 90% of this year's tax or 100% of last year's (110% if last year's adjusted gross income was over $150,000), or if you'd owe less than $1,000 at filing.</p>
+
+    <h2>Extra withholding vs quarterly payments</h2>
+    <p>You can cover the side income tax either way, and you can mix them:</p>
+    <ul>
+      <li><strong>Extra withholding.</strong> Give your employer a new Form W-4 and enter an extra amount per paycheck in <strong>Step 4(c)</strong>. Form W-4's own instructions say that if you want to pay income and self-employment tax on self-employment income through withholding, you can; the IRS Tax Withholding Estimator is its suggested way to figure the amount, and this calculator does the same arithmetic in one screen.</li>
+      <li><strong>Quarterly estimated payments</strong> with Form 1040-ES (or IRS Direct Pay), due in April, June, September, and January. The <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> gives the amount and dates.</li>
+    </ul>
+    <p>Withholding has one big advantage: for the penalty, the IRS treats tax withheld from wages as paid in four equal parts on the four due dates, no matter when in the year it was actually taken out (Form 2210 instructions). So if you realize in the fall that you're behind, a bigger withholding amount for the rest of the year still counts toward the earlier quarters. A late estimated payment doesn't: the penalty for a missed quarter runs from its due date. Withholding also happens on its own, so there's nothing to remember.</p>
+
+    <h2>Example</h2>
+    <p>A single filer earns a $60,000 salary in 2026, paid every two weeks, with $193 of federal income tax withheld from each check ($5,018 for the year, close to the $5,020 of tax on the salary alone). They also make $15,000 of profit from weekend photography.</p>
+    <ul>
+      <li>The side income adds <strong>$3,923</strong> of federal tax: $2,119 of self-employment tax plus $1,803 more income tax. That's <strong>26.2%</strong> of the side profit.</li>
+      <li>Total tax for the year is $8,943, so 90% of it is $8,049. Withholding covers $5,018, which leaves $3,031 to prepay to avoid a penalty.</li>
+      <li>Option 1: add <strong>$117 per paycheck</strong> in Step 4(c) of a new W-4 for all 26 paychecks ($151 per paycheck to owe nothing at filing).</li>
+      <li>Option 2: four quarterly estimated payments of <strong>$758</strong>, then about $894 more when filing.</li>
+    </ul>
+
+    <h2>How much of your side income to set aside (2026, single)</h2>
+    <div class="table-scroll"><table id="levels">
+      <thead><tr><th>W-2 salary</th><th class="num">$5,000 side profit</th><th class="num">$10,000 side profit</th><th class="num">$20,000 side profit</th></tr></thead>
+      <tbody>
+        <tr><td>$40,000</td><td class="num">23.1%</td><td class="num">23.1%</td><td class="num">23.1%</td></tr>
+        <tr><td>$60,000</td><td class="num">23.1%</td><td class="num">24.0%</td><td class="num">27.2%</td></tr>
+        <tr><td>$80,000</td><td class="num">30.5%</td><td class="num">30.5%</td><td class="num">30.5%</td></tr>
+        <tr><td>$120,000</td><td class="num">31.3%</td><td class="num">31.6%</td><td class="num">31.8%</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Federal income tax plus self-employment tax added by the side profit, as a share of that profit. Standard deduction, no other income, no credits. State income tax is extra in most states. At $60,000 the share rises with side profit because part of it crosses from the 12% into the 22% bracket.</p>
+
+    <h2>What this calculator doesn't cover</h2>
+    <ul>
+      <li><strong>State and local tax.</strong> Most states tax side income too, and their withholding is set on a separate state form.</li>
+      <li><strong>Credits and itemized deductions</strong>, such as the child tax credit, which lower your total tax. Use the <a href="https://www.irs.gov/individuals/tax-withholding-estimator">IRS Tax Withholding Estimator</a> if you have them, or the <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a>, which takes credits and other income.</li>
+      <li><strong>Two jobs, or a working spouse</strong> with their own withholding: enter your spouse's wages here, but add their withholding per paycheck into yours only if it's paid on the same schedule. Otherwise the estimator is more accurate.</li>
+      <li><strong>Uneven income.</strong> If most of your side income comes late in the year, the annualized income method on Form 2210 can lower or remove an early-quarter penalty.</li>
+      <li><strong>Hobby income</strong> (no profit motive) isn't subject to self-employment tax, and hobby expenses aren't deductible.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Do I have to pay tax on a small side hustle?</summary><p>Yes, side income is taxable income no matter how small, and you report it even if you don't get a Form 1099. Self-employment tax only starts once 92.35% of your profit is $400 or more (about $433 of profit), and you won't owe a penalty for underpaying if you'd owe less than $1,000 at filing.</p></details>
+    <details><summary>How much should I set aside from side income?</summary><p>For federal tax, about 23% to 32% of your profit (income minus expenses) for a single filer with a $40,000 to $120,000 salary, and less if your salary is lower; see the table above or enter your own numbers. Add your state's rate on top.</p></details>
+    <details><summary>Can I just have more taken out of my paycheck instead of paying quarterly?</summary><p>Yes. Enter an extra amount per pay period in Step 4(c) of a new Form W-4 and give it to your employer. Withholding pays both income tax and self-employment tax on your Form 1040, and it counts as paid evenly through the year.</p></details>
+    <details><summary>I'm already partway through the year. Is it too late?</summary><p>No. Set "Paychecks left this year" to what's left, and the calculator spreads the amount over those checks. Because withheld tax is treated as paid evenly across the year, catching up through withholding late in the year can still avoid a penalty for earlier quarters.</p></details>
+    <details><summary>What if my side business loses money?</summary><p>A net loss means no self-employment tax, and a loss from a real business (not a hobby) generally lowers your other taxable income, which can mean a refund of some withholding. Enter a negative profit to see it.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>Tax brackets, standard deduction, self-employment tax, the 90% / 100% / 110% safe harbor and the $1,000 rule: <a href="https://www.irs.gov/pub/irs-pdf/f1040es.pdf">IRS Form 1040-ES (2026)</a> worksheets; 2026 brackets from <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf">Rev. Proc. 2025-32</a>, 2027 from <a href="https://www.irs.gov/pub/irs-drop/rp-26-35.pdf">Rev. Proc. 2026-35</a>; 2027 wage base from the <a href="https://www.ssa.gov/news/en/cola/factsheets/2027.html">SSA 2027 COLA fact sheet</a>.</li>
+      <li>Step 4(c) extra withholding and the self-employment note: <a href="https://www.irs.gov/pub/irs-pdf/fw4.pdf">IRS Form W-4 (2026)</a>.</li>
+      <li>Withholding treated as paid one-fourth on each due date: <a href="https://www.irs.gov/pub/irs-pdf/i2210.pdf">Instructions for Form 2210</a>, line 11 instructions (regular method).</li>
+      <li><a href="https://www.irs.gov/pub/irs-pdf/p505.pdf">IRS Publication 505, Tax Withholding and Estimated Tax (2026)</a>.</li>
+    </ul>
+    <p class="small muted">Last checked November 17, 2026. For education and planning only, not tax advice.</p>
+
+    <h2>Related calculators</h2>
+    <p>Thinking of going full-time on the side business? The <a href="../1099-vs-w2-calculator/">1099 vs W-2 calculator</a> compares take-home pay. Missed a payment already? The <a href="../estimated-tax-penalty-calculator/">estimated tax penalty calculator</a> shows what it costs. Driving for the side gig? The <a href="../mileage-deduction-calculator/">mileage deduction calculator</a> figures what the miles knock off your profit.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../self-employment-tax-calculator/">Self-employment tax calculator</a><a href="../1099-vs-w2-calculator/">1099 vs W-2 calculator</a><a href="../mileage-deduction-calculator/">Mileage deduction calculator</a><a href="../home-office-deduction-calculator/">Home office deduction calculator</a><a href="../estimated-tax-penalty-calculator/">Estimated tax penalty calculator</a><a href="../debt-payoff-calculator/">Debt payoff calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../printable-tax-logs/">Free printable tax logs</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/tax-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const E = window.TaxEngine;
+  const money = (n, d = 0) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const pos = id => Math.max(0, parseFloat($(id).value) || 0);
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const row = (label, amount, strong) => `<tr${strong ? ' style="font-weight:700"' : ''}><td>${label}</td><td class="num">${amount}</td></tr>`;
+  // W-4 Step 4(c) takes a whole-dollar amount; round up so the total is covered.
+  const perCheck = (total, n) => total > 0 ? Math.ceil(total / n) : 0;
+
+  // Default "paychecks left" from today's date until the reader types their own.
+  let leftEdited = false;
+  function defaultLeft() {
+    if (leftEdited) return;
+    const periods = Number($('periods').value), year = Number($('year').value), now = new Date();
+    let left = periods;
+    if (year === now.getFullYear()) {
+      const end = new Date(year + 1, 0, 1), start = new Date(year, 0, 1);
+      left = Math.max(1, Math.ceil(periods * (end - now) / (end - start)));
+    } else if (year < now.getFullYear()) left = 1;
+    $('left').value = left;
+  }
+
+  function render() {
+    const year = Number($('year').value), status = $('status').value;
+    $('spouseBox').classList.toggle('hidden', status !== 'mfj');
+    const periods = Number($('periods').value), left = Math.max(1, Math.round(pos('left')) || 1);
+    const profit = parseFloat($('profit').value) || 0, paid = pos('paid');
+    const withholding = pos('perCheck') * periods;
+    const priorTax = $('priorTax').value === '' ? null : pos('priorTax');
+    const inp = { year, status, wages: pos('wages'), spouseWages: pos('spouseWages'), profit, withholding, paid, priorTax, priorAgi: pos('priorAgi') };
+    const r = E.estimate(inp);
+    const base = E.estimate(Object.assign({}, inp, { profit: 0 }));
+    const added = r.totalTax - base.totalTax;
+    const share = profit > 0 ? added / profit : 0;
+    const prepay = r.remaining;                                    // still needed to avoid the penalty
+    const toZero = Math.max(0, r.totalTax - withholding - paid);   // still needed to owe nothing at filing
+    const w4Penalty = perCheck(prepay, left), w4Zero = perCheck(toZero, left);
+
+    $('stats').innerHTML = stat('Extra tax from side income', money(added), true) +
+      stat('Set aside from side profit', profit > 0 ? (share * 100).toFixed(1) + '%' : 'n/a') +
+      stat('Extra W-4 withholding per paycheck', money(w4Penalty)) +
+      stat('Or pay each quarter', money(r.quarterly));
+
+    let s;
+    if (profit <= 0) s = `With no side profit there's no extra tax to cover. Your job's withholding (${money(withholding)} a year) compares with ${money(r.totalTax)} of tax on your wages.`;
+    else {
+      s = `Your side income adds about ${money(added)} of federal tax for ${year} (${money(r.se.tax)} of it self-employment tax), or ${(share * 100).toFixed(1)}% of the profit. `;
+      if (!r.mustPay && r.reason === 'withholding') s += `Your job's withholding (${money(withholding)}) already covers the minimum you must prepay (${money(r.required)}), so no extra withholding or quarterly payments are needed to avoid a penalty.`;
+      else if (!r.mustPay && r.reason === 'under1000') s += `After your job's withholding you'd owe less than $1,000 at filing, so there's no underpayment penalty even without extra payments.`;
+      else if (!r.mustPay && r.reason === 'noPriorTax') s += `You owed no tax last year, so there's no underpayment penalty for ${year} if last year covered all 12 months.`;
+      else if (prepay <= 0) s += `The estimated tax you've already paid covers the minimum to avoid a penalty.`;
+      else s += `To avoid an underpayment penalty, add ${money(w4Penalty)} to each of your remaining ${left} paychecks in Step 4(c) of a new Form W-4, or pay ${money(r.quarterly)} by each quarterly due date.`;
+      if (toZero > 0) s += ` To owe nothing when you file, the extra withholding would be ${money(w4Zero)} per paycheck.`;
+      else s += ` As things stand you'd get about ${money(-(r.totalTax - withholding - paid))} back when you file.`;
+    }
+    $('summary').textContent = s;
+
+    $('options').innerHTML = '<thead><tr><th></th><th class="num">To avoid a penalty</th><th class="num">To owe about $0 at filing</th></tr></thead><tbody>' +
+      `<tr><td>Extra withholding per paycheck (W-4 Step 4(c)), ${left} paycheck${left === 1 ? '' : 's'} left</td><td class="num">${money(w4Penalty)}</td><td class="num">${money(w4Zero)}</td></tr>` +
+      `<tr><td>Quarterly estimated payment (4 equal payments)</td><td class="num">${money(r.quarterly)}</td><td class="num">${money(Math.max(0, r.totalTax - withholding) / 4)}</td></tr></tbody>`;
+    $('optionsNote').textContent = `Quarterly due dates for ${year}: ${r.due.join(', ')}.` +
+      (paid > 0 ? ` The quarterly amounts don't subtract the ${money(paid)} you've already paid; the withholding amounts do.` : '') +
+      ' Withheld tax counts as paid evenly over the year; a late quarterly payment is penalized from its due date.';
+
+    $('breakdown').innerHTML = '<tbody>' +
+      row('Federal tax on your wages alone', money(base.totalTax)) +
+      row('Federal tax with your side income', money(r.totalTax)) +
+      row('Added by the side income', money(added), true) +
+      row('&nbsp;&nbsp;of which self-employment tax', money(r.se.tax)) +
+      row('&nbsp;&nbsp;of which income tax (after the QBI deduction of ' + money(r.qbi) + ')', money(added - r.se.tax - (r.addlMedicare - base.addlMedicare))) +
+      (r.addlMedicare - base.addlMedicare > 0.5 ? row('&nbsp;&nbsp;of which Additional Medicare Tax', money(r.addlMedicare - base.addlMedicare)) : '') +
+      row(`Your job's withholding (${money(pos('perCheck'))} x ${periods})`, money(withholding)) +
+      (paid > 0 ? row('Estimated tax already paid', money(paid)) : '') +
+      row(r.priorReq !== null && r.required === r.priorReq ? `Minimum to prepay (${Math.round(r.priorPct * 100)}% of last year's tax)` : "Minimum to prepay (90% of this year's tax)", money(r.required)) +
+      row('Still to prepay to avoid a penalty', money(prepay), true) +
+      row('Balance due at filing if you change nothing', money(Math.max(0, r.totalTax - withholding - paid))) +
+      '</tbody>';
+  }
+
+  $('left').addEventListener('input', () => { leftEdited = true; });
+  ['year', 'periods'].forEach(id => $(id).addEventListener('input', defaultLeft));
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  defaultLeft();
+  render();
+})();
+</script>
+</body>
+</html>
