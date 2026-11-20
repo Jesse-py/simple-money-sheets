@@ -42,13 +42,21 @@
   // APY (%) for a nominal annual rate (%) compounded `perYear` times a year (1, 2, 4, 12, 365).
   const apyFromRate = (rate, perYear) => (Math.pow(1 + rate / 100 / perYear, perYear) - 1) * 100;
 
-  // Year-end totals for a compound interest plan: `start` now, `deposit` at the end of each month.
-  // `paid` = start + all deposits so far; `interest` = balance - paid.
-  function growth(start, apy, deposit, years) {
+  // Year-end totals for a compound interest plan: `start` now, then `deposit` `perYear` times a year (52, 26, 24, 12, 4, 1;
+  // default 12), at the end of each period (or the start, with atStart). Each period earns the equal rate (1 + APY)^(1/perYear) - 1.
+  // `increase` (%) raises the deposit once a year, from year 2 on.
+  // `paid` = start + all deposits so far; `deposits` = that year's deposits; `interest` = balance - paid.
+  function growth(start, apy, deposit, years, opts) {
+    const o = opts || {}, k = o.perYear || 12, inc = (o.increase || 0) / 100;
+    const r = Math.pow(1 + apy / 100, 1 / k) - 1, g = Math.pow(1 + r, k);
     const rows = [];
+    let balance = start, paid = start, d = deposit;
     for (let y = 1; y <= years; y++) {
-      const balance = futureValue(start, apy, deposit, 12 * y), paid = start + deposit * 12 * y;
-      rows.push({ year: y, paid, interest: balance - paid, balance });
+      const deposits = d * k;
+      balance = balance * g + (r === 0 ? deposits : d * (g - 1) / r * (o.atStart ? 1 + r : 1));
+      paid += deposits;
+      rows.push({ year: y, deposit: d, deposits, paid, interest: balance - paid, balance });
+      d *= 1 + inc;
     }
     return rows;
   }
