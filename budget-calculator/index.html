@@ -3,10 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>50/30/20 Budget Calculator: Needs, Wants &amp; Savings</title>
-<meta name="description" content="Free 50/30/20 budget calculator. Enter your take-home pay to see how much to spend on needs and wants and how much to save, then compare it with what you actually spend.">
+<title>50/30/20 Budget Calculator: Monthly and Per-Paycheck Amounts</title>
+<meta name="description" content="Free 50/30/20 budget calculator. Enter your take-home pay (weekly, biweekly, or monthly) to see needs, wants, and savings per paycheck, per month, and per year, then add up what you spend now line by line.">
 <link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/budget-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"50/30/20 Budget Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+  .items { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 10px; }
+  .items fieldset { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin: 0; }
+  .items legend { font-weight: 700; padding: 0 4px; }
+  .items .row { display: grid; grid-template-columns: 1fr 110px; gap: 8px; align-items: center; margin: 6px 0; font-size: .93rem; }
+  .items .total { font-weight: 700; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 8px; display: flex; justify-content: space-between; }
+</style>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -15,27 +25,68 @@
 </div></header>
 <main><div class="wrap">
   <h1>50/30/20 Budget Calculator</h1>
-  <p class="lede">The 50/30/20 rule splits your take-home pay into needs (50%), wants (30%), and savings or extra debt payments (20%). Enter your pay to see your numbers, and optionally what you spend now.</p>
+  <p class="lede">The 50/30/20 rule splits your take-home pay into needs (50%), wants (30%), and savings or extra debt payments (20%). Enter one paycheck and how often you're paid to see each amount per paycheck, per month, and per year. Then, if you like, add up what you spend now and see how it compares. Everything runs in your browser, and nothing is sent anywhere.</p>
 
   <section class="card">
     <div class="fields">
-      <div><label for="pay">Take-home pay ($)</label><input id="pay" type="number" min="0" step="1" value="4500" inputmode="decimal"></div>
+      <div><label for="pay">Take-home pay per paycheck ($)</label><input id="pay" type="number" min="0" step="1" value="4500" inputmode="decimal"></div>
       <div><label for="period">Pay period</label>
         <select id="period"><option value="12">Monthly</option><option value="26">Every 2 weeks</option><option value="24">Twice a month</option><option value="52">Weekly</option><option value="1">Yearly</option></select></div>
       <div><label for="split">Split</label>
-        <select id="split"><option value="50,30,20">50 / 30 / 20 (classic)</option><option value="60,30,10">60 / 30 / 10 (high cost of living)</option><option value="70,20,10">70 / 20 / 10</option><option value="40,30,30">40 / 30 / 30 (aggressive saver)</option></select></div>
+        <select id="split"><option value="50,30,20">50 / 30 / 20 (classic)</option><option value="60,30,10">60 / 30 / 10 (high cost of living)</option><option value="70,20,10">70 / 20 / 10</option><option value="40,30,30">40 / 30 / 30 (aggressive saver)</option><option value="custom">Custom</option></select></div>
+      <div><label for="retire">Retirement already taken out of each paycheck ($, optional)</label><input id="retire" type="number" min="0" step="1" placeholder="e.g. 150" inputmode="decimal"></div>
     </div>
-    <h3>What you spend now (optional, monthly)</h3>
+    <div id="custom-wrap" class="fields hidden" style="margin-top:12px">
+      <div><label for="c-needs">Needs (%)</label><input id="c-needs" type="number" min="0" max="100" step="1" value="55" inputmode="decimal"></div>
+      <div><label for="c-wants">Wants (%)</label><input id="c-wants" type="number" min="0" max="100" step="1" value="25" inputmode="decimal"></div>
+      <div><label for="c-save">Savings &amp; extra debt (%)</label><input id="c-save" type="number" min="0" max="100" step="1" value="20" inputmode="decimal"></div>
+    </div>
+    <div id="warning" class="note hidden" style="margin-top:12px"></div>
+    <h3>What you spend now (optional, per month)</h3>
     <div class="fields">
       <div><label for="a-needs">Needs ($)</label><input id="a-needs" type="number" min="0" step="1" placeholder="e.g. 2600" inputmode="decimal"></div>
       <div><label for="a-wants">Wants ($)</label><input id="a-wants" type="number" min="0" step="1" placeholder="e.g. 1200" inputmode="decimal"></div>
       <div><label for="a-save">Savings &amp; extra debt ($)</label><input id="a-save" type="number" min="0" step="1" placeholder="e.g. 400" inputmode="decimal"></div>
     </div>
+    <details id="itemize">
+      <summary>Not sure? Add it up line by line (fills in the three boxes above)</summary>
+      <p class="small muted">Monthly amounts. For a bill you pay once a year, divide it by 12. Leave a line blank if it doesn't apply.</p>
+      <div class="items">
+        <fieldset data-bucket="0"><legend>Needs</legend>
+          <div class="row"><label for="i-rent">Rent or mortgage</label><input id="i-rent" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-util">Utilities, internet, basic phone</label><input id="i-util" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-groc">Groceries</label><input id="i-groc" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-ins">Insurance (health, car, home or renters)</label><input id="i-ins" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-trans">Car payment, gas, transit</label><input id="i-trans" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-child">Childcare</label><input id="i-child" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-min">Minimum debt payments</label><input id="i-min" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-oneed">Other needs (medical, pet care)</label><input id="i-oneed" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="total"><span>Needs</span><span id="t-0">$0</span></div>
+        </fieldset>
+        <fieldset data-bucket="1"><legend>Wants</legend>
+          <div class="row"><label for="i-dine">Dining out and takeout</label><input id="i-dine" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-subs">Streaming and subscriptions</label><input id="i-subs" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-shop">Shopping and clothes</label><input id="i-shop" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-fun">Entertainment, hobbies, gym</label><input id="i-fun" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-trav">Travel and gifts</label><input id="i-trav" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-owant">Other wants</label><input id="i-owant" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="total"><span>Wants</span><span id="t-1">$0</span></div>
+        </fieldset>
+        <fieldset data-bucket="2"><legend>Savings &amp; extra debt</legend>
+          <div class="row"><label for="i-emerg">Emergency fund</label><input id="i-emerg" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-ret">Retirement you pay in yourself (IRA)</label><input id="i-ret" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-goal">Saving for a goal, investing</label><input id="i-goal" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="row"><label for="i-extra">Debt payments above the minimum</label><input id="i-extra" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="total"><span>Savings &amp; extra debt</span><span id="t-2">$0</span></div>
+        </fieldset>
+      </div>
+    </details>
   </section>
 
   <section class="card" aria-live="polite">
-    <h2 style="margin-top:0">Your monthly budget</h2>
+    <h2 style="margin-top:0">Your 50/30/20 budget</h2>
     <div class="stats" id="stats"></div>
+    <div class="table-scroll"><table id="plan"></table></div>
     <div class="table-scroll"><table id="compare"></table></div>
     <p id="advice" class="small"></p>
   </section>
@@ -60,14 +111,27 @@
     <h3>Savings and debt payoff (about 20%)</h3>
     <p><a href="../emergency-fund-calculator/">Emergency fund</a> contributions, retirement savings beyond any payroll deduction, investing, and any debt payment <em>above</em> the minimum. Extra debt payments go here because they improve your net worth just like saving does. Saving for something specific? The <a href="../savings-goal-calculator/">savings goal calculator</a> turns a goal and a date into a monthly amount, and the <a href="../compound-interest-calculator/">compound interest calculator</a> shows how a monthly amount adds up over the years.</p>
 
+    <h2>Example: $2,000 every two weeks</h2>
+    <p>Paid every two weeks, you get 26 paychecks a year: $2,000 &times; 26 = $52,000 a year, or about $4,333 a month. The 50/30/20 split is:</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Category</th><th class="num">Per paycheck</th><th class="num">Per month</th><th class="num">Per year</th></tr></thead>
+      <tbody>
+        <tr><td>Needs (50%)</td><td class="num">$1,000</td><td class="num">$2,167</td><td class="num">$26,000</td></tr>
+        <tr><td>Wants (30%)</td><td class="num">$600</td><td class="num">$1,300</td><td class="num">$15,600</td></tr>
+        <tr><td>Savings &amp; extra debt (20%)</td><td class="num">$400</td><td class="num">$867</td><td class="num">$10,400</td></tr>
+      </tbody>
+    </table></div>
+    <p>Working from the paycheck is often easier: on payday, $400 moves to savings, and you know $1,000 of what's left is for needs. Your actual bills don't fall evenly across paychecks, so keep a small buffer in checking for the paycheck that pays rent.</p>
+
     <h2>Why use take-home pay?</h2>
-    <p>The rule, popularized by Elizabeth Warren and Amelia Warren Tyagi in <em>All Your Worth</em>, uses after-tax income: what actually lands in your account. If your employer already takes 401(k) or other retirement contributions out of your paycheck, you can count them toward the 20% as well.</p>
+    <p>The rule, popularized by Elizabeth Warren and Amelia Warren Tyagi in <em>All Your Worth</em>, uses after-tax income: what actually lands in your account. If your employer already takes 401(k) or other retirement contributions out of your paycheck, that money is savings you never see. Enter it in the "Retirement already taken out" box: the calculator adds it back to your pay and counts it toward the 20%. In the example above, $150 a paycheck into a 401(k) makes the base $2,150, so the 20% is $430 a paycheck, and $280 of it is still yours to move to savings.</p>
 
     <h2>When 50/30/20 doesn't fit</h2>
-    <p>In expensive cities, or on a lower income, needs can easily take more than half your pay. That's why the calculator offers 60/30/10 and 70/20/10 splits. The goal is the habit: know where every dollar goes and send something to savings every month. If you're paying off high-interest debt, many people temporarily shift money from wants to the 20% to get out faster.</p>
+    <p>In expensive cities, or on a lower income, needs can easily take more than half your pay. That's why the calculator offers 60/30/10 and 70/20/10 splits, or a custom split of your own. The goal is the habit: know where every dollar goes and send something to savings every month. If you're paying off high-interest debt, many people temporarily shift money from wants to the 20% to get out faster.</p>
 
     <h2>FAQ</h2>
     <details><summary>How do I convert biweekly pay to monthly?</summary><p>Multiply your paycheck by 26 and divide by 12. The calculator does this for you when you choose "Every 2 weeks". In two months of the year you'll get a third paycheck, which is a great time to boost savings.</p></details>
+    <details><summary>Is 50/30/20 based on gross or net income?</summary><p>Net: your pay after taxes. Using gross pay would set targets with money you never receive. The one thing to add back is retirement saving taken out of your paycheck, because it's part of your 20% (use the "Retirement already taken out" box).</p></details>
     <details><summary>Is a car payment a need or a want?</summary><p>The minimum payment counts as a need if you need the car to get to work. Paying extra on the loan counts toward savings and debt payoff.</p></details>
     <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
     <p class="small muted">For education and planning only. This isn't financial advice.</p>
@@ -82,16 +146,47 @@
 (function () {
   const $ = id => document.getElementById(id);
   const money = n => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
   const names = ['Needs', 'Wants', 'Savings & extra debt'];
+  const periodName = { 26: 'Every 2 weeks', 24: 'Twice a month', 52: 'Weekly' };
+  // Line-by-line list: each bucket's total fills its "what you spend now" box.
+  function itemize() {
+    document.querySelectorAll('#itemize fieldset').forEach(fs => {
+      const b = +fs.dataset.bucket;
+      const inputs = [...fs.querySelectorAll('input')];
+      const total = inputs.reduce((s, el) => s + Math.max(0, parseFloat(el.value) || 0), 0);
+      $('t-' + b).textContent = money(total);
+      $(['a-needs', 'a-wants', 'a-save'][b]).value = inputs.some(el => el.value !== '') ? String(Math.round(total * 100) / 100) : '';
+    });    render();
+  }
   function render() {
-    const monthly = (parseFloat($('pay').value) || 0) * (+$('period').value) / 12;
-    const split = $('split').value.split(',').map(Number);
+    const per = +$('period').value;
+    const retire = num('retire');
+    // Retirement taken out before pay arrives counts as income and as savings (All Your Worth uses after-tax income).
+    const monthly = (num('pay') + retire) * per / 12;
+    const retireMonthly = retire * per / 12;
+    const custom = $('split').value === 'custom';
+    $('custom-wrap').classList.toggle('hidden', !custom);
+    const split = custom ? ['c-needs', 'c-wants', 'c-save'].map(num) : $('split').value.split(',').map(Number);
+    const sum = split.reduce((s, v) => s + v, 0);
+    const warn = $('warning');
+    warn.classList.toggle('hidden', !custom || Math.abs(sum - 100) < 0.01);
+    warn.textContent = `Your percentages add up to ${Math.round(sum * 100) / 100}%, not 100%. The amounts below use them as entered.`;
     const target = split.map(p => monthly * p / 100);
+    $('stats').innerHTML = `<div class="stat"><div class="k">Monthly take-home${retire ? ' + retirement' : ''}</div><div class="v">${money(monthly)}</div></div>` +
+      target.map((t, i) => `<div class="stat"><div class="k">${names[i]} (${split[i]}%)</div><div class="v">${money(t)}</div></div>`).join('');
+    const cols = [];
+    if (periodName[per]) cols.push(['Per paycheck (' + periodName[per].toLowerCase() + ')', per]);
+    cols.push(['Per month', 12], ['Per year', 1]);
+    $('plan').innerHTML = '<thead><tr><th>Category</th>' + cols.map(c => `<th class="num">${c[0]}</th>`).join('') + '</tr></thead><tbody>' +
+      target.map((t, i) => `<tr><td>${names[i]}</td>` + cols.map(c => `<td class="num">${money(t * 12 / c[1])}</td>`).join('') + '</tr>').join('') +
+      (retire ? `<tr><td>&nbsp;&nbsp;already saved from your paycheck</td>` + cols.map(c => `<td class="num">${money(retireMonthly * 12 / c[1])}</td>`).join('') + '</tr>' +
+        `<tr><td>&nbsp;&nbsp;still to move to savings</td>` + cols.map(c => `<td class="num">${money(Math.max(0, target[2] - retireMonthly) * 12 / c[1])}</td>`).join('') + '</tr>' : '') +
+      '</tbody>';
     const actualRaw = ['a-needs', 'a-wants', 'a-save'].map(id => $(id).value);
     const hasActual = actualRaw.some(v => v !== '');
-    const actual = actualRaw.map(v => parseFloat(v) || 0);
-    $('stats').innerHTML = `<div class="stat"><div class="k">Monthly take-home</div><div class="v">${money(monthly)}</div></div>` +
-      target.map((t, i) => `<div class="stat"><div class="k">${names[i]} (${split[i]}%)</div><div class="v">${money(t)}</div></div>`).join('');
+    const actual = actualRaw.map(v => Math.max(0, parseFloat(v) || 0));
+    actual[2] += retireMonthly;
     if (!hasActual) {
       $('compare').innerHTML = '';
       $('advice').textContent = 'Enter what you spend now to compare it with your target.';
@@ -100,7 +195,7 @@
     $('compare').innerHTML = '<thead><tr><th>Category</th><th class="num">Target</th><th class="num">Actual</th><th class="num">Difference</th></tr></thead><tbody>' +
       target.map((t, i) => {
         const d = actual[i] - t;
-        return `<tr><td>${names[i]}</td><td class="num">${money(t)}</td><td class="num">${money(actual[i])}</td><td class="num">${d >= 0 ? '+' : ''}${money(d)}</td></tr>`;
+        return `<tr><td>${names[i]}${i === 2 && retire ? ' (incl. paycheck retirement)' : ''}</td><td class="num">${money(t)}</td><td class="num">${money(actual[i])}</td><td class="num">${d >= 0 ? '+' : ''}${money(d)}</td></tr>`;
       }).join('') + '</tbody>';
     const unassigned = monthly - actual.reduce((s, v) => s + v, 0);
     const tips = [];
@@ -111,6 +206,7 @@
     if (!tips.length) tips.push('You\'re on or ahead of target. Nice work.');
     $('advice').textContent = tips.join(' ');
   }
+  $('itemize').addEventListener('input', itemize);
   document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
   render();
 })();
