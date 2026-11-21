@@ -3,10 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sinking Funds Tracker Spreadsheet + Savings Goals (Excel)</title>
-<meta name="description" content="A sinking funds and savings goals spreadsheet for Excel. See how much to save each month for every upcoming expense, whether you're on track, and when each fund will be ready.">
+<title>Sinking Funds Calculator (Free) + Tracker Spreadsheet for Excel</title>
+<meta name="description" content="Free sinking funds calculator: list every upcoming expense with its goal and due month to see how much to save each month and per paycheck, which funds are behind, and when each one is ready. Excel tracker too.">
 <link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/sinking-funds-tracker/">
 <link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Sinking Funds Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+  .fund-row { grid-template-columns: 1.6fr .9fr 1.15fr .9fr .9fr auto; }
+  @media (max-width: 560px) { .fund-row { grid-template-columns: 1fr 1fr; } }
+</style>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -14,12 +21,36 @@
   <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
 </div></header>
 <main><div class="wrap">
-  <h1>Sinking Funds Tracker spreadsheet</h1>
-  <p class="lede">Save for every big expense before it arrives. List what's coming, from car insurance to holidays to a new laptop, and the tracker tells you how much to put away each month, whether you're on track, and when each fund will be ready.</p>
-  <p><a class="btn" data-product="sinkingFunds">Get the tracker (<span data-price>$6</span>)</a> <span class="small muted">&nbsp;Instant download &middot; Excel (.xlsx) &middot; tested in Excel &middot; no macros</span></p>
+  <h1>Sinking funds calculator and tracker</h1>
+  <p class="lede">Save for every big expense before it arrives. List what's coming, from car insurance to the holidays to a new laptop, with a goal and the month it's due. The calculator shows how much to put away each month and each paycheck, which funds are behind, and when each one will be ready. It runs in your browser and saves your list on this device only; nothing is sent anywhere.</p>
 
   <section class="card">
-    <h2 style="margin-top:0">What's inside</h2>
+    <div class="fields">
+      <div><label for="asof">Starting month</label><input id="asof" type="month" placeholder="YYYY-MM"></div>
+      <div><label for="period">You're paid</label>
+        <select id="period"><option value="26">Every 2 weeks</option><option value="24">Twice a month</option><option value="52">Weekly</option><option value="12">Monthly</option></select></div>
+    </div>
+    <h3>Your funds</h3>
+    <p class="small muted">Due month is when the bill is due. You save in each month before it, starting with this one: on March 10, a bill due in July leaves four deposits (March, April, May, June). Leave it blank for open-ended funds like car repairs. Plan / month is what you intend to save; it can be 0.</p>
+    <div id="fund-list"></div>
+    <p><button class="btn ghost" type="button" id="add-fund">+ Add a fund</button> <button class="btn ghost" type="button" id="reset-funds">Start over with the example</button></p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">How much to save</h2>
+    <div class="stats" id="stats"></div>
+    <div class="table-scroll"><table id="results"></table></div>
+    <p id="advice" class="small"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Track the deposits and withdrawals too</h3>
+    <p>The calculator plans. The <strong>Sinking Funds Tracker</strong> for Excel keeps the running balance of every fund as you add money and pay bills from it, with a year view and a saved-vs-goal chart. Same math as above.</p>
+    <p><a class="btn" data-product="sinkingFunds">Get the tracker (<span data-price>$6</span>)</a> <span class="small muted">&nbsp;Instant download &middot; Excel (.xlsx) &middot; tested in Excel &middot; no macros</span></p>
+  </aside>
+
+  <section class="card">
+    <h2 style="margin-top:0">What's inside the tracker spreadsheet</h2>
     <ul>
       <li><strong>Funds tab:</strong> up to 30 sinking funds and savings goals. Enter a goal, a due date (or leave it blank for open-ended funds like car repairs), what's already saved, and what you plan to save per month.</li>
       <li><strong>Calculated for every fund:</strong> saved so far, still needed, progress, months left, the amount needed per month, the month it will be fully funded at your current plan, and a status: On track, Behind, Due now, or Funded.</li>
@@ -33,14 +64,29 @@
 
   <section class="card">
     <h2 style="margin-top:0">Why sinking funds work</h2>
-    <p>Most budget-busting bills aren't surprises. Car insurance renews on the same date every six months, the holidays come every December, and cars always need tires eventually. A <strong>sinking fund</strong> spreads each of those costs over the months before it's due. $720 of car insurance due in six months becomes $120 a month. When the bill arrives, you pay it from savings instead of a credit card.</p>
+    <p>Most budget-busting bills aren't surprises. Car insurance renews on the same date every six months, the <a href="../holiday-budget-calculator/">holidays</a> come every December, and cars always need tires eventually. A <strong>sinking fund</strong> spreads each of those costs over the months before it's due. $720 of car insurance due in six months becomes $120 a month. When the bill arrives, you pay it from savings instead of a credit card.</p>
     <p>One goal is easy to do in your head. Ten goals with different due dates aren't, especially once you start spending from some of them. That's what the tracker is for. You can keep all the money in one savings account; the tracker shows how much of the balance belongs to each fund.</p>
     <p>Only saving for one thing? The free <a href="../savings-goal-calculator/">savings goal calculator</a> works out the monthly amount, including interest.</p>
   </section>
 
+  <section class="card">
+    <h2 style="margin-top:0">Common sinking funds</h2>
+    <p>Anything you know is coming but don't pay every month. Use your own bills for the goals; these are the usual suspects:</p>
+    <ul>
+      <li><strong>Car:</strong> insurance if you pay every 6 or 12 months, registration and inspection, tires, repairs and maintenance (open-ended), and saving for the next car.</li>
+      <li><strong>Home:</strong> property tax and homeowners insurance if they aren't in your mortgage payment, repairs and maintenance, furniture, and appliances.</li>
+      <li><strong>Once a year:</strong> holidays and gifts, birthdays, back-to-school, annual subscriptions and memberships, and tax prep.</li>
+      <li><strong>Health and pets:</strong> your insurance deductible, dental and glasses, and vet visits.</li>
+      <li><strong>Fun:</strong> vacation, weddings you're going to, and a new phone or laptop.</li>
+    </ul>
+    <p>Self-employed? Quarterly estimated taxes work the same way; the <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a> works out each payment.</p>
+  </section>
+
   <h2>FAQ</h2>
+  <details><summary>What's the difference between a sinking fund and an emergency fund?</summary><p>A sinking fund is for a cost you can see coming, like a premium due in June. An <a href="../emergency-fund-calculator/">emergency fund</a> is for what you can't predict, like a job loss. Keep them apart in your head (or in the tracker) so paying an expected bill doesn't drain your safety net.</p></details>
+  <details><summary>Is my list saved?</summary><p>Yes, in this browser on this device only (local storage). Nothing is sent to us. Clearing your browser data or using another device starts over with the example.</p></details>
   <details><summary>Does it work in Google Sheets?</summary><p>It's made for Microsoft Excel and tested there: we recalculate every formula in Excel and check the results. It uses only standard functions (like SUMIFS, INDEX, and MATCH) that have been in Excel since 2010 and that Google Sheets and LibreOffice also have, with no macros, so you can upload it to Google Drive and open it with Google Sheets. We haven't tested every feature in Google Sheets or LibreOffice yet, though, and some formatting may look different there. The small progress bars may not show outside Excel; the percentages always do.</p></details>
-  <details><summary>How is "needed per month" worked out?</summary><p>It takes what's still needed and divides it by the deposits you can still make before the month the money is due, counting this month. On March 10, a bill due July 1 leaves four deposits: March, April, May, and June.</p></details>
+  <details><summary>How is "needed per month" worked out?</summary><p>It takes what's still needed and divides it by the deposits you can still make before the month the money is due, counting this month. On March 10, a bill due July 1 leaves four deposits: March, April, May, and June. If the due month has arrived and the fund is still short, the whole shortfall shows as "Due now" and is counted in full. Per paycheck is the monthly total times 12, divided by your paychecks a year (26 if every 2 weeks).</p></details>
   <details><summary>What happens after I pay the bill?</summary><p>Log the payment as a negative amount. For a cost that repeats, like an insurance premium, change the due date to the next one, and the fund starts filling up again.</p></details>
   <details><summary>What if it doesn't work for me?</summary><p>Contact us through the purchase receipt and we'll help, or refund you.</p></details>
 
@@ -62,5 +108,6 @@
   <p>&copy; <span data-year></span> Simple Money Sheets</p>
 </div></footer>
 <script src="../assets/config.js"></script>
+<script src="../assets/sinking-page.js"></script>
 </body>
 </html>

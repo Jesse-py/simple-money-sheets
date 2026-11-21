@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Holiday Budget Calculator: Gift List, Total, and Savings per Paycheck</title>
+<meta name="description" content="Free holiday budget calculator: add up gifts by person and other holiday costs, see how much to save each paycheck before you shop, and what to set aside monthly for next year.">
+<link rel="canonical" href="https://jesse-py.github.io/simple-money-sheets/holiday-budget-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Holiday Budget Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Holiday Budget Calculator</h1>
+  <p class="lede">Set a holiday budget before the shopping starts: add up gifts by group and the other costs that sneak in (food, decorations, cards, travel), then see how much to set aside from each paycheck so it's paid in cash, not on a card. Everything runs in your browser, and nothing is sent anywhere.</p>
+
+  <section class="card">
+    <h2 style="margin-top:0">Gifts</h2>
+    <div class="fields">
+      <div><label for="kids-n">Kids (how many)</label><input id="kids-n" type="number" min="0" step="1" value="3" inputmode="numeric"></div>
+      <div><label for="kids-each">$ per kid</label><input id="kids-each" type="number" min="0" step="1" value="75" inputmode="decimal"></div>
+      <div><label for="fam-n">Adult family (how many)</label><input id="fam-n" type="number" min="0" step="1" value="4" inputmode="numeric"></div>
+      <div><label for="fam-each">$ per person</label><input id="fam-each" type="number" min="0" step="1" value="50" inputmode="decimal"></div>
+      <div><label for="fr-n">Friends (how many)</label><input id="fr-n" type="number" min="0" step="1" value="3" inputmode="numeric"></div>
+      <div><label for="fr-each">$ per friend</label><input id="fr-each" type="number" min="0" step="1" value="25" inputmode="decimal"></div>
+      <div><label for="oth-n">Teachers, coworkers, others</label><input id="oth-n" type="number" min="0" step="1" value="4" inputmode="numeric"></div>
+      <div><label for="oth-each">$ per person</label><input id="oth-each" type="number" min="0" step="1" value="15" inputmode="decimal"></div>
+    </div>
+    <h2>Everything else</h2>
+    <div class="fields">
+      <div><label for="food">Food and hosting ($)</label><input id="food" type="number" min="0" step="1" value="150" inputmode="decimal"></div>
+      <div><label for="decor">Decorations and tree ($)</label><input id="decor" type="number" min="0" step="1" value="50" inputmode="decimal"></div>
+      <div><label for="cards">Cards, wrapping, postage ($)</label><input id="cards" type="number" min="0" step="1" value="25" inputmode="decimal"></div>
+      <div><label for="travel">Travel ($)</label><input id="travel" type="number" min="0" step="1" value="0" inputmode="decimal"></div>
+      <div><label for="other">Other: events, donations, tips ($)</label><input id="other" type="number" min="0" step="1" value="30" inputmode="decimal"></div>
+    </div>
+    <h2>Paying for it</h2>
+    <div class="fields">
+      <div><label for="saved">Already set aside ($)</label><input id="saved" type="number" min="0" step="1" value="200" inputmode="decimal"></div>
+      <div><label for="paychecks">Paychecks left before you shop</label><input id="paychecks" type="number" min="1" step="1" value="3" inputmode="numeric"></div>
+    </div>
+    <p class="small muted" id="pay-hint">Paychecks left is filled in from today's date, assuming you're paid every two weeks and finish shopping by December 20. Change it to match your pay schedule.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">Your holiday budget</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <p id="plan"></p>
+    <p id="next-year"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Make next year's holidays a sinking fund</h3>
+    <p>The <a href="../sinking-funds-tracker/">Sinking Funds Tracker</a> spreadsheet for Excel tracks holidays alongside up to 29 other goals (car insurance, vacations, repairs): how much each needs per month, whether you're on track, and the month each will be fully funded.</p>
+    <a class="btn" data-product="sinkingFunds">Get the tracker (<span data-price>$6</span>)</a>
+  </aside>
+
+  <article>
+    <h2 id="how-it-works">How to set a holiday budget</h2>
+    <p>Start with a list, not a total. Write down everyone you buy for and a dollar amount for each, add the costs that aren't gifts, and the total is your budget. Then subtract what you've already set aside and divide the rest by the paychecks you have left before you shop.</p>
+    <p>The example filled in above: 14 people on the gift list come to <strong>$560</strong> (3 kids at $75, 4 adults at $50, 3 friends at $25, 4 others at $15), and food, decorations, cards, and other costs add <strong>$255</strong>, for a total of <strong>$815</strong>. With $200 already set aside, the remaining $615 over 3 paychecks is <strong>$205 per paycheck</strong>.</p>
+
+    <h2 id="average">How much do people spend on the holidays?</h2>
+    <p>In the National Retail Federation's 2025 holiday survey of 8,247 adults, people planned to spend <strong>$890.49</strong> each on average: $627.93 on gifts for family and friends and $262.56 on seasonal items like food or candy, decorations, and greeting cards. That's the average per adult, not per household, and it's an average, not a target. NRF's 2026 survey, released in October 2026, didn't publish a per-person figure.</p>
+    <p>About 29% of that average went to things other than gifts. People who budget only for gifts are usually surprised by the rest, so the calculator asks for those costs separately.</p>
+
+    <h2 id="cash-not-card">Pay with cash you've set aside</h2>
+    <p>A holiday budget is only as good as the money behind it. If part of it goes on a credit card you can't pay off in January, the interest makes every gift cost more. The <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a> shows how long a balance takes to clear and what it costs. If you're short:</p>
+    <ul>
+      <li><strong>Trim the list before you trim the amounts.</strong> A name draw or a family gift exchange cuts the count, which saves more than shaving a few dollars off everyone.</li>
+      <li><strong>Watch the non-gift costs.</strong> Hosting, travel, and decorations are easy to scale back and rarely missed.</li>
+      <li><strong>Move the money on payday.</strong> Transfer each paycheck's amount to savings the day it arrives, so it isn't spent on something else first.</li>
+    </ul>
+
+    <h2 id="next-years-fund">Start next year's fund in January</h2>
+    <p>The holidays come on the same date every year, which makes them the easiest expense to save for in advance. Divide the total by 12 and set that much aside each month, starting in January, and December is already paid for. That's what a sinking fund is.</p>
+    <div class="table-scroll"><table id="fund-table">
+      <thead><tr><th>Holiday budget</th><th class="num">Save per month</th><th class="num">Per paycheck (every 2 weeks)</th><th class="num">Per week</th></tr></thead>
+      <tbody>
+        <tr><td>$500</td><td class="num">$41.67</td><td class="num">$19.24</td><td class="num">$9.62</td></tr>
+        <tr><td>$750</td><td class="num">$62.50</td><td class="num">$28.85</td><td class="num">$14.43</td></tr>
+        <tr><td>$1,000</td><td class="num">$83.34</td><td class="num">$38.47</td><td class="num">$19.24</td></tr>
+        <tr><td>$1,500</td><td class="num">$125.00</td><td class="num">$57.70</td><td class="num">$28.85</td></tr>
+        <tr><td>$2,000</td><td class="num">$166.67</td><td class="num">$76.93</td><td class="num">$38.47</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Rounded up to the cent, so the deposits always add up to at least the budget: 12 months, 26 two-week paychecks, or 52 weeks.</p>
+    <p>For a goal with a different date or one that earns interest, use the <a href="../savings-goal-calculator/">savings goal calculator</a>. To see where holiday saving fits in your monthly budget, try the <a href="../budget-calculator/">50/30/20 budget calculator</a>.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>How much should I spend per person on gifts?</summary><p>There's no right number; it's whatever fits after your bills and savings. Work backward: decide the total you can pay in cash, take off the non-gift costs, and divide what's left by the people on your list.</p></details>
+    <details><summary>How many paychecks do I have left before Christmas?</summary><p>If you're paid every two weeks, count the paydays between today and the day you want to finish shopping. The calculator fills in an estimate from today's date (whole two-week periods until December 20); change it if your payday or deadline is different.</p></details>
+    <details><summary>Should I include travel?</summary><p>Yes, if you're traveling for the holidays. Flights, gas, and hotels can cost more than the gifts, and they're part of what the holidays cost you.</p></details>
+    <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
+    <p class="small muted">Source: National Retail Federation, <a href="https://nrf.com/media-center/press-releases/consumers-to-spend-second-highest-amount-on-record-according-to-nrf-holiday-survey">Consumers to Spend Second-Highest Amount on Record, According to NRF Holiday Survey</a> (October 16, 2025; survey of 8,247 adults, Oct. 1&ndash;7, 2025) and <a href="https://nrf.com/media-center/press-releases/affordability-shapes-winter-holiday-shopping-according-to-nrf-holiday-survey">Affordability Shapes Winter Holiday Shopping</a> (October 20, 2026). For education and planning only; this isn't financial advice.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../budget-calculator/">50/30/20 budget calculator</a><a href="../credit-card-payoff-calculator/">Credit card payoff calculator</a><a href="../sinking-funds-tracker/">Sinking funds tracker</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/holiday-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const H = window.HolidayEngine;
+  const usd = x => x.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  const int = x => x.toLocaleString('en-US');
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+
+  // Paychecks left starts from today's date; the reader can change it.
+  $('paychecks').value = H.paychecksLeft(new Date());
+
+  function render() {
+    const groups = ['kids', 'fam', 'fr', 'oth'].map(g => ({ count: num(g + '-n'), each: num(g + '-each') }));
+    const extras = ['food', 'decor', 'cards', 'travel', 'other'].map(num);
+    const r = H.budget({ groups, extras, saved: num('saved'), paychecks: num('paychecks') });
+    if (!r.total) {
+      $('stats').innerHTML = ''; ['plan', 'next-year'].forEach(id => { $(id).textContent = ''; });
+      $('summary').textContent = 'Enter the people on your gift list and your other holiday costs to see your budget.';
+      return;
+    }
+    const n = Math.floor(num('paychecks'));
+    $('stats').innerHTML = stat('Holiday budget', usd(r.total)) + stat('Still to save', usd(r.left)) +
+      stat('Per paycheck', r.left ? (n ? usd(r.perPaycheck) : '—') : '$0', true) + stat('Gifts', `${usd(r.gifts)} for ${int(r.people)} ${r.people === 1 ? 'person' : 'people'}`);
+    $('summary').textContent = `Gifts ${usd(r.gifts)} + everything else ${usd(r.other)} = ${usd(r.total)}. Gifts are ${Math.round(r.giftShare * 100)}% of the total.`;
+    $('plan').textContent = !r.left ? `You've already set aside enough: ${usd(num('saved'))} covers the ${usd(r.total)} budget.`
+      : n ? `${usd(r.total)} − ${usd(num('saved'))} already set aside = ${usd(r.left)} to go. Over ${n} paycheck${n === 1 ? '' : 's'}, set aside ${usd(r.perPaycheck)} from each.`
+      : `${usd(r.left)} still to save. Enter how many paychecks you have left to see the amount per paycheck.`;
+    $('next-year').textContent = `Next year, saving ${usd(r.monthly)} a month from January (or ${usd(r.biweekly)} per two-week paycheck) covers the same ${usd(r.total)} by December.`;
+  }
+  document.querySelectorAll('input').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
