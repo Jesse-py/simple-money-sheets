@@ -12,7 +12,7 @@ window.SITE_PRODUCTS = {
 window.SITE_ANALYTICS = { goatcounter: 'simplemoneysheets' };
 (function () {
   const code = window.SITE_ANALYTICS.goatcounter;
-  if (!code || !/\.github\.io$/.test(location.hostname)) return;
+  if (!code || !/(\.github\.io|simpletoolshop\.com)$/.test(location.hostname)) return;
   const s = document.createElement('script');
   s.async = true;
   s.src = 'https://gc.zgo.at/count.js';

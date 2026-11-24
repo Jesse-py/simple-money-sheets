@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jesse-py.github.io/simple-money-sheets/sitemap.xml
+Sitemap: https://simpletoolshop.com/simple-money-sheets/sitemap.xml
