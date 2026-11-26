@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>1099 vs W-2 Calculator (2026 &amp; 2027): Compare Take-Home Pay</title>
-<meta name="description" content="Free 1099 vs W-2 calculator. Compare a salary offer with a contract rate after Social Security, Medicare, and federal income tax for 2026 or 2027, and see the hourly rate you need as a contractor to break even.">
+<title>1099 vs W-2 Calculator (2026 &amp; 2027): Hourly, Per-Shift &amp; Locum Pay</title>
+<meta name="description" content="Free 1099 vs W-2 calculator. Compare a salary offer with a contract rate after Social Security, Medicare, and federal income tax for 2026 or 2027, and see the hourly or per-shift rate you need as a contractor (including locum tenens) to break even.">
 <link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/1099-vs-w2-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
 <script type="application/ld+json">
@@ -36,12 +36,15 @@
     <p class="small muted">Benefits: what the employer pays toward your health insurance, a 401(k) match, and similar. Leave it at 0 to compare cash only. Paid holidays and vacation are already in the salary, so count them on the contract side as weeks you can't bill.</p>
     <h2>1099 contract offer</h2>
     <div class="fields">
-      <div><label for="rate">Hourly rate ($)</label><input id="rate" type="number" min="0" step="1" value="50" inputmode="decimal"></div>
-      <div><label for="hours">Billable hours per week</label><input id="hours" type="number" min="0" max="100" step="1" value="40" inputmode="decimal"></div>
+      <div><label for="unit">Paid per</label>
+        <select id="unit"><option value="hour">Hour</option><option value="shift">Day or shift</option></select></div>
+      <div><label for="rate" id="rateLabel">Hourly rate ($)</label><input id="rate" type="number" min="0" step="1" value="50" inputmode="decimal"></div>
+      <div><label for="hours" id="hoursLabel">Billable hours per week</label><input id="hours" type="number" min="0" max="100" step="0.5" value="40" inputmode="decimal"></div>
       <div><label for="weeks">Weeks billed per year</label><input id="weeks" type="number" min="0" max="52" step="1" value="48" inputmode="decimal"></div>
       <div><label for="expenses">Business expenses ($/year)</label><input id="expenses" type="number" min="0" step="100" value="3000" inputmode="decimal"></div>
     </div>
     <p class="small muted">Expenses: equipment, software, a home office, mileage, and anything else you'd pay that an employer would have covered. They're deducted before tax.</p>
+    <p><label><input id="sstb" type="checkbox"> The contract work is a specified service: health (physicians, nurses, NPs, PAs, CRNAs, therapists), law, accounting, consulting, and similar. This lowers the QBI deduction at higher incomes.</label></p>
   </section>
 
   <section class="card" aria-live="polite">
@@ -76,6 +79,22 @@
     </ul>
     <p>The break-even rate is $44.42 an hour. If the job also came with $7,000 a year of employer health coverage and 401(k) match, the gap shrinks to $659 and the break-even rate rises to $49.51, so $50 an hour is barely ahead.</p>
 
+    <h2 id="locum">Locum tenens vs W-2</h2>
+    <p>Locum tenens physicians and advanced practice clinicians are usually paid per shift or per hour as 1099 contractors, while a permanent job pays a W-2 salary with benefits. To compare them, choose "Day or shift", enter the shift rate and how many shifts a week you'd work on average, and tick the specified-service box (health counts as one under the QBI rules).</p>
+    <p id="locumExample">Example: a single hospitalist in 2026 is offered a $300,000 W-2 job, or locum work at $2,000 a shift, averaging 3.5 shifts a week for 48 weeks (168 shifts, $336,000), with $6,000 a year of their own licensing, DEA, board, and CME costs.</p>
+    <ul>
+      <li><strong>Cash only:</strong> the W-2 job leaves <strong>$215,177</strong> after federal tax, and the locum work leaves <strong>$224,397</strong>, or $9,221 more. Break-even is $1,911 a shift.</li>
+      <li><strong>With benefits:</strong> if the job also comes with $35,000 a year of health coverage, retirement match, CME allowance, and malpractice cover, the W-2 package is worth $250,177 and the locum work is $25,779 behind. Break-even rises to $2,248 a shift ($377,607 a year).</li>
+    </ul>
+    <p><button type="button" class="btn" id="loadLocum">Put this example in the calculator</button></p>
+    <p>Three things are different at physician incomes:</p>
+    <ul>
+      <li><strong>The QBI deduction is usually gone.</strong> Health is a specified service trade, so the 20% deduction phases out as taxable income goes from $201,750 to $276,750 (single, 2026; $403,500 to $553,500 married filing jointly) and is zero above that. Many NPs, PAs, and part-time locums are inside or below that range, so the box matters for them.</li>
+      <li><strong>Social Security tax stops at the wage base.</strong> The 12.4% Social Security part of self-employment tax applies only to the first $184,500 of earnings in 2026 ($192,300 in 2027). Above it you pay 2.9% Medicare plus the 0.9% Additional Medicare Tax, so the extra tax on 1099 pay is a smaller share of a large income.</li>
+      <li><strong>Benefits decide most comparisons.</strong> Ask the employer what they pay for health insurance, the retirement match, CME, disability cover, and malpractice (including tail coverage), and put the total in the benefits box. Many locum agencies pay malpractice, travel, and housing, but check your contract: anything you pay yourself goes in expenses.</li>
+    </ul>
+    <p>Not modeled here: a solo 401(k) or SEP-IRA, which can shelter much more 1099 income than an employee 401(k); an S corporation; the self-employed health insurance deduction; and state tax in each state you work in. For those, ask a tax professional.</p>
+
     <h2>Contract pay needed to match a salary (2026)</h2>
     <p>The yearly 1099 pay that leaves you with the same federal after-tax income as each salary, with no business expenses and no benefits counted. Divide by the hours you expect to bill to get an hourly rate.</p>
     <div class="table-scroll"><table id="levels">
@@ -96,7 +115,7 @@
       <li><strong>State and local taxes.</strong> They apply to both offers, and a few cities and states tax self-employment income separately.</li>
       <li><strong>Retirement plans.</strong> A SEP-IRA or solo 401(k) can lower a contractor's income tax, and a 401(k) lowers an employee's. Neither is modeled here.</li>
       <li><strong>The self-employed health insurance deduction</strong>, which lets many contractors deduct premiums they pay themselves.</li>
-      <li><strong>QBI limits for high earners.</strong> The 20% QBI deduction is figured for a sole proprietor with no employees, as on our <a href="../quarterly-estimated-tax-calculator/">estimated tax calculator</a>. If your taxable income is above about $201,750 (single, 2026) and your work is a specified service like consulting, law, or health, the deduction phases out faster than shown.</li>
+      <li><strong>QBI limits for high earners.</strong> The 20% QBI deduction is figured for a sole proprietor with no employees and no business property, as on our <a href="../quarterly-estimated-tax-calculator/">estimated tax calculator</a>: above the threshold (about $201,750 single in 2026) it phases out, faster if you tick the specified-service box. If you pay employees, your deduction above the threshold may be larger than shown.</li>
       <li><strong>Credits and other income</strong>, such as the child tax credit, investment income, or a second job.</li>
       <li><strong>Worker classification.</strong> Whether you're an employee or a contractor depends on how the work is controlled, not on what the paperwork says. See the IRS guidance below.</li>
     </ul>
@@ -104,6 +123,7 @@
     <h2>FAQ</h2>
     <details><summary>How much more should a 1099 contractor charge than a W-2 employee?</summary><p>For federal tax alone, only about 1 to 7% more pay (see the table), because the half-SE-tax and 20% QBI deductions offset much of the extra Social Security and Medicare tax. Once you add unpaid time off, benefits, and expenses, contractors often need 20 to 40% more than the salary's hourly equivalent, but it depends on your numbers. Put them in the calculator.</p></details>
     <details><summary>Is a $50/hour 1099 job the same as $50/hour W-2?</summary><p>No. At the same hourly rate the contractor pays the employer's 7.65% share of Social Security and Medicare on top of their own (less the deductions above), isn't paid for time off, and gets no benefits.</p></details>
+    <details><summary>How do I compare a locum tenens rate with a W-2 salary?</summary><p>Choose "Day or shift", enter the shift rate and your average shifts a week, tick the specified-service box, and put the employer's benefits in the benefits box. At a $300,000 salary (single, 2026) and 168 shifts a year, the cash break-even is about $1,911 a shift, and about $2,248 once $35,000 of benefits is counted (see <a href="#locum">the example</a>).</p></details>
     <details><summary>Does the calculator include the 0.9% Additional Medicare Tax?</summary><p>Yes. It applies to wages and self-employment earnings over $200,000 (single and head of household), $250,000 (married filing jointly), or $125,000 (married filing separately), and it's counted in the Social Security and Medicare line.</p></details>
     <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser, and nothing you type is sent anywhere.</p></details>
 
@@ -113,9 +133,10 @@
       <li>Self-employment tax, the half-SE-tax deduction, and the QBI deduction: <a href="https://www.irs.gov/pub/irs-pdf/f1040es.pdf">IRS Form 1040-ES (2026)</a> and <a href="https://www.irs.gov/forms-pubs/about-schedule-se-form-1040">Schedule SE</a>.</li>
       <li>2026 brackets and standard deduction: <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf">Rev. Proc. 2025-32</a>. 2027: <a href="https://www.irs.gov/pub/irs-drop/rp-26-35.pdf">Rev. Proc. 2026-35</a>. 2027 wage base ($192,300): <a href="https://www.ssa.gov/news/en/cola/factsheets/2027.html">SSA 2027 COLA fact sheet</a>.</li>
       <li>Additional Medicare Tax thresholds: <a href="https://www.irs.gov/forms-pubs/about-form-8959">IRS Form 8959</a>.</li>
+      <li>Specified service trades (health includes physicians, nurses, and similar professionals) and the QBI phase-out: <a href="https://www.irs.gov/instructions/i8995a">IRS Instructions for Form 8995-A</a>; 2026 thresholds in Rev. Proc. 2025-32.</li>
       <li>Who counts as a contractor: <a href="https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee">IRS: Independent contractor (self-employed) or employee?</a></li>
     </ul>
-    <p class="small muted">Last checked November 6, 2026. For education and planning only, not tax advice.</p>
+    <p class="small muted">Last checked November 26, 2026. For education and planning only, not tax advice.</p>
 
     <h2>Related calculators</h2>
     <p>Keeping the job and adding contract work on the side? The <a href="../side-hustle-tax-calculator/">side hustle tax calculator</a> shows the extra tax and the W-4 withholding that covers it. See just the Social Security and Medicare part with the <a href="../self-employment-tax-calculator/">self-employment tax calculator</a>. Driving your own car for contract work? The <a href="../mileage-deduction-calculator/">mileage deduction calculator</a> shows what your business miles are worth at the 2026 rates, and the <a href="../home-office-deduction-calculator/">home office deduction calculator</a> compares the simplified and regular methods if you work from a room at home. Income varies month to month as a contractor; the <a href="../budget-calculator/">50/30/20 budget calculator</a> and <a href="../savings-goal-calculator/">savings goal calculator</a> help you plan a buffer.</p>
@@ -144,22 +165,27 @@
       year: Number($('year').value), status, spouseWages: status === 'mfj' ? pos('spouseWages') : 0,
       salary: pos('salary'), benefits: pos('benefits'),
       rate: pos('rate'), hours: pos('hours'), weeks: Math.min(52, pos('weeks')), expenses: pos('expenses'),
+      sstb: $('sstb').checked,
     };
+    const shift = $('unit').value === 'shift';
+    const per = shift ? '/shift' : '/hr', units = shift ? 'shifts' : 'hours', perWord = shift ? 'a shift' : 'an hour';
+    $('rateLabel').textContent = shift ? 'Rate per day or shift ($)' : 'Hourly rate ($)';
+    $('hoursLabel').textContent = shift ? 'Days or shifts per week' : 'Billable hours per week';
     const r = C.compare(inp), w = r.w2, c = r.c1099;
     const diff = c.value - w.value;
     $('stats').innerHTML = stat('W-2 take-home', money(w.takeHome), diff < 0) +
       stat('1099 take-home', money(c.takeHome), diff >= 0) +
       stat(diff >= 0 ? '1099 comes out ahead by' : 'W-2 comes out ahead by', money(Math.abs(diff))) +
-      stat('Break-even 1099 rate', r.breakEvenRate === null ? 'n/a' : money(r.breakEvenRate, 2) + '/hr');
+      stat('Break-even 1099 rate', r.breakEvenRate === null ? 'n/a' : money(r.breakEvenRate, 2) + per);
 
     let s;
-    if (inp.hours * inp.weeks === 0) s = 'Enter billable hours and weeks to compare the contract.';
+    if (inp.hours * inp.weeks === 0) s = `Enter billable ${units} and weeks to compare the contract.`;
     else {
-      s = `The contract pays ${money(c.gross)} a year (${inp.hours} hours x ${inp.weeks} weeks x ${money(inp.rate, 2)}). `;
+      s = `The contract pays ${money(c.gross)} a year (${inp.hours} ${units} x ${inp.weeks} weeks x ${money(inp.rate, 2)}). `;
       s += diff >= 0
         ? `After federal tax${inp.expenses ? ' and expenses' : ''}, it leaves you ${money(diff)} more than the salary${inp.benefits ? ' and benefits' : ''}.`
         : `After federal tax${inp.expenses ? ' and expenses' : ''}, it leaves you ${money(-diff)} less than the salary${inp.benefits ? ' and benefits' : ''}.`;
-      if (r.breakEvenRate !== null) s += ` To match the W-2 offer at ${inp.hours * inp.weeks} billable hours a year, you'd need ${money(r.breakEvenRate, 2)} an hour (${money(r.breakEvenGross)} a year).`;
+      if (r.breakEvenRate !== null) s += ` To match the W-2 offer at ${+(inp.hours * inp.weeks).toFixed(2)} billable ${units} a year, you'd need ${money(r.breakEvenRate, 2)} ${perWord} (${money(r.breakEvenGross)} a year).`;
     }
     $('summary').textContent = s;
 
@@ -174,7 +200,14 @@
       row('Effective federal tax rate', (w.gross ? (w.fica + w.incomeTax) / w.gross * 100 : 0).toFixed(1) + '%', (c.gross ? (c.fica + c.incomeTax) / c.gross * 100 : 0).toFixed(1) + '%') +
       '</tbody>';
   }
-  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render));
+  $('loadLocum').addEventListener('click', () => {
+    const v = { year: '2026', status: 'single', salary: 300000, benefits: 35000, unit: 'shift', rate: 2000, hours: 3.5, weeks: 48, expenses: 6000 };
+    for (const k in v) $(k).value = v[k];
+    $('sstb').checked = true;
+    render();
+    if ($('stats').scrollIntoView) $('stats').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
   render();
 })();
 </script>

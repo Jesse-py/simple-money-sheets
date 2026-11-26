@@ -1,7 +1,9 @@
 // 1099 vs W-2 comparison on top of tax-engine.js (federal only, for this income alone).
 // W-2 side: employee Social Security 6.2% up to the wage base + Medicare 1.45% (IRS Topic 751),
 // plus income tax and Additional Medicare Tax from TaxEngine.estimate with the salary as wages.
-// 1099 side: TaxEngine.estimate with the contract profit (SE tax, half-SE deduction, QBI).
+// 1099 side: TaxEngine.estimate with the contract profit (SE tax, half-SE deduction, QBI;
+// inp.sstb = a specified service trade like health, law, or consulting, IRC 199A(d)(2)).
+// The rate is per hour or per day/shift: inp.hours is the number of those units a week.
 // Every tax figure is the increase over a baseline where you earn nothing (a spouse's wages
 // stay in both), so a working spouse moves the bracket without being counted as your pay.
 (function (root) {
@@ -9,7 +11,7 @@
 
   function household(inp, extra) {
     return T.estimate(Object.assign({ year: inp.year, status: inp.status, profit: 0, wages: 0,
-      spouseWages: inp.spouseWages || 0 }, extra));
+      spouseWages: inp.spouseWages || 0, sstb: !!inp.sstb }, extra));
   }
 
   function w2(inp, base) {
