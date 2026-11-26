@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Debt-to-Income Ratio Calculator: Find Your DTI and What Lowers It</title>
-<meta name="description" content="Free debt-to-income (DTI) ratio calculator. Enter your gross income and monthly debt payments to see your total and housing DTI, how it compares with common mortgage limits, and which debt to pay off to lower it most.">
+<title>Debt-to-Income Ratio Calculator: Front-End and Back-End DTI by Loan Type</title>
+<meta name="description" content="Free debt-to-income (DTI) ratio calculator. Enter your gross income and monthly debt payments to see your front-end (housing) and back-end (total) DTI, the largest housing payment Fannie Mae, FHA, VA, and USDA limits allow, and which debt to pay off to lower it most.">
 <link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/debt-to-income-ratio-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
 <script type="application/ld+json">
@@ -18,7 +18,7 @@
 </div></header>
 <main><div class="wrap">
   <h1>Debt-to-Income Ratio Calculator</h1>
-  <p class="lede">Your debt-to-income ratio (DTI) is your monthly debt payments divided by your gross monthly income. Lenders use it to decide how much more you can borrow, especially for a mortgage. Enter your numbers to see your DTI, how it compares with common limits, and which debt would lower it most if you paid it off. Nothing you type leaves your browser.</p>
+  <p class="lede">Your debt-to-income ratio (DTI) is your monthly debt payments divided by your gross monthly income. Lenders use it to decide how much more you can borrow, especially for a mortgage. Enter your numbers to see your front-end and back-end DTI, how they compare with the limits for conventional, FHA, VA, and USDA loans, and which debt would lower it most if you paid it off. Nothing you type leaves your browser.</p>
 
   <section class="card">
     <div class="fields">
@@ -42,7 +42,7 @@
     <h2 style="margin-top:0">Your debt-to-income ratio</h2>
     <div class="stats" id="stats"></div>
     <p id="summary"></p>
-    <h3>Against common mortgage limits</h3>
+    <h3>Front-end and back-end limits by loan program</h3>
     <div class="table-scroll"><table id="limits"></table></div>
     <h3>If you paid one debt off</h3>
     <div class="table-scroll"><table id="payoff"></table></div>
@@ -63,6 +63,26 @@
     </ol>
     <p>For example, with $6,000 a month of gross income, a $1,500 rent payment, a $350 car payment, a $200 student loan payment, and $150 of credit card minimums, debts total $2,200 a month. $2,200 &divide; $6,000 = <strong>36.7%</strong>. The housing payment alone is $1,500 &divide; $6,000 = 25.0%, which lenders call the front-end or housing ratio. The total is the back-end ratio, and it's the one most limits refer to.</p>
 
+    <h2>Front-end vs back-end DTI</h2>
+    <p>Lenders work out two ratios:</p>
+    <ul>
+      <li><strong>Front-end ratio</strong> (also called the housing ratio or payment-to-income ratio): the housing payment alone divided by gross monthly income. For a mortgage, the housing payment is principal, interest, property tax, homeowners insurance, mortgage insurance, and HOA dues.</li>
+      <li><strong>Back-end ratio</strong>: the housing payment plus every other monthly debt payment, divided by gross monthly income. When people say "DTI" they usually mean this one.</li>
+    </ul>
+    <p>Conventional loans and VA loans set a limit only on the back-end ratio. FHA and USDA loans set both, and the loan has to fit under each one. These are the standard maximums:</p>
+    <div class="table-scroll"><table id="programs">
+      <thead><tr><th>Loan program</th><th class="num">Front-end max</th><th class="num">Back-end max</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Conventional (Fannie Mae), underwritten by hand</td><td class="num">none</td><td class="num">36%</td><td>Up to 45% with the required credit score and cash reserves</td></tr>
+        <tr><td>Conventional (Fannie Mae), Desktop Underwriter</td><td class="num">none</td><td class="num">50%</td><td>Fannie Mae's automated system</td></tr>
+        <tr><td>FHA, underwritten by hand</td><td class="num">31%</td><td class="num">43%</td><td>Up to 37/47, 40/40, or 40/50 with compensating factors and a credit score of 580 or more; 33/45 for energy-efficient homes</td></tr>
+        <tr><td>VA</td><td class="num">none</td><td class="num">41%</td><td>Higher is possible with extra review; VA also requires enough residual income left after bills</td></tr>
+        <tr><td>USDA Single Family Housing Guaranteed</td><td class="num">29%</td><td class="num">41%</td><td>Higher ratios need compensating factors</td></tr>
+      </tbody>
+    </table></div>
+    <p>FHA loans approved through FHA's automated TOTAL Scorecard can go above the manual limits. The calculator's table above shows, for each program, the largest housing payment that fits both its limits given your other debts.</p>
+    <p id="fha-example"><strong>Example:</strong> with $6,000 a month of gross income and $700 a month of debts besides housing, FHA's 31% front-end limit allows a housing payment of $1,860 (31% of $6,000). Its 43% back-end limit allows $2,580 of total payments, which leaves $1,880 for housing after the $700. The smaller of the two, <strong>$1,860</strong>, is the most FHA's standard limits allow. Under USDA's 29/41 it's $1,740 (29% of $6,000), and under VA's 41% it's $1,760 ($2,460 minus $700).</p>
+
     <h2>What's a good debt-to-income ratio?</h2>
     <p>There's no single cutoff; each loan program and lender sets its own. For conventional mortgages sold to Fannie Mae, the Selling Guide sets these maximums on the total ratio:</p>
     <ul>
@@ -81,6 +101,8 @@
     </ul>
 
     <h2>FAQ</h2>
+    <details><summary>What's the difference between front-end and back-end DTI?</summary><p>Front-end DTI counts only your housing payment; back-end DTI counts housing plus all your other debt payments. With $6,000 of gross monthly income, a $1,500 housing payment, and $700 of other debt payments, the front-end ratio is 25.0% and the back-end ratio is 36.7%.</p></details>
+    <details><summary>Do conventional loans have a front-end limit?</summary><p>Not in Fannie Mae's Selling Guide: its maximums apply to the total (back-end) ratio. VA loans also use only a total ratio, plus a residual income test. FHA (31%) and USDA (29%) loans do have a housing ratio limit.</p></details>
     <details><summary>Is DTI based on gross or take-home pay?</summary><p>Gross: income before taxes and other deductions, as defined by the Consumer Financial Protection Bureau. That's why a DTI that looks fine can still feel tight in your budget.</p></details>
     <details><summary>Do utilities, phone bills, or subscriptions count?</summary><p>No. DTI counts debts and debt-like obligations such as loans, leases, credit card minimums, and court-ordered support. Living expenses aren't included.</p></details>
     <details><summary>What if a loan has only a few payments left?</summary><p>Fannie Mae's guide leaves out installment loans with ten or fewer monthly payments remaining unless they significantly affect your ability to pay. Leases count no matter how many months are left.</p></details>
@@ -91,9 +113,12 @@
     <ul class="small">
       <li>Definition (monthly debt payments divided by gross monthly income): <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-debt-to-income-ratio-en-1791/">CFPB: What is a debt-to-income ratio?</a></li>
       <li>36% / 45% / 50% maximums: <a href="https://selling-guide.fanniemae.com/sel/b3-6-02/debt-income-ratios">Fannie Mae Selling Guide B3-6-02, Debt-to-Income Ratios</a>.</li>
+      <li>FHA 31/43 and the compensating-factor ratios: <a href="https://www.hud.gov/hud-partners/single-family-handbook-4000-1">HUD Single Family Housing Policy Handbook 4000.1</a>, II.A.5.d.viii, Approvable Ratio Requirements (Manual).</li>
+      <li>VA 41%: <a href="https://www.ecfr.gov/current/title-38/chapter-I/part-36/subpart-B/section-36.4340">38 CFR 36.4340</a>, Underwriting standards (paragraphs c and d).</li>
+      <li>USDA 29% and 41%: <a href="https://www.ecfr.gov/current/title-7/subtitle-B/chapter-XXXV/part-3555/subpart-D/section-3555.151">7 CFR 3555.151(i)</a>, Eligibility requirements.</li>
       <li>Which debts count, the ten-payment rule, the 5% card rule, and the 1% student loan rule: <a href="https://selling-guide.fanniemae.com/sel/b3-6-05/monthly-debt-obligations">Fannie Mae Selling Guide B3-6-05, Monthly Debt Obligations</a>.</li>
     </ul>
-    <p class="small muted">Last checked November 6, 2026. For education and planning only. FHA, VA, USDA, and other lenders have their own limits.</p>
+    <p class="small muted">Last checked November 26, 2026. For education and planning only. Lenders can set tighter limits of their own, and approval also depends on credit, savings, and the property.</p>
 
     <h2>Related calculators</h2>
     <p>See how fast one card can be paid off with the <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a>, or what extra payments save on a car or student loan with the <a href="../loan-calculator/">loan calculator</a>. Thinking about a new car? The <a href="../car-affordability-calculator/">car affordability calculator</a> shows what payment and price fit your income. The <a href="../budget-calculator/">50/30/20 budget calculator</a> helps you find money to put toward debt.</p>
@@ -113,8 +138,11 @@
   const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
   const DEBTS = [['housing', 'Rent or mortgage'], ['car', 'Car loans and leases'], ['student', 'Student loans'],
     ['cards', 'Credit card minimums'], ['personal', 'Personal and other loans'], ['support', 'Child support or alimony']];
-  const LIMITS = [[0.36, 'Fannie Mae, manually underwritten'], [0.45, 'Fannie Mae, manual with credit score and reserves'],
-    [0.50, 'Fannie Mae, Desktop Underwriter']];
+  // [front-end max or null, back-end max, program]; sources in the article.
+  const LIMITS = [[null, 0.36, 'Fannie Mae, manually underwritten'], [null, 0.45, 'Fannie Mae, manual with credit score and reserves'],
+    [null, 0.50, 'Fannie Mae, Desktop Underwriter'], [0.31, 0.43, 'FHA, manually underwritten'], [null, 0.41, 'VA'],
+    [0.29, 0.41, 'USDA guaranteed']];
+  const lim = x => x === null ? 'none' : (x * 100).toFixed(0) + '%';
 
   function render() {
     const income = pos('income') / ($('period').value === 'year' ? 12 : 1);
@@ -129,7 +157,7 @@
     }
     const dti = total / income;
     $('stats').innerHTML = stat('Debt-to-income ratio', pct(dti), dti <= 0.36) +
-      stat('Housing ratio', pct(housing / income)) +
+      stat('Front-end (housing) ratio', pct(housing / income)) +
       stat('Monthly debt payments', money(total)) +
       stat('Gross monthly income', money(income));
 
@@ -137,12 +165,17 @@
     if (dti <= 0.36) s += ' That is at or under 36%, the tightest of the common limits below.';
     else if (dti <= 0.50) s += ` That's over 36%; bringing it down to 36% means cutting ${money(total - 0.36 * income)} a month of payments or earning ${money(total / 0.36 - income)} more a month.`;
     else s += ` That's over 50%, the highest common limit for a conventional mortgage. Getting to 50% means cutting ${money(total - 0.5 * income)} a month of payments.`;
+    s += ` Your front-end (housing) ratio is ${pct(housing / income)}.`;
     $('summary').textContent = s;
 
-    $('limits').innerHTML = '<thead><tr><th>Maximum DTI</th><th>Where it applies</th><th class="num">Room left per month</th></tr></thead><tbody>' +
-      LIMITS.map(([lim, label]) => {
-        const room = lim * income - total;
-        return `<tr><td>${(lim * 100).toFixed(0)}%</td><td>${label}</td><td class="num">${room >= 0 ? money(room) : 'over by ' + money(-room)}</td></tr>`;
+    // Largest housing payment = the smaller of the front-end cap and what the back-end cap leaves after other debts.
+    const other = total - housing;
+    $('limits').innerHTML = '<thead><tr><th>Loan program</th><th class="num">Front-end max</th><th class="num">Back-end max</th><th class="num">Total room per month</th><th class="num">Largest housing payment</th></tr></thead><tbody>' +
+      LIMITS.map(([front, back, label]) => {
+        const room = back * income - total;
+        const maxHousing = Math.max(0, Math.min(front === null ? Infinity : front * income, back * income - other));
+        return `<tr><td>${label}</td><td class="num">${lim(front)}</td><td class="num">${lim(back)}</td>` +
+          `<td class="num">${room >= 0 ? money(room) : 'over by ' + money(-room)}</td><td class="num">${money(maxHousing)}</td></tr>`;
       }).join('') + '</tbody>';
 
     const rows = pay.slice(1).filter(d => d.amount > 0).sort((a, b) => b.amount - a.amount);
