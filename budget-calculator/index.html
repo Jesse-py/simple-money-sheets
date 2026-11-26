@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>50/30/20 Budget Calculator: Monthly and Per-Paycheck Amounts</title>
-<meta name="description" content="Free 50/30/20 budget calculator. Enter your take-home pay (weekly, biweekly, or monthly) to see needs, wants, and savings per paycheck, per month, and per year, then add up what you spend now line by line.">
+<title>50/30/20 Budget Calculator: Weekly, Biweekly, or Monthly Pay</title>
+<meta name="description" content="Free 50/30/20 budget calculator. Enter your take-home pay (weekly, biweekly, or monthly) to see needs, wants, and savings per paycheck, per week, per month, and per year, plus a weekly-pay table. Then add up what you spend now line by line.">
 <link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/budget-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
 <script type="application/ld+json">
@@ -25,7 +25,7 @@
 </div></header>
 <main><div class="wrap">
   <h1>50/30/20 Budget Calculator</h1>
-  <p class="lede">The 50/30/20 rule splits your take-home pay into needs (50%), wants (30%), and savings or extra debt payments (20%). Enter one paycheck and how often you're paid to see each amount per paycheck, per month, and per year. Then, if you like, add up what you spend now and see how it compares. Everything runs in your browser, and nothing is sent anywhere.</p>
+  <p class="lede">The 50/30/20 rule splits your take-home pay into needs (50%), wants (30%), and savings or extra debt payments (20%). Enter one paycheck and how often you're paid to see each amount per paycheck, per week, per month, and per year. Then, if you like, add up what you spend now and see how it compares. Everything runs in your browser, and nothing is sent anywhere.</p>
 
   <section class="card">
     <div class="fields">
@@ -123,6 +123,27 @@
     </table></div>
     <p>Working from the paycheck is often easier: on payday, $400 moves to savings, and you know $1,000 of what's left is for needs. Your actual bills don't fall evenly across paychecks, so keep a small buffer in checking for the paycheck that pays rent.</p>
 
+    <h2>50/30/20 on a weekly paycheck</h2>
+    <p>Paid every week? Split each paycheck the same way: $800 a week take-home is $400 for needs, $240 for wants, and $160 for savings or extra debt payments. Over a year that's $800 &times; 52 = $41,600, or about $3,467 a month. Paid every two weeks? Halve your paycheck and use the same row: a $1,600 biweekly paycheck works out to the same $800 a week.</p>
+    <div class="table-scroll"><table id="weekly-table">
+      <thead><tr><th>Weekly take-home</th><th class="num">Same as every-2-weeks pay of</th><th class="num">Needs per week (50%)</th><th class="num">Wants per week (30%)</th><th class="num">Savings per week (20%)</th><th class="num">Take-home per month</th></tr></thead>
+      <tbody>
+        <tr><td>$300</td><td class="num">$600</td><td class="num">$150</td><td class="num">$90</td><td class="num">$60</td><td class="num">$1,300</td></tr>
+        <tr><td>$400</td><td class="num">$800</td><td class="num">$200</td><td class="num">$120</td><td class="num">$80</td><td class="num">$1,733</td></tr>
+        <tr><td>$500</td><td class="num">$1,000</td><td class="num">$250</td><td class="num">$150</td><td class="num">$100</td><td class="num">$2,167</td></tr>
+        <tr><td>$600</td><td class="num">$1,200</td><td class="num">$300</td><td class="num">$180</td><td class="num">$120</td><td class="num">$2,600</td></tr>
+        <tr><td>$700</td><td class="num">$1,400</td><td class="num">$350</td><td class="num">$210</td><td class="num">$140</td><td class="num">$3,033</td></tr>
+        <tr><td>$800</td><td class="num">$1,600</td><td class="num">$400</td><td class="num">$240</td><td class="num">$160</td><td class="num">$3,467</td></tr>
+        <tr><td>$900</td><td class="num">$1,800</td><td class="num">$450</td><td class="num">$270</td><td class="num">$180</td><td class="num">$3,900</td></tr>
+        <tr><td>$1,000</td><td class="num">$2,000</td><td class="num">$500</td><td class="num">$300</td><td class="num">$200</td><td class="num">$4,333</td></tr>
+        <tr><td>$1,200</td><td class="num">$2,400</td><td class="num">$600</td><td class="num">$360</td><td class="num">$240</td><td class="num">$5,200</td></tr>
+        <tr><td>$1,500</td><td class="num">$3,000</td><td class="num">$750</td><td class="num">$450</td><td class="num">$300</td><td class="num">$6,500</td></tr>
+        <tr><td>$2,000</td><td class="num">$4,000</td><td class="num">$1,000</td><td class="num">$600</td><td class="num">$400</td><td class="num">$8,667</td></tr>
+      </tbody>
+    </table></div>
+    <p>Notice the last column isn't weekly pay &times; 4. A year has 52 weeks, so a month averages 52 &divide; 12 &asymp; 4.33 weeks. Budgeting on 4 weeks a month undercounts your income by about 8%; in practice that extra shows up as a fifth payday in about four months of the year. A simple plan: budget your monthly bills on four paychecks and send each fifth paycheck straight to savings or debt.</p>
+    <p>Bills don't arrive weekly, so on a weekly budget set aside each monthly bill's weekly share every payday: the bill &times; 12 &divide; 52. Rent of $1,200 a month is about $277 a week. The calculator's "Per week" column does this for any pay schedule.</p>
+
     <h2>Why use take-home pay?</h2>
     <p>The rule, popularized by Elizabeth Warren and Amelia Warren Tyagi in <em>All Your Worth</em>, uses after-tax income: what actually lands in your account. If your employer already takes 401(k) or other retirement contributions out of your paycheck, that money is savings you never see. Enter it in the "Retirement already taken out" box: the calculator adds it back to your pay and counts it toward the 20%. In the example above, $150 a paycheck into a 401(k) makes the base $2,150, so the 20% is $430 a paycheck, and $280 of it is still yours to move to savings.</p>
 
@@ -131,6 +152,8 @@
 
     <h2>FAQ</h2>
     <details><summary>How do I convert biweekly pay to monthly?</summary><p>Multiply your paycheck by 26 and divide by 12. The calculator does this for you when you choose "Every 2 weeks". In two months of the year you'll get a third paycheck, which is a great time to boost savings.</p></details>
+    <details><summary>How do I use the 50/30/20 rule on a weekly paycheck?</summary><p>Take each week's take-home pay and split it: half to needs, 30% to wants, 20% to savings. On $800 a week that's $400, $240, and $160. Choose "Weekly" as the pay period and the calculator shows the weekly, monthly, and yearly amounts.</p></details>
+    <details><summary>Is 20/30/50 the same as 50/30/20?</summary><p>Yes. It's the same three shares (20% savings, 30% wants, 50% needs) written in the other order, often to stress paying yourself first: move the 20% on payday, then live on the rest.</p></details>
     <details><summary>Is 50/30/20 based on gross or net income?</summary><p>Net: your pay after taxes. Using gross pay would set targets with money you never receive. The one thing to add back is retirement saving taken out of your paycheck, because it's part of your 20% (use the "Retirement already taken out" box).</p></details>
     <details><summary>Is a car payment a need or a want?</summary><p>The minimum payment counts as a need if you need the car to get to work. Paying extra on the loan counts toward savings and debt payoff.</p></details>
     <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
@@ -177,6 +200,8 @@
       target.map((t, i) => `<div class="stat"><div class="k">${names[i]} (${split[i]}%)</div><div class="v">${money(t)}</div></div>`).join('');
     const cols = [];
     if (periodName[per]) cols.push(['Per paycheck (' + periodName[per].toLowerCase() + ')', per]);
+    // Weekly pay already shows a per-week column (the paycheck); everyone else gets one for week-by-week budgeting.
+    if (per !== 52) cols.push(['Per week', 52]);
     cols.push(['Per month', 12], ['Per year', 1]);
     $('plan').innerHTML = '<thead><tr><th>Category</th>' + cols.map(c => `<th class="num">${c[0]}</th>`).join('') + '</tr></thead><tbody>' +
       target.map((t, i) => `<tr><td>${names[i]}</td>` + cols.map(c => `<td class="num">${money(t * 12 / c[1])}</td>`).join('') + '</tr>').join('') +
