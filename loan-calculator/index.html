@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Loan Calculator with Extra Payments and Amortization Schedule</title>
-<meta name="description" content="Free loan calculator with extra payments. See your monthly payment, total interest, and full amortization schedule, and how much paying extra each month or a one-time lump sum saves.">
+<title>Loan Payment Calculator with Extra Payments and Amortization Schedule</title>
+<meta name="description" content="Free loan calculator with extra payments. See your monthly payment, total interest, and full amortization schedule, and how much paying extra saves. Plus a payment table for $5,000 to $100,000 loans over 2 to 10 years.">
 <link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/loan-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
 <script type="application/ld+json">
@@ -40,6 +40,9 @@
     <p id="summary"></p>
     <h3>What paying extra each month saves</h3>
     <div class="table-scroll"><table id="compare"></table></div>
+    <h3 id="byAmountH">Monthly payment by loan amount and term</h3>
+    <p class="small muted" id="byAmountNote"></p>
+    <div class="table-scroll"><table id="byAmount"></table></div>
     <h3>Amortization schedule by year</h3>
     <div class="table-scroll"><table id="yearly"></table></div>
     <h3>Month-by-month schedule</h3>
@@ -57,6 +60,16 @@
     <p>The monthly payment is the standard amortized payment: the fixed amount that pays off the loan, with interest, in exactly the term you choose. Each month, interest is charged on the remaining balance (APR &divide; 12), and the rest of your payment reduces the balance. Early on, much of each payment is interest; by the end, almost all of it is principal.</p>
     <p>For example, $25,000 at 7% APR over 5 years costs $495.03 a month and $4,702 in interest. Paying $100 extra each month clears it 11 months early (49 payments instead of 60) and saves $939 in interest.</p>
 
+    <h2 id="payments">Monthly payments on common loan amounts</h2>
+    <p>The table above shows the payment for loans from $5,000 to $100,000 over 2 to 10 years, at whatever rate you enter. It starts at 7% APR, and the first row is the payment per $1,000 borrowed, so you can scale it to any amount. A few examples at 7%:</p>
+    <ul>
+      <li><strong>$5,000 loan:</strong> $154.39 a month over 3 years ($558 interest), or $99.01 over 5 years ($940 interest).</li>
+      <li><strong>$6,000 loan over 3 years:</strong> $185.26 a month, $669 interest.</li>
+      <li><strong>$40,000 loan:</strong> $792.05 a month over 5 years ($7,523 interest), or $464.43 over 10 years ($15,732 interest). The 10-year loan cuts the payment by about $328 but more than doubles the interest. At 10% APR, the 10-year payment is $528.60 and the interest $23,432.</li>
+      <li><strong>$45,000 loan over 7 years:</strong> $679.17 a month, $12,050 interest.</li>
+    </ul>
+    <p>To get the full schedule for one of these, type the amount, rate, and term into the calculator. Your real rate depends on your credit, the lender, and the loan type, so use the rate from your offer if you have one.</p>
+
     <h2>Why extra payments save so much</h2>
     <p>Every extra dollar goes straight to principal, so it stops being charged interest for the rest of the loan. That's why extra payments made early save the most, and why a long, high-rate loan like a mortgage responds so strongly to even small extras. Your required payment stays the same; you just reach the end sooner.</p>
     <ul>
@@ -69,6 +82,7 @@
     <h2>FAQ</h2>
     <details><summary>Why is my lender's number slightly different?</summary><p>Lenders may charge interest daily, round each payment to the cent, or have a first payment period that isn't exactly one month. Those details move the totals by a few dollars. This calculator uses the standard monthly method.</p></details>
     <details><summary>Should I pay extra on my loan or save the money?</summary><p>Paying extra earns you a guaranteed return equal to the loan's interest rate. If the rate is higher than what your savings earn after tax, extra payments usually come out ahead, as long as you still have an emergency fund and aren't missing out on an employer retirement match.</p></details>
+    <details><summary>How do I estimate a payment from the per-$1,000 row?</summary><p>Multiply the per-$1,000 payment by the number of thousands you borrow. At 7% over 5 years, each $1,000 costs $19.80 a month, so a $12,000 loan is about 12 &times; $19.80 = $237.60 a month. The exact payment is $237.61: the table rounds each cell to the cent, so scaling it up can be off by a few cents.</p></details>
     <details><summary>What about biweekly payments?</summary><p>Paying half your payment every two weeks adds up to 26 half-payments, or 13 full payments a year. That's about the same as paying one-twelfth of a payment extra each month: enter your payment &divide; 12 as the extra amount to see the effect.</p></details>
     <details><summary>Does this calculator store my data?</summary><p>No. Everything is calculated in your browser.</p></details>
     <p>Shopping for a car? The <a href="../car-affordability-calculator/">car affordability calculator</a> works backward from the payment you want to the price you can afford.</p>
@@ -98,7 +112,8 @@
     const P = num('amount'), apr = Math.min(40, num('apr'));
     const n = Math.min(600, Math.max(1, Math.round(num('term') * Number($('unit').value)) || 1));
     const extra = num('extra'), lump = num('lump'), lumpMonth = Math.max(1, Math.round(num('lumpMonth')) || 1);
-    ['compare', 'yearly', 'schedule'].forEach(id => { $(id).innerHTML = ''; });
+    ['compare', 'byAmount', 'yearly', 'schedule'].forEach(id => { $(id).innerHTML = ''; });
+    $('byAmountNote').textContent = '';
     if (P <= 0) {
       $('stats').innerHTML = ''; $('summary').textContent = 'Enter a loan amount to get started.';
       return;
@@ -127,6 +142,17 @@
         const mine = x === extra ? ' style="font-weight:700"' : '';
         return `<tr${mine}><td>${x ? money(x) : 'None'}</td><td class="num">${money(base.payment + x, 2)}</td><td class="num">${span(a.months)}</td><td class="num">${money(a.interest)}</td><td class="num">${x ? money(base.interest - a.interest) : '-'}</td></tr>`;
       }).join('') + '</tbody>';
+
+    // Payment table for common amounts at the entered APR; the user's own amount gets a bold row.
+    const amounts = [5000, 6000, 10000, 15000, 20000, 25000, 30000, 40000, 45000, 50000, 75000, 100000];
+    if (!amounts.includes(P)) amounts.push(P);
+    amounts.sort((a, b) => a - b);
+    const terms = [2, 3, 5, 7, 10];
+    const row = (label, amt, bold) => `<tr${bold ? ' style="font-weight:700"' : ''}><td>${label}</td>` +
+      terms.map(t => `<td class="num">${money(E.payment(amt, apr, t * 12), 2)}</td>`).join('') + '</tr>';
+    $('byAmountNote').textContent = `At ${apr}% APR, principal and interest only. Change the rate above and the table follows.`;
+    $('byAmount').innerHTML = '<thead><tr><th>Loan amount</th>' + terms.map(t => `<th class="num">${t} years</th>`).join('') + '</tr></thead><tbody>' +
+      row('Per $1,000', 1000, false) + amounts.map(a => row(money(a), a, a === P)).join('') + '</tbody>';
 
     const years = [];
     plan.schedule.forEach(s => {
