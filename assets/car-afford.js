@@ -14,10 +14,12 @@
   }
 
   // income: gross per year. pct: share of gross monthly income for payment + insurance.
-  function afford({ income, pct = 10, insurance = 0, down = 0, apr = 7, term = 48, taxPct = 0 }) {
-    const monthly = pos(income) / 12;
-    const budget = monthly * pos(pct) / 100;
-    const payment = Math.max(0, budget - pos(insurance));
+  // payment (optional): a monthly loan payment you choose; when given, income, pct, and insurance are ignored.
+  function afford({ income, pct = 10, insurance = 0, down = 0, apr = 7, term = 48, taxPct = 0, payment: fixed }) {
+    const own = fixed !== undefined;
+    const monthly = own ? 0 : pos(income) / 12;
+    const budget = own ? pos(fixed) : monthly * pos(pct) / 100;
+    const payment = own ? pos(fixed) : Math.max(0, budget - pos(insurance));
     const loan = maxLoan(payment, apr, term);
     // price * (1 + tax) = loan + down
     const price = (loan + pos(down)) / (1 + pos(taxPct) / 100);
