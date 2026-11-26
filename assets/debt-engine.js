@@ -30,12 +30,14 @@
     while (bal.some(b => b > 0.005) && month < MAX_MONTHS) {
       month++;
       const pay = bal.map(() => 0);
+      let monthInterest = 0;
       for (let i = 0; i < debts.length; i++) {
         if (bal[i] <= 0.005) continue;
         const interest = bal[i] * debts[i].apr / 100 / 12;
         bal[i] += interest;
         interestPaid[i] += interest;
         totalInterest += interest;
+        monthInterest += interest;
       }
       let left = budget;
       for (let i = 0; i < debts.length; i++) {
@@ -56,7 +58,7 @@
         totalPaid += pay[i];
         if (bal[i] <= 0.005) { bal[i] = 0; if (paidOff[i] === null) paidOff[i] = month; }
       }
-      schedule.push({ month, payments: pay.slice(), balances: bal.slice(), remaining: bal.reduce((s, b) => s + b, 0) });
+      schedule.push({ month, payments: pay.slice(), balances: bal.slice(), interest: monthInterest, remaining: bal.reduce((s, b) => s + b, 0) });
     }
 
     return {
@@ -72,7 +74,35 @@
     };
   }
 
-  const api = { simulate, MAX_MONTHS };
+  // The month-by-month plan as CSV text for Excel or Google Sheets: per debt, the payment and the
+  // balance left; then the month's total payment, interest, and total left; a totals row last.
+  // label(month) gives the calendar month. Names starting with = + - @ get a leading ' so a
+  // spreadsheet reads them as text, not formulas.
+  function scheduleCsv(names, r, label) {
+    const cell = v => {
+      let t = String(v);
+      if (/^[=+\-@]/.test(t)) t = "'" + t;
+      return /[",\r\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+    };
+    const n2 = x => x.toFixed(2);
+    const head = ['Month', 'Date'];
+    names.forEach(n => head.push(n + ' payment', n + ' balance'));
+    head.push('Total paid', 'Interest', 'Total left');
+    const lines = [head];
+    r.schedule.forEach(row => {
+      const line = [row.month, label(row.month)];
+      row.payments.forEach((p, i) => line.push(n2(p), n2(row.balances[i])));
+      line.push(n2(row.payments.reduce((t, p) => t + p, 0)), n2(row.interest), n2(row.remaining));
+      lines.push(line);
+    });
+    const tot = ['Total', ''];
+    names.forEach((_, i) => tot.push(n2(r.schedule.reduce((t, row) => t + row.payments[i], 0)), ''));
+    tot.push(n2(r.totalPaid), n2(r.totalInterest), '');
+    lines.push(tot);
+    return lines.map(l => l.map(cell).join(',')).join('\r\n') + '\r\n';
+  }
+
+  const api = { simulate, scheduleCsv, MAX_MONTHS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.DebtEngine = api;
 })(typeof window !== 'undefined' ? window : globalThis);

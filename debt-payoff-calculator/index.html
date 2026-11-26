@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Debt Snowball vs Avalanche Calculator (Free, No Sign-Up)</title>
-<meta name="description" content="Enter your debts and see your debt-free date, total interest, and a month-by-month payoff plan. Compares the snowball and avalanche methods side by side.">
+<meta name="description" content="Enter your debts and see your debt-free date, total interest, and a month-by-month payoff plan. Compares snowball and avalanche side by side, and downloads the plan as a free spreadsheet.">
 <link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/debt-payoff-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
 <script type="application/ld+json">
@@ -45,6 +45,8 @@
     <p><label for="sched-pick" class="small">Show schedule for</label>
       <select id="sched-pick" style="max-width:220px"><option value="avalanche">Avalanche</option><option value="snowball">Snowball</option></select></p>
     <div class="table-scroll" style="max-height:420px;overflow-y:auto"><table id="schedule"></table></div>
+    <p><button class="btn ghost" type="button" id="csv-btn">Download this schedule as a spreadsheet (CSV)</button></p>
+    <p class="small muted">Free, no sign-up. The file opens in Excel, Google Sheets (File &gt; Import), or Numbers: every month's payment and balance for each debt, the interest, and a totals row. It's made in your browser, so your numbers never leave this page.</p>
   </section>
 
   <aside class="cta">
@@ -91,7 +93,7 @@
     <p>When two debts have the same APR, this calculator's avalanche pays the smaller balance first, and its snowball breaks a tie in balance by paying the higher APR first. If you'd rather start with a quick win and then switch to the avalanche, pay off one small debt first, delete it from the list, and run the avalanche on the rest.</p>
 
     <h2 id="spreadsheet">Debt avalanche spreadsheet: the formulas</h2>
-    <p>If you'd rather keep the plan in your own spreadsheet, these formulas run the same month-by-month avalanche as the calculator above, in Excel or Google Sheets. They're free to copy. The layout is for four debts.</p>
+    <p>If you'd rather keep the plan in your own spreadsheet, these formulas run the same month-by-month avalanche as the calculator above, in Excel or Google Sheets. They're free to copy. The layout is for four debts. If you only need the finished schedule, the <a href="#csv-btn">download button</a> under the calculator saves your plan as a CSV file that opens in Excel or Google Sheets.</p>
     <ol>
       <li>In rows 2 to 5, list your debts <strong>highest APR first</strong>: name in column A, balance in B, APR in C (type it as a percent, like 29.99%), and minimum payment in D. Put your total monthly payment (all the minimums plus your extra) in F2.</li>
       <li>Starting balances go in row 7: D7 <code>=B2</code>, G7 <code>=B3</code>, J7 <code>=B4</code>, M7 <code>=B5</code>. Row 8 is month 1 (put 1 in A8).</li>
@@ -134,6 +136,7 @@
     <details><summary>Should I take a debt consolidation loan instead?</summary><p>Only if its rate and fee beat paying these debts in the best order. The <a href="../debt-consolidation-calculator/">debt consolidation calculator</a> compares the two at the same monthly payment, so a loan doesn't look better just because its payment is bigger.</p></details>
     <details><summary>Is the avalanche always cheaper than the snowball?</summary><p>With the same monthly budget, the avalanche never costs more in total interest, because every extra dollar goes where it stops the most interest. It can't make the debt-free date later either, since the same total is paid each month. The snowball can still be the better choice for you if early paid-off debts keep you going; the calculator shows how big the gap is for your own numbers.</p></details>
     <details><summary>Are minimum payments fixed?</summary><p>Here they are. On real credit cards, the minimum often falls as the balance falls. Keeping your payment at the original minimum, as this calculator does, pays the debt off faster than paying only the falling minimum. To see the difference for a single card, try the <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a>.</p></details>
+    <details><summary>Is there a free debt avalanche spreadsheet I can download?</summary><p>Yes. Enter your debts above, pick avalanche or snowball, and use <strong>Download this schedule as a spreadsheet</strong>. You get a CSV file for Excel or Google Sheets with every month's payment and balance for each debt, the interest, and the totals. It's a fixed snapshot of today's plan. To build a sheet that recalculates as you edit it, copy the <a href="#spreadsheet">formulas above</a>; the paid <a href="../debt-payoff-planner/">Debt Payoff Planner</a> adds a payment log and progress tracker.</p></details>
     <details><summary>Is my data saved or shared?</summary><p>No. The calculation runs entirely in your browser. Your debts are kept in your browser's local storage only so they're still there if you reload the page.</p></details>
 
     <p class="small muted">This calculator is for education and planning. It isn't financial advice.</p>

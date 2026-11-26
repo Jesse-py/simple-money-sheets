@@ -71,6 +71,7 @@
     if (!debts.length) {
       $('stats').innerHTML = '<p class="muted">Add at least one debt with a balance to see your plan.</p>';
       ['per-debt', 'schedule', 'chart'].forEach(id => { $(id).innerHTML = ''; });
+      current = null;
       warn.classList.add('hidden');
       return;
     }
@@ -117,7 +118,24 @@
     renderSchedule(debts, $('sched-pick').value === 'avalanche' ? a : s);
   }
 
+  let current = null; // the debts and plan in the schedule table, for the CSV download
+
+  function downloadCsv() {
+    if (!current) return;
+    const { debts, r } = current;
+    const csv = DebtEngine.scheduleCsv(debts.map(d => d.name), r, monthLabel);
+    const url = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `debt-${r.method}-plan.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   function renderSchedule(debts, r) {
+    current = { debts, r };
     $('sched-method').textContent = r.method;
     const head = `<thead><tr><th>Month</th>${debts.map(d => `<th class="num">${esc(d.name)}</th>`).join('')}<th class="num">Total left</th></tr></thead>`;
     const body = r.schedule.slice(0, 360).map(row => `<tr><td>${monthLabel(row.month)}</td>${row.payments.map((p, i) =>
@@ -131,6 +149,7 @@
     $('debt-list').addEventListener('input', () => { readInputs(); render(); });
     $('extra').addEventListener('input', () => { readInputs(); render(); });
     $('sched-pick').addEventListener('change', render);
+    $('csv-btn').addEventListener('click', downloadCsv);
     $('debt-list').addEventListener('click', e => {
       const i = e.target.dataset.remove;
       if (i === undefined) return;
