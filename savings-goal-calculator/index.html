@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Savings Goal Calculator: How Much to Save Each Month</title>
-<meta name="description" content="Free savings goal calculator. Find out how much to save each month (or each paycheck) to reach a goal by a date, or how long it takes at the amount you can save, including interest.">
+<title>Savings Goal Calculator: How Much to Save Each Month or Week</title>
+<meta name="description" content="Free savings goal calculator. Find out how much to save each month (or each paycheck) to reach a goal by a date, or what you'll have if you save $X a week or a month, including interest.">
 <link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/savings-goal-calculator/">
 <link rel="stylesheet" href="../assets/style.css">
 <style>
@@ -69,10 +69,12 @@
       <div><label for="start">Already saved ($)</label><input id="start" type="number" min="0" step="1" value="1000" inputmode="decimal"></div>
       <div><label for="apy">Interest rate (APY %)</label><input id="apy" type="number" min="0" max="30" step="0.01" value="4" inputmode="decimal"></div>
       <div><label for="mode">I want to</label>
-        <select id="mode"><option value="months">Reach my goal in a set time</option><option value="deposit">Save a fixed amount each month</option></select></div>
+        <select id="mode"><option value="months">Reach my goal in a set time</option><option value="deposit">Save a fixed amount each week or month</option></select></div>
       <div id="months-wrap"><label for="months">Reach it in (months)</label><input id="months" type="number" min="1" max="600" step="1" value="24" inputmode="numeric"></div>
       <div id="target-wrap"><label for="target">or by (month)</label><input id="target" type="month"></div>
-      <div id="deposit-wrap" class="hidden"><label for="deposit">I can save per month ($)</label><input id="deposit" type="number" min="0" step="1" value="300" inputmode="decimal"></div>
+      <div id="deposit-wrap" class="hidden"><label for="deposit">I can save ($)</label><input id="deposit" type="number" min="0" step="1" value="300" inputmode="decimal"></div>
+      <div id="per-wrap" class="hidden"><label for="per">How often</label>
+        <select id="per"><option value="12">Every month</option><option value="26">Every two weeks</option><option value="52">Every week</option></select></div>
     </div>
     <p class="small muted">Use 0% for cash or a checking account. Rates vary a lot: the FDIC's national average for savings accounts was 0.39% on November 16, 2026 (<a href="https://www.fdic.gov/national-rates-and-rate-caps">FDIC national rates</a>), while many high-yield accounts pay several times that. Check your bank's current APY.</p>
   </section>
@@ -122,6 +124,26 @@
       </tbody>
     </table></div>
 
+    <h2 id="save-per-week">If I save $X a week or a month for a year, how much will I have?</h2>
+    <p>Starting from $0. "No interest" is the amount times 52 weeks or 12 months. The 4% APY columns use the same math as the calculator above (a weekly amount counts as amount &times; 52 &divide; 12 a month, added at the end of each month). Rounded to the nearest dollar.</p>
+    <div class="table-scroll"><table id="per-table">
+      <thead><tr><th>If you save</th><th class="num">1 year, no interest</th><th class="num">1 year at 4% APY</th><th class="num">5 years, no interest</th><th class="num">5 years at 4% APY</th></tr></thead>
+      <tbody>
+        <tr><td>$20 a week</td><td class="num">$1,040</td><td class="num">$1,059</td><td class="num">$5,200</td><td class="num">$5,736</td></tr>
+        <tr><td>$25 a week</td><td class="num">$1,300</td><td class="num">$1,324</td><td class="num">$6,500</td><td class="num">$7,169</td></tr>
+        <tr><td>$30 a week</td><td class="num">$1,560</td><td class="num">$1,588</td><td class="num">$7,800</td><td class="num">$8,603</td></tr>
+        <tr><td>$50 a week</td><td class="num">$2,600</td><td class="num">$2,647</td><td class="num">$13,000</td><td class="num">$14,339</td></tr>
+        <tr><td>$100 a week</td><td class="num">$5,200</td><td class="num">$5,295</td><td class="num">$26,000</td><td class="num">$28,678</td></tr>
+        <tr><td>$200 a week</td><td class="num">$10,400</td><td class="num">$10,589</td><td class="num">$52,000</td><td class="num">$57,355</td></tr>
+        <tr><td>$100 a month</td><td class="num">$1,200</td><td class="num">$1,222</td><td class="num">$6,000</td><td class="num">$6,618</td></tr>
+        <tr><td>$200 a month</td><td class="num">$2,400</td><td class="num">$2,444</td><td class="num">$12,000</td><td class="num">$13,236</td></tr>
+        <tr><td>$400 a month</td><td class="num">$4,800</td><td class="num">$4,887</td><td class="num">$24,000</td><td class="num">$26,472</td></tr>
+        <tr><td>$500 a month</td><td class="num">$6,000</td><td class="num">$6,109</td><td class="num">$30,000</td><td class="num">$33,090</td></tr>
+        <tr><td>$1,000 a month</td><td class="num">$12,000</td><td class="num">$12,218</td><td class="num">$60,000</td><td class="num">$66,179</td></tr>
+      </tbody>
+    </table></div>
+    <p>So $400 a month for a year is $4,800 of deposits, or about $4,887 in an account paying 4% APY; $200 a week is $10,400, or about $10,589. Over one year interest adds under 2%, because most of the money goes in late in the year. Over five years it adds about 10%. For other amounts, pick "Save a fixed amount each week or month" above: the "After 1 year" figure answers this for your own numbers, including what you've already saved. For 10 years or more, the <a href="../compound-interest-calculator/">compound interest calculator</a> shows the balance year by year.</p>
+
     <h2 id="save-40k">Example: how to save $40,000 in 6 months (or 12, or 24)</h2>
     <p>In 6 months, $40,000 takes $6,666.67 a month, or about $1,538 a week. Interest barely helps over a period that short. That's only realistic if most of it comes from a lump sum (a bonus, a tax refund, selling a car) or from a very high income with low costs. Stretching the timeline changes the picture quickly:</p>
     <ul>
@@ -129,7 +151,7 @@
       <li><strong>24 months:</strong> $1,666.67 a month with no interest, or $1,604.77 at 4% APY (about $1,485 in interest). At the 0.39% national average rate it's $1,660.46, so where you keep the money matters more as the goal gets longer.</li>
       <li><strong>$1,000 a month:</strong> 40 months with no interest, 38 months at 4% APY.</li>
     </ul>
-    <p>To try your own numbers, enter them in the calculator above. "Save a fixed amount each month" shows how long your amount takes.</p>
+    <p>To try your own numbers, enter them in the calculator above. "Save a fixed amount each week or month" shows how long your amount takes.</p>
 
     <h2>How the calculator works</h2>
     <p>Each month, your balance earns interest and then your deposit is added. Interest is entered as APY (annual percentage yield), the rate banks advertise for savings accounts, and it compounds monthly. For example, $1,000 already saved plus $357.80 a month at 4% APY reaches $10,000 in 24 months: you deposit $8,587 on top of the $1,000 you started with, and earn about $413 in interest.</p>
@@ -148,6 +170,7 @@
     <p>Already carrying a balance? It often makes sense to keep a small <a href="../emergency-fund-calculator/">emergency fund</a> while you pay down high-interest debt. The <a href="../credit-card-payoff-calculator/">credit card payoff calculator</a> shows what each extra dollar saves in interest.</p>
 
     <h2>FAQ</h2>
+    <details><summary>How does a weekly amount work in the calculator?</summary><p>A weekly or every-two-weeks amount is turned into the same yearly total spread over 12 months (for example, $100 a week counts as $433.33 a month), then added at the end of each month. Real weekly deposits start earning interest a little sooner, so in a savings account the true balance is a few dollars higher per year than shown.</p></details>
     <details><summary>Should I include interest?</summary><p>If the money sits in a savings account that pays interest, yes. For short goals (under a year) interest makes little difference, so the result is close to goal &divide; months either way. Over several years it adds up.</p></details>
     <details><summary>Is APY the same as APR or interest rate?</summary><p>APY includes compounding, so it's the rate you actually earn in a year. If your bank shows only a nominal rate compounded monthly, the APY is slightly higher; entering the nominal rate gives a slightly conservative result.</p></details>
     <details><summary>What about taxes and inflation?</summary><p>They aren't included. Interest on a savings account is usually taxable, and prices can rise while you save. For long goals, consider padding your target a little.</p></details>
@@ -190,14 +213,14 @@
   $('target').min = monthValue(1);
 
   // A plan in the address bar, so a bookmark or shared link opens with the same numbers.
-  const FIELDS = ['goal', 'start', 'apy', 'mode', 'months', 'deposit'];
+  const FIELDS = ['goal', 'start', 'apy', 'mode', 'months', 'deposit', 'per'];
   const params = new URLSearchParams(location.search);
   FIELDS.forEach(f => { if (params.has(f)) $(f).value = params.get(f); });
   function planUrl() {
     const q = new URLSearchParams();
     const mode = $('mode').value;
     FIELDS.forEach(f => {
-      if ((f === 'months' && mode !== 'months') || (f === 'deposit' && mode !== 'deposit')) return;
+      if ((f === 'months' && mode !== 'months') || ((f === 'deposit' || f === 'per') && mode !== 'deposit')) return;
       q.set(f, $(f).value);
     });
     return location.href.split(/[?#]/)[0] + '?' + q;
@@ -324,6 +347,7 @@
     $('months-wrap').classList.toggle('hidden', !byMonths);
     $('target-wrap').classList.toggle('hidden', !byMonths);
     $('deposit-wrap').classList.toggle('hidden', byMonths);
+    $('per-wrap').classList.toggle('hidden', byMonths);
     if (document.activeElement !== $('target')) syncTarget();
     const n = Math.min(600, Math.max(1, Math.round(num('months')) || 1));
     const warn = $('warning');
@@ -339,13 +363,16 @@
       showPlan(false);
       return;
     }
-    const deposit = byMonths ? E.depositForMonths(goal, start, apy, n) : num('deposit');
+    // A weekly or biweekly amount counts as the same yearly total spread over 12 months.
+    const per = Number($('per').value) || 12, entered = num('deposit');
+    const often = { 12: 'a month', 26: 'every two weeks', 52: 'a week' }[per] || 'a month';
+    const deposit = byMonths ? E.depositForMonths(goal, start, apy, n) : entered * per / 12;
     const p = byMonths ? E.project(goal, start, apy, deposit, n) : E.project(goal, start, apy, deposit);
     const reached = p.reachedAt !== null;
     if (!reached) {
       warn.textContent = deposit <= 0 && apy <= 0
         ? 'With no monthly saving and no interest, your balance stays the same. Enter an amount you can save each month.'
-        : `At ${money(deposit)} a month this would take more than ${E.MAX_MONTHS / 12} years. Try a larger amount.`;
+        : `At ${money(entered, 2).replace('.00', '')} ${often} this would take more than ${E.MAX_MONTHS / 12} years. Try a larger amount.`;
       warn.classList.remove('hidden');
     }
     const months = byMonths ? n : p.reachedAt;
@@ -353,10 +380,11 @@
       $('answer').innerHTML = byMonths
         ? (deposit > 0 ? `Save <strong>${money(deposit, 2)} a month</strong> to reach <strong>${money(goal)}</strong> by <strong>${dateAfter(months)}</strong>.`
           : `Interest alone grows your ${money(start)} to <strong>${money(goal)}</strong> by <strong>${dateAfter(months)}</strong>, with no deposits.`)
-        : `At ${money(deposit)} a month, you'll reach <strong>${money(goal)}</strong> in <strong>${span(months)}</strong>, around <strong>${dateAfter(months)}</strong>.`;
+        : `At ${money(entered, 2).replace('.00', '')} ${often}, you'll reach <strong>${money(goal)}</strong> in <strong>${span(months)}</strong>, around <strong>${dateAfter(months)}</strong>.`;
     }
     $('stats').innerHTML = (byMonths ? stat('Save each month', money(deposit, 2), true) : stat('Goal reached in', reached ? span(months) : 'Over 100 yrs', true)) +
       (reached ? stat('Goal date', dateAfter(months)) : '') +
+      (byMonths ? '' : stat('After 1 year', money(E.futureValue(start, apy, deposit, 12)))) +
       stat('Per paycheck (every 2 weeks)', money(deposit * 12 / 26, 2)) +
       stat('Twice a month', money(deposit / 2, 2)) +
       stat('Per week', money(deposit * 12 / 52, 2)) +
