@@ -1,16 +1,18 @@
 // Single credit card payoff math, shared by the calculator page and the node tests.
-// Model: interest accrues monthly (APR / 12) on the balance, then the payment is applied.
-// Card issuers usually charge daily interest, so real statements differ slightly.
+// Model: interest accrues each payment period (APR / 12 monthly, APR / 26 every two weeks, APR / 52 weekly) on the
+// balance, then the payment is applied. Card issuers usually charge daily interest, so real statements differ slightly.
 (function (root) {
   const MAX_MONTHS = 1200;
 
-  // Pay the same amount every month until the balance is gone.
-  function fixedPayoff(balance, apr, payment) {
-    const r = apr / 100 / 12;
+  // Pay the same amount every period until the balance is gone. perYear: 12 monthly (default), 26 biweekly, 52 weekly.
+  // `month` in the result and schedule counts payment periods.
+  function fixedPayoff(balance, apr, payment, perYear = 12) {
+    const r = apr / 100 / perYear;
+    const maxPeriods = Math.round(MAX_MONTHS * perYear / 12);
     let bal = balance, month = 0, interest = 0, paid = 0;
     const schedule = [];
     if (balance <= 0) return { months: 0, interest: 0, paid: 0, finished: true, schedule };
-    while (bal > 0.005 && month < MAX_MONTHS) {
+    while (bal > 0.005 && month < maxPeriods) {
       month++;
       const i = bal * r;
       bal += i;
@@ -25,9 +27,9 @@
     return { months: month, interest, paid, finished: bal === 0, schedule };
   }
 
-  // Fixed monthly payment that clears the balance in exactly n months (standard amortization).
-  function paymentForMonths(balance, apr, n) {
-    const r = apr / 100 / 12;
+  // Fixed payment that clears the balance in exactly n periods (standard amortization; perYear as in fixedPayoff).
+  function paymentForMonths(balance, apr, n, perYear = 12) {
+    const r = apr / 100 / perYear;
     if (n <= 0) return balance;
     if (r === 0) return balance / n;
     return balance * r / (1 - Math.pow(1 + r, -n));
