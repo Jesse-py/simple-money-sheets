@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>990-N Checker: Missed e-Postcards and Your Automatic Revocation Date</title>
+<meta name="description" content="Free 990-N (e-Postcard) checker for small nonprofits. Look up your EIN or name in the IRS bulk data: the last tax year you filed, the years missing, and the date the IRS would revoke your exemption if a third year is missed.">
+<link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/nonprofit-990n-checker/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"990-N e-Postcard Lapse Checker","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+  .hits { list-style: none; padding: 0; margin: 0; }
+  .hits li { border-top: 1px solid var(--border); padding: 8px 0; }
+  .hits button { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; text-align: left; cursor: pointer; text-decoration: underline; }
+  .verdict { font-size: 1.1rem; font-weight: 700; }
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>990-N Checker: Has Your Nonprofit Missed Its e-Postcard?</h1>
+  <p class="lede">Small nonprofits (PTOs, booster clubs, youth leagues, veterans posts, garden clubs) file a free Form 990-N, the "e-Postcard", every year. Miss three years in a row and the IRS revokes the group's tax-exempt status automatically, often without anyone current noticing, because the reminder goes to whatever address the IRS has on file. Look up your group below: it shows the last year the IRS has an e-Postcard for, which years are missing, and the date exemption would be lost if the next one is missed too.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="ein">EIN (9 digits)</label><input id="ein" inputmode="numeric" autocomplete="off" placeholder="12-3456789"></div>
+      <div><label for="st">Or search by name: state</label><select id="st"><option value="">Pick a state</option></select></div>
+      <div><label for="q">Name (a few words)</label><input id="q" autocomplete="off" placeholder="Lincoln PTA"></div>
+    </div>
+    <p><button class="btn" id="go" type="button">Check</button></p>
+    <p class="small muted">Data: the IRS e-Postcard bulk file dated <span class="asof">November 23, 2026</span> and the IRS Automatic Revocation List dated <span class="revasof">November 17, 2026</span>, covering groups whose latest e-Postcard is for tax year 2016 or later. The lookup runs in your browser; nothing you type is sent anywhere except the request for the matching public data file.</p>
+  </section>
+
+  <section class="card" aria-live="polite" id="out">
+    <h2 style="margin-top:0" id="resultTitle">Result</h2>
+    <p id="msg">Enter an EIN, or a state and part of the name, then press Check.</p>
+    <ul class="hits" id="hits"></ul>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <div class="table-scroll"><table id="years"></table></div>
+    <p id="note" class="small muted"></p>
+  </section>
+
+  <article>
+    <h2>How the three-year rule works</h2>
+    <p>Most tax-exempt groups, other than churches and certain church-related organizations, must file something with the IRS every year. A group whose gross receipts are normally $50,000 or less can file the 990-N, a short online notice with no financial statements and no fee. A group may file Form 990 or 990-EZ instead, and some small groups aren't allowed to use the 990-N at all.</p>
+    <p>There is no penalty for filing a 990-N late. The risk is the streak: an organization that files no 990, 990-EZ, or 990-N for <strong>three consecutive years</strong> loses its tax-exempt status automatically under section 6033(j) of the Internal Revenue Code. The revocation takes effect on the original due date of the third missed return, and the IRS then publishes the group on its Automatic Revocation List.</p>
+    <p>A revoked group can't receive tax-deductible donations and is dropped from the IRS list of charities donors check (Publication 78). It may also have to file a federal income tax return (Form 1120 or 1041) and pay income tax. Getting the status back means a new application with a user fee, so filing a free e-Postcard on time is far cheaper.</p>
+
+    <h2>When the 990-N is due</h2>
+    <p>The 990-N is due by the 15th day of the 5th month after your tax year ends, and you can't file it until the year is over.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Tax year ends</th><th>990-N due</th></tr></thead>
+      <tbody>
+        <tr><td>December 31 (calendar year)</td><td>May 15</td></tr>
+        <tr><td>June 30 (school-year groups, many PTOs)</td><td>November 15</td></tr>
+        <tr><td>July 31</td><td>December 15</td></tr>
+        <tr><td>August 31</td><td>January 15</td></tr>
+        <tr><td>September 30</td><td>February 15</td></tr>
+        <tr><td>March 31</td><td>August 15</td></tr>
+      </tbody>
+    </table></div>
+    <p>If the due date falls on a Saturday, Sunday, or legal holiday, it moves to the next business day.</p>
+
+    <h2>How to read your result</h2>
+    <ul>
+      <li><strong>Up to date:</strong> the IRS has an e-Postcard for your most recent year that's come due. The checker shows when the next one is due.</li>
+      <li><strong>One year missing:</strong> nothing is lost yet. File as soon as you can.</li>
+      <li><strong>Two years missing:</strong> the next due date is the revocation date. Filing that year's e-Postcard on time, after the year ends, breaks the streak. Don't wait for the deadline.</li>
+      <li><strong>Revoked:</strong> the group is on the IRS Automatic Revocation List. Filing an e-Postcard now won't undo it; you have to apply for reinstatement (below).</li>
+    </ul>
+    <p>The IRS file holds only each group's most recent e-Postcard, so the checker counts missing years from that one. If your group files Form 990 or 990-EZ instead, or switched to one, the e-Postcard data won't show it, and the checker may report years as missing that you actually filed. The IRS updates both files monthly, so a filing from the last few weeks may not show yet. Confirm anything important in the IRS <a href="https://apps.irs.gov/app/eos/" rel="noopener">Tax Exempt Organization Search</a>.</p>
+
+    <h2>How to file a 990-N</h2>
+    <ol>
+      <li>Have ready: the EIN, the group's legal name, any other names it uses, its mailing address, a website address if it has one, the name and address of a principal officer, and the tax year.</li>
+      <li>On a computer (the IRS says not to use a phone or tablet), go to the IRS <a href="https://www.irs.gov/charities-non-profits/annual-electronic-filing-requirement-for-small-exempt-organizations-form-990-n-e-postcard" rel="noopener">Form 990-N page</a> and open the Form 990-N Electronic Filing system. You sign in with an IRS username or an ID.me account (or create one).</li>
+      <li>Answer the two questions (are gross receipts still normally $50,000 or less, and has the group ended), then submit and save the confirmation.</li>
+      <li>If the group's mailing address has changed, just enter the new one on the e-Postcard. That address is where the IRS sends its reminders.</li>
+    </ol>
+    <p>Form 990-N is filed free at IRS.gov, and there is no paper form.</p>
+
+    <h2>If your group was revoked</h2>
+    <p>The IRS reinstates exemption only on a new application: Form 1023, Form 1023-EZ, Form 1024, or Form 1024-A, with the user fee. Revenue Procedure 2014-11 sets out four routes: streamlined retroactive reinstatement, retroactive reinstatement within 15 months of the revocation letter, retroactive reinstatement after 15 months, and reinstatement from the postmark date. The streamlined route is for groups that were eligible to file a 990-EZ or 990-N for the three missed years, haven't been revoked before, and apply within 15 months of the later of the revocation letter (CP-120A) or the date they appeared on the revocation list. See the IRS page <a href="https://www.irs.gov/charities-non-profits/charitable-organizations/automatic-revocation-how-to-have-your-tax-exempt-status-reinstated" rel="noopener">How to have your tax-exempt status reinstated</a>, and consider asking a tax professional which route fits.</p>
+
+    <h2>Sources</h2>
+    <ul class="small">
+      <li>IRS, <a href="https://www.irs.gov/charities-non-profits/annual-electronic-filing-requirement-for-small-exempt-organizations-form-990-n-e-postcard" rel="noopener">Annual electronic filing requirement for small exempt organizations: Form 990-N (e-Postcard)</a>: who can file, due date and the weekend rule, no late penalty, revocation after three missed years.</li>
+      <li>IRS, <a href="https://www.irs.gov/charities-non-profits/annual-electronic-notice-form-990-n-for-small-organizations-what-to-report" rel="noopener">Form 990-N: what to report</a> and <a href="https://www.irs.gov/charities-non-profits/annual-electronic-notice-form-990-n-for-small-organizations-faqs-how-to-file" rel="noopener">how to file</a>.</li>
+      <li>IRS, <a href="https://www.irs.gov/charities-non-profits/automatic-revocation-of-exemption" rel="noopener">Automatic revocation of exemption</a>: effective on the original due date of the third return (IRC section 6033(j)); effects of revocation.</li>
+      <li>IRS, <a href="https://www.irs.gov/charities-non-profits/charitable-organizations/automatic-revocation-how-to-have-your-tax-exempt-status-reinstated" rel="noopener">Automatic revocation: how to have your tax-exempt status reinstated</a> (Rev. Proc. 2014-11).</li>
+      <li>IRS, <a href="https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads" rel="noopener">Tax Exempt Organization Search bulk data downloads</a>: the e-Postcard file and the Automatic Revocation List, updated monthly.</li>
+    </ul>
+    <p class="small muted">This page reads public IRS data and applies the published rules. It isn't tax or legal advice, and the IRS's own records decide your status.</p>
+  </article>
+
+  <p class="small"><a href="../">More free tools</a>: <a href="../quarterly-estimated-tax-calculator/">quarterly estimated tax calculator</a>, <a href="../budget-calculator/">budget calculator</a>, <a href="../tax-deadlines.ics">tax deadline calendar feed</a>.</p>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../budget-calculator/">Budget calculator</a><a href="../savings-goal-calculator/">Savings goal calculator</a><a href="../quarterly-estimated-tax-calculator/">Quarterly tax calculator</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/npo-990n-engine.js"></script>
+<script>
+(function () {
+  const E = window.Npo990nEngine;
+  const DATA = window.NPO_990N_DATA != null ? window.NPO_990N_DATA : '/nonprofit-990n-data/';
+  const STATES = 'AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA PR RI SC SD TN TX UT VA VI VT WA WI WV WY GU AS MP AA AE AP'.split(' ');
+  const $ = id => document.getElementById(id);
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const long = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }); };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const einFmt = e => e.slice(0, 2) + '-' + e.slice(2);
+  // Due date to file by: the 15th, or the next business day when the 15th is a weekend or holiday.
+  const by = p => p.fileBy === p.due ? long(p.due) : `${long(p.fileBy)} (the 15th is a weekend or holiday)`;
+  const cache = {};
+  let meta = { epostcard_file_date: '2026-11-23', revocation_file_date: '2026-11-17' };
+  const get = f => cache[f] || (cache[f] = fetch(DATA + f).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }));
+
+  $('st').insertAdjacentHTML('beforeend', STATES.map(s => `<option>${s}</option>`).join(''));
+  get('meta.json').then(JSON.parse).then(m => {
+    meta = m;
+    document.querySelectorAll('.asof').forEach(el => { el.textContent = long(m.epostcard_file_date); });
+    document.querySelectorAll('.revasof').forEach(el => { el.textContent = long(m.revocation_file_date); });
+  }).catch(() => {});
+
+  function clear() { ['hits', 'stats', 'years'].forEach(id => { $(id).innerHTML = ''; }); $('summary').textContent = ''; $('note').textContent = ''; }
+
+  function show(r) {
+    clear();
+    const s = E.status(r, meta.epostcard_file_date);
+    $('resultTitle').textContent = `${r.name} (EIN ${einFmt(r.ein)})`;
+    $('msg').textContent = [r.city, r.st].filter(Boolean).join(', ') + `. Latest e-Postcard on file: tax year ${r.taxYear}, for the year ending ${long(r.end)}.`;
+    const file = '<a href="https://www.irs.gov/charities-non-profits/annual-electronic-filing-requirement-for-small-exempt-organizations-form-990-n-e-postcard" rel="noopener">file it free on irs.gov</a>';
+    let verdict, text;
+    if (s.code === 'terminated') {
+      verdict = 'Final e-Postcard filed';
+      text = `This group's latest e-Postcard (tax year ${r.taxYear}) told the IRS the organization has ended, so no more are expected.`;
+    } else if (s.code === 'revoked') {
+      verdict = 'Revoked';
+      text = `This EIN is on the IRS Automatic Revocation List, effective ${long(s.revDate)}, after three years with no return or e-Postcard. Filing a 990-N now won't restore it; reinstatement needs a new application (see "If your group was revoked" below).`;
+    } else if (s.code === 'current') {
+      verdict = 'Up to date';
+      text = `The IRS has an e-Postcard for your latest year that's come due. Next one: tax year ${s.next.taxYear} (year ending ${long(s.next.end)}), due ${by(s.next)}.`;
+    } else if (s.code === 'one') {
+      verdict = '1 year missing';
+      text = `No e-Postcard is on file for tax year ${s.periods[0].taxYear}, due ${long(s.periods[0].due)}. One missed year doesn't cost your exemption, and there's no penalty for filing late: ${file} now. Next due: tax year ${s.next.taxYear}, by ${by(s.next)}.`;
+    } else if (s.code === 'two') {
+      verdict = `At risk: revocation on ${long(s.revokeOn)} if the next one is missed`;
+      text = `No e-Postcard is on file for tax years ${s.periods[0].taxYear} and ${s.periods[1].taxYear}. If nothing is filed for tax year ${s.next.taxYear} (year ending ${long(s.next.end)}) by its due date, ${by(s.next)}, the IRS revokes this group's exemption automatically, effective ${long(s.revokeOn)}. File the tax year ${s.next.taxYear} e-Postcard as soon as that year ends: ${file}. The IRS charges no penalty for a late e-Postcard.`;
+    } else {
+      verdict = `${s.missed} years missing`;
+      text = `No e-Postcard is on file for the ${s.missed} tax years after ${r.taxYear}, which would normally mean revocation on ${long(s.expectedRev)}, but this EIN isn't on the revocation list dated ${long(meta.revocation_file_date)}. The group may now file Form 990 or 990-EZ (not in this data), may not be required to file, or the list may not have caught up. Check the IRS Tax Exempt Organization Search.`;
+    }
+    const cells = [stat('Status', verdict, s.code === 'current'), stat('Latest e-Postcard', 'Tax year ' + r.taxYear)];
+    if (s.code !== 'terminated' && s.code !== 'revoked') cells.push(stat('Next due', long(s.next.fileBy)));
+    $('stats').innerHTML = cells.join('');
+    $('summary').innerHTML = text;
+    if (s.periods.length) {
+      $('years').innerHTML = '<thead><tr><th>Tax year</th><th>Year ended</th><th>990-N was due</th><th>In the IRS file?</th></tr></thead><tbody>' +
+        s.periods.map(p => `<tr><td>${p.taxYear}</td><td>${long(p.end)}</td><td>${long(p.due)}</td><td>No</td></tr>`).join('') + '</tbody>';
+    }
+    const notes = [];
+    if (s.justDue) notes.push(`The return for the year ending ${long(s.next.end)} came due on ${long(s.next.due)}; a recent filing may not be in the IRS file yet.`);
+    if (s.reinstated) notes.push(`The revocation list shows this EIN was revoked on ${long(s.reinstated.rev)} and reinstated as of ${long(s.reinstated.rein)}.`);
+    if (s.oldRevocation) notes.push(`The revocation list shows a revocation on ${long(s.oldRevocation)}, before this group's latest e-Postcard. Check its current status in the IRS Tax Exempt Organization Search.`);
+    notes.push(`Based on IRS files dated ${long(meta.epostcard_file_date)} (e-Postcards) and ${long(meta.revocation_file_date)} (revocations). Groups that file Form 990 or 990-EZ instead won't show those filings here. Not tax advice.`);
+    $('note').textContent = notes.join(' ');
+  }
+
+  async function byEin(ein) {
+    clear();
+    $('resultTitle').textContent = 'Result';
+    $('msg').textContent = 'Looking up ' + einFmt(ein) + '...';
+    const line = (await get('e/' + ein.slice(0, 3) + '.txt').catch(() => '')).split('\n').find(l => l.startsWith(ein + '|'));
+    if (!line) {
+      $('msg').textContent = `No e-Postcard for tax year 2016 or later is on file for EIN ${einFmt(ein)}. That's expected if the group files Form 990 or 990-EZ, is a church, or is newly recognized; otherwise check the EIN, and the IRS Tax Exempt Organization Search.`;
+      return;
+    }
+    show(E.parseLine(line));
+  }
+
+  async function byName(st, q) {
+    clear();
+    $('resultTitle').textContent = 'Result';
+    $('msg').textContent = `Loading ${st} groups (large states take a few seconds)...`;
+    let text;
+    try { text = await get('s/' + st + '.txt'); } catch (e) { $('msg').textContent = 'Could not load the data for ' + st + '. Try again, or search by EIN.'; return; }
+    const hits = E.search(text.split('\n'), q, 51);
+    if (!hits.length) { $('msg').textContent = `No ${st} group with an e-Postcard since 2016 matches "${q}". Try fewer words, or the name as registered with the IRS.`; return; }
+    $('msg').textContent = hits.length > 50 ? 'More than 50 matches; showing the first 50. Add a word or the city to narrow it.' : `${hits.length} match${hits.length === 1 ? '' : 'es'}. Pick yours:`;
+    $('hits').innerHTML = hits.slice(0, 50).map(h => `<li><button type="button" data-ein="${h.ein}">${esc(h.name)}</button> <span class="small muted">${esc(h.city)} &middot; EIN ${einFmt(h.ein)}</span></li>`).join('');
+  }
+
+  function go() {
+    const ein = E.cleanEin($('ein').value), st = $('st').value, q = $('q').value.trim();
+    if (ein.length === 9) { try { history.replaceState(null, '', '#' + ein); } catch (e) {} return byEin(ein); }
+    if (ein) { clear(); $('msg').textContent = 'An EIN has 9 digits.'; return; }
+    if (st && q) return byName(st, q);
+    clear();
+    $('msg').textContent = 'Enter an EIN, or pick a state and type part of the name.';
+  }
+  $('go').addEventListener('click', go);
+  ['ein', 'q'].forEach(id => $(id).addEventListener('keydown', e => { if (e.key === 'Enter') go(); }));
+  $('hits').addEventListener('click', e => { const b = e.target.closest('button[data-ein]'); if (b) { $('ein').value = einFmt(b.dataset.ein); go(); } });
+  const h = E.cleanEin(location.hash);
+  if (h.length === 9) { $('ein').value = einFmt(h); go(); }
+})();
+</script>
+</body>
+</html>
