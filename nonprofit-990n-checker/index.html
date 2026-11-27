@@ -152,7 +152,7 @@
       verdict = '1 year missing';
       text = `No e-Postcard is on file for tax year ${s.periods[0].taxYear}, due ${long(s.periods[0].due)}. One missed year doesn't cost your exemption, and there's no penalty for filing late: ${file} now. Next due: tax year ${s.next.taxYear}, by ${by(s.next)}.`;
     } else if (s.code === 'two') {
-      verdict = `At risk: revocation on ${long(s.revokeOn)} if the next one is missed`;
+      verdict = 'At risk: 2 years missing';
       text = `No e-Postcard is on file for tax years ${s.periods[0].taxYear} and ${s.periods[1].taxYear}. If nothing is filed for tax year ${s.next.taxYear} (year ending ${long(s.next.end)}) by its due date, ${by(s.next)}, the IRS revokes this group's exemption automatically, effective ${long(s.revokeOn)}. File the tax year ${s.next.taxYear} e-Postcard as soon as that year ends: ${file}. The IRS charges no penalty for a late e-Postcard.`;
     } else {
       verdict = `${s.missed} years missing`;
@@ -160,6 +160,7 @@
     }
     const cells = [stat('Status', verdict, s.code === 'current'), stat('Latest e-Postcard', 'Tax year ' + r.taxYear)];
     if (s.code !== 'terminated' && s.code !== 'revoked') cells.push(stat('Next due', long(s.next.fileBy)));
+    if (s.code === 'two') cells.push(stat('Revoked on, if missed', long(s.revokeOn)));
     $('stats').innerHTML = cells.join('');
     $('summary').innerHTML = text;
     if (s.periods.length) {
