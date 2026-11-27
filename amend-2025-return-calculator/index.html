@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amend 2025 Return Calculator: Missed Tips, Overtime, Senior, Car Loan Deductions</title>
+<meta name="description" content="Filed your 2025 return without the new Schedule 1-A deductions? Enter your tips, overtime premium, car loan interest, or age 65+ to see the deduction, the federal refund from amending with Form 1040-X, and your deadline.">
+<link rel="canonical" href="https://simpletoolshop.com/simple-money-sheets/amend-2025-return-calculator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Amend 2025 Return Calculator (Schedule 1-A)","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">Simple <span>Money</span> Sheets</a>
+  <nav class="top"><a href="../#tools">Calculators</a><a href="../#templates">Templates</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Missed a 2025 Deduction? Amended Return Refund Calculator</h1>
+  <p class="lede">For 2025, four new deductions go on Schedule 1-A: no tax on tips, no tax on overtime, car loan interest, and an extra $6,000 for people 65 and older. You can take them with the standard deduction. If your 2025 return left one out, you can still claim it on an amended return (Form 1040-X). Enter a few numbers from the return you filed to see the deduction, roughly how much federal tax you'd get back, and your deadline. Everything runs in your browser.</p>
+
+  <section class="card">
+    <div class="fields">
+      <div><label for="status">Filing status on your 2025 return</label>
+        <select id="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option><option value="hoh">Head of household</option><option value="qss">Qualifying surviving spouse</option><option value="mfs">Married filing separately</option></select></div>
+      <div><label for="agi">Adjusted gross income, Form 1040 line 11b ($)</label><input id="agi" type="number" min="0" step="100" value="48000" inputmode="decimal"></div>
+      <div><label for="taxable">Taxable income, Form 1040 line 15 ($)</label><input id="taxable" type="number" min="0" step="100" value="32250" inputmode="decimal"></div>
+      <div><label for="claimed">Schedule 1-A total you already claimed, line 13b ($)</label><input id="claimed" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="tips">Qualified tips received in 2025 ($)</label><input id="tips" type="number" min="0" step="100" value="9000" inputmode="decimal"></div>
+      <div><label for="overtime">Overtime premium: only the extra "half" ($)</label><input id="overtime" type="number" min="0" step="100" value="0" inputmode="decimal"></div>
+      <div><label for="car">Interest paid in 2025 on a qualifying new-car loan ($)</label><input id="car" type="number" min="0" step="50" value="0" inputmode="decimal"></div>
+      <div><label for="seniors">Born before January 2, 1961</label>
+        <select id="seniors"><option value="0">Nobody on the return</option><option value="1">One of us (or me)</option><option value="2">Both of us (joint return)</option></select></div>
+      <div><label for="filed">Date you filed, if after April 15, 2026 (optional)</label><input id="filed" type="date" min="2026-01-01" max="2026-12-31"></div>
+    </div>
+    <p class="small muted">If you already claimed part of a deduction, enter the full amounts above and what you already claimed on line 13b; the calculator counts only the difference. Overtime counts only the premium part, as defined by the Fair Labor Standards Act: for time-and-a-half, the extra half. If you earned $30 an hour and worked 200 overtime hours, that's 200 &times; $15 = $3,000. Leave out excluded foreign or Puerto Rico income here; if you had any, Schedule 1-A line 2 adds it to your income.</p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 style="margin-top:0">If you amend your 2025 return</h2>
+    <div class="stats" id="stats"></div>
+    <p id="summary"></p>
+    <div class="table-scroll"><table id="lines"></table></div>
+    <p id="note" class="small muted"></p>
+  </section>
+
+  <aside class="cta">
+    <h3>Tips: keep the record the IRS will ask for</h3>
+    <p>2025 W-2s don't show qualified tips or overtime on their own line, so the IRS tells workers to keep their own records. Our free <a href="../printable-tax-logs/">printable tip log</a> has a column for each shift. The <a href="https://www.amazon.com/dp/B0HS39L4CF" data-goatcounter-click="kdp-tip-amend" rel="noopener">Daily Tip Log Book</a> (paperback, $9.99) holds 4 years of daily tips with a yearly worksheet for the Schedule 1-A tips deduction.</p>
+  </aside>
+
+  <article>
+    <h2 id="who">Who should look at amending</h2>
+    <ul>
+      <li><strong>You earned tips and didn't claim them on Schedule 1-A.</strong> Servers, bartenders, hairstylists, delivery drivers, and the other jobs on the IRS list at <a href="https://www.irs.gov/tippedoccupations">IRS.gov/TippedOccupations</a>. The tips have to be reported: on your W-2, a 1099, or Form 4137.</li>
+      <li><strong>Your job was added to the list in April 2026.</strong> Final regulations issued April 10, 2026 (IR-2026-49) added visual artists and floral designers (personal services) and gas pump attendants (transportation and delivery). The IRS says workers who already filed "may amend" to claim or change the tips deduction.</li>
+      <li><strong>You were paid time-and-a-half and claimed nothing.</strong> 2025 W-2s don't break out overtime, so many people didn't know their number at filing time. Pay stubs, or a separate statement from your employer, show it.</li>
+      <li><strong>You were 65 or older</strong> (born before January 2, 1961) and line 13b is blank. The IRS says it is in addition to the standard deduction for seniors under existing law.</li>
+      <li><strong>You bought a new car in 2025 with a loan</strong> for personal use, and it was assembled in the United States.</li>
+    </ul>
+
+    <h2 id="rules">The four deductions at a glance</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Deduction</th><th>Most you can deduct</th><th>Starts shrinking when income (MAGI) is over</th><th>How fast it shrinks</th></tr></thead>
+      <tbody>
+        <tr><td>Qualified tips (Part II)</td><td>$25,000 per return</td><td>$150,000 ($300,000 joint)</td><td>$100 for each full $1,000 over</td></tr>
+        <tr><td>Qualified overtime (Part III)</td><td>$12,500 ($25,000 joint)</td><td>$150,000 ($300,000 joint)</td><td>$100 for each full $1,000 over</td></tr>
+        <tr><td>Car loan interest (Part IV)</td><td>$10,000</td><td>$100,000 ($200,000 joint)</td><td>$200 for each $1,000 over, part of $1,000 counted as a whole</td></tr>
+        <tr><td>Seniors 65+ (Part V)</td><td>$6,000 each ($12,000 if both spouses qualify)</td><td>$75,000 ($150,000 joint)</td><td>6% of the amount over</td></tr>
+      </tbody>
+    </table></div>
+    <p>MAGI on Schedule 1-A is your adjusted gross income (Form 1040 line 11b) plus any excluded Puerto Rico income and the Form 2555 and Form 4563 exclusions. For most people it's just line 11b. If you're married, you must file jointly to take the tips, overtime, or senior deduction; the person who earned the tips or overtime, and each senior, needs a Social Security number valid for employment. The car loan must have started after December 31, 2024, be secured by the car, and be for a new vehicle for personal use (car, minivan, van, SUV, pickup, or motorcycle) under 14,000 pounds gross vehicle weight with final assembly in the United States. Lease payments don't count, and you have to put the car's VIN on the return.</p>
+
+    <h2 id="refund">How much do you get back?</h2>
+    <p>The deduction comes off your taxable income, not your adjusted gross income, so it saves tax at your bracket rate. In the 12% bracket each $1,000 of deduction is worth $120; in the 22% bracket, $220. Because AGI doesn't change, credits figured from AGI (like the earned income credit) don't change either.</p>
+    <p><strong>Example: a server with $9,000 of tips.</strong> Single, AGI $48,000, taxable income $32,250 (after the $15,750 standard deduction), no Schedule 1-A filed. The tips deduction is the full $9,000 (income is far under $150,000), so taxable income drops to $23,250. Tax on $32,250 from the 2025 rate schedule is $3,631.50; on $23,250 it's $2,551.50. The amended return would ask for about <strong>$1,080</strong>. These are the calculator's starting numbers.</p>
+    <p><strong>Example: a retired couple, both 65+.</strong> Married filing jointly, AGI $90,000, taxable income $55,000, line 13b blank. MAGI is under $150,000, so each gets the full $6,000. Taxable income drops to $43,000 and tax from $6,123 to $4,683: about <strong>$1,440</strong> back.</p>
+    <p>If credits such as the child tax credit had already brought your income tax to zero, the refund will be smaller than shown, maybe zero. The estimate is federal only and uses the 2025 rate schedule; the IRS Tax Table (for taxable income under $100,000) can differ by a few dollars.</p>
+
+    <h2 id="how">How to amend for a Schedule 1-A deduction</h2>
+    <ol>
+      <li><strong>Gather proof.</strong> Tips: your W-2 box 7, Form 4137, or 1099s, plus your own tip records. Overtime: pay stubs showing overtime hours and rate, or your employer's statement. Car loan: the lender's interest statement and the VIN. Seniors: just your birth date and SSN.</li>
+      <li><strong>Fill out Schedule 1-A (2025)</strong> for the deductions you're adding. Part I is your MAGI; Parts II to V are each deduction; line 38 is the total.</li>
+      <li><strong>Fill out Form 1040-X.</strong> The new deductions go on line 4b ("Deductions for Tips, Overtime, Car Loan Interest, and Seniors From Schedule 1-A"). Column A is what you filed, column B the change, column C the corrected amount. In Part II, Explanation of Changes, give the reason in a sentence ("Claiming the qualified tips deduction on Schedule 1-A").</li>
+      <li><strong>File it.</strong> The IRS lets you e-file Form 1040-X with tax software for Forms 1040, 1040-SR, and 1040-NR, or you can mail it with the new Schedule 1-A attached. File a separate 1040-X for each year you amend.</li>
+      <li><strong>Check your state.</strong> The IRS notes you may need to amend your state return too. Many states start from federal AGI, which these deductions don't change, but some don't.</li>
+    </ol>
+
+    <h2 id="deadline">Deadline to amend a 2025 return</h2>
+    <p>For a refund, Form 1040-X is due within 3 years after you filed the original return, or within 2 years after you paid the tax, whichever is later. A return filed early counts as filed on the due date. So if you filed by April 15, 2026, the 3-year window runs to April 15, 2029. If you filed later on an extension, it runs 3 years from the day you actually filed. When the last day falls on a weekend or legal holiday, it moves to the next business day (Internal Revenue Code section 7503).</p>
+
+    <h2>FAQ</h2>
+    <details><summary>Do I have to itemize to get these deductions?</summary><p>No. The IRS says you can claim them whether you itemize or take the standard deduction. They go on Form 1040 line 13b, below the standard or itemized deduction on line 12e.</p></details>
+    <details><summary>My W-2 doesn't show my overtime. What number do I use?</summary><p>Only the premium part of overtime the Fair Labor Standards Act requires: the "half" of time-and-a-half. Your pay stubs show overtime hours and rate; multiply the hours by half your regular rate. The IRS notes that 2025 W-2s and 1099s don't separately identify qualified tips or overtime, so keep the records you used.</p></details>
+    <details><summary>Can I claim the tips or overtime deduction if we filed married filing separately?</summary><p>No. Schedule 1-A says that if you're married, you must file jointly to take the tips, overtime, or senior deduction. The Form 1040-X instructions cover changing from separate returns to a joint return (the reverse generally isn't allowed after the original due date). The car loan interest part of the form doesn't carry the joint-filing rule.</p></details>
+    <details><summary>Does the senior deduction replace the extra standard deduction for being 65?</summary><p>No, it's in addition. The extra standard deduction for age stays on line 12e; the $6,000 enhanced deduction for seniors goes on Schedule 1-A and line 13b.</p></details>
+    <details><summary>Which years do these deductions cover?</summary><p>This calculator is for 2025 returns, the first year of Schedule 1-A. To amend more than one year, file a separate Form 1040-X for each.</p></details>
+    <details><summary>How long does an amended return take?</summary><p>The Form 1040-X instructions say to allow 8 to 12 weeks, and in some cases up to 16. A mailed 1040-X can take up to 3 weeks to show up in the IRS "Where's My Amended Return?" tool.</p></details>
+
+    <p class="small muted">Sources: <a href="https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf">Schedule 1-A (Form 1040) 2025</a> (every line of the calculation), <a href="https://www.irs.gov/newsroom/schedule-1-a-additional-deductions-what-to-know-about-the-new-form">IRS fact sheet FS-2026-04 on Schedule 1-A</a>, <a href="https://www.irs.gov/newsroom/working-families-tax-cuts-individuals-and-workers">IRS Working Families Tax Cuts: individuals and workers</a> (overtime premium, car loan vehicle rules, 2025 standard deduction), <a href="https://www.irs.gov/forms-pubs/claiming-no-tax-on-tips-deduction-for-occupations-that-customarily-and-regularly-receive-tips-may-require-an-amended-return">IRS: claiming the no tax on tips deduction may require an amended return</a>, <a href="https://www.irs.gov/newsroom/treasury-irs-issue-final-regulations-listing-occupations-where-workers-customarily-and-regularly-receive-tips-under-the-one-big-beautiful-bill">IR-2026-49</a> (final tipped-occupation regulations, April 10, 2026), <a href="https://www.irs.gov/tippedoccupations">IRS tipped occupations list</a>, <a href="https://www.irs.gov/instructions/i1040x">Instructions for Form 1040-X (12/2025)</a>, 2025 rate schedules from <a href="https://www.irs.gov/pub/irs-drop/rp-24-40.pdf">Rev. Proc. 2024-40</a> section 3.01. Federal estimate only. For education and planning, not tax advice. Last checked November 27, 2026.</p>
+  </article>
+</div></main>
+<footer class="site"><div class="wrap">
+  <a href="../">Home</a><a href="../quarterly-estimated-tax-calculator/">Quarterly estimated tax calculator</a><a href="../1099-vs-w2-calculator/">1099 vs W-2 calculator</a><a href="../side-hustle-tax-calculator/">Side hustle tax calculator</a><a href="../car-affordability-calculator/">Car affordability calculator</a><a href="../printable-tax-logs/">Free printable tax logs</a><a href="../about/">About &amp; privacy</a>
+  <p>&copy; <span data-year></span> Simple Money Sheets</p>
+</div></footer>
+<script src="../assets/config.js"></script>
+<script src="../assets/amend-1a-engine.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const A = window.Amend1A;
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const money = (n, d = 0) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
+  const stat = (k, v, win) => `<div class="stat${win ? ' win' : ''}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const longDate = ymd => new Date(ymd + 'T12:00:00Z').toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' });
+
+  function render() {
+    const status = $('status').value;
+    const sel = $('seniors');
+    sel.options[2].disabled = status !== 'mfj';
+    if (status !== 'mfj' && sel.value === '2') sel.value = '1';
+    const r = A.estimate({ status, agi: num('agi'), taxableFiled: num('taxable'), claimedFiled: num('claimed'),
+      tips: num('tips'), overtime: num('overtime'), carInterest: num('car'), seniors: Number(sel.value) });
+    const dl = A.amendDeadline($('filed').value);
+    $('stats').innerHTML = stat('Estimated federal refund', money(r.refund), true) +
+      stat('Schedule 1-A total', money(r.total)) + stat('New deduction to add', money(r.extra)) +
+      stat('File Form 1040-X by', longDate(dl.date));
+
+    const notes = [];
+    if (r.total === 0) {
+      $('summary').textContent = status === 'mfs' && (num('tips') || num('overtime') || num('seniors'))
+        ? 'On a married filing separately return, the tips, overtime, and senior deductions are not allowed. See the FAQ about switching to a joint return.'
+        : 'Enter qualified tips, overtime premium, car loan interest, or who was 65+ to see what Schedule 1-A would give you.';
+    } else if (r.extra === 0) {
+      $('summary').textContent = `You already claimed ${money(r.claimed)}, which covers the ${money(r.total)} Schedule 1-A allows, so amending wouldn't add anything.`;
+    } else if (r.refund === 0) {
+      $('summary').textContent = `Schedule 1-A allows ${money(r.extra)} more, but your taxable income was already $0, so there's no income tax to refund.`;
+    } else {
+      $('summary').textContent = `Adding ${money(r.extra)} of Schedule 1-A deductions lowers your 2025 taxable income from ${money(r.tiFiled)} to ${money(r.tiNew)}. Federal income tax before credits drops from ${money(r.taxFiled, 2)} to ${money(r.taxNew, 2)}, so an amended return would ask for about ${money(r.refund)} back.`;
+    }
+    const row = (k, v) => `<tr><td>${k}</td><td class="num">${money(v)}</td></tr>`;
+    $('lines').innerHTML = '<thead><tr><th>Schedule 1-A</th><th class="num">Amount</th></tr></thead><tbody>' +
+      row('Line 3: modified AGI', r.magi) + row('Line 13: qualified tips deduction', r.parts.tips) +
+      row('Line 21: qualified overtime deduction', r.parts.overtime) + row('Line 30: car loan interest deduction', r.parts.carLoan) +
+      row('Line 37: enhanced deduction for seniors', r.parts.senior) +
+      `<tr><th>Line 38: total (Form 1040 line 13b)</th><th class="num">${money(r.total)}</th></tr></tbody>`;
+    if (num('tips') > 25000) notes.push('Tips are capped at $25,000 per return.');
+    if (num('car') > 0 && r.parts.carLoan < Math.min(10000, num('car'))) notes.push('Your income reduces the car loan interest deduction.');
+    if (r.magi > (status === 'mfj' ? 300000 : 150000) && (num('tips') || num('overtime'))) notes.push('Your income is over the tips and overtime threshold, so those deductions are reduced.');
+    if (r.magi > (status === 'mfj' ? 150000 : 75000) && num('seniors')) notes.push('Your income reduces the senior deduction by 6% of the amount over the threshold.');
+    if (r.unused > 0) notes.push(`${money(r.unused)} of the deduction is more than your taxable income and goes unused.`);
+    if (num('taxable') > num('agi')) notes.push("Taxable income (line 15) is normally less than AGI (line 11b). Check the two numbers.");
+    if (dl.weekend) notes.push('That date is a weekend, so the deadline moves to the next business day.');
+    notes.push('If credits had already brought your income tax to zero, the refund will be smaller.');
+    $('note').textContent = notes.join(' ');
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
